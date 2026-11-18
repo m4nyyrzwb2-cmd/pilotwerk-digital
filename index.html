@@ -17,13 +17,21 @@
       <svg viewBox="0 0 40 40" aria-hidden="true"><rect class="mk-bg" width="40" height="40" rx="11"/><path class="mk-ar" d="M10 29 C 16 29, 20 23, 23.5 17.5 L 29 11" stroke-width="4" fill="none" stroke-linecap="round"/><path class="mk-ar" d="M21.5 11 H29 V18.5" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span>Pilotwerk</span><em>Digital</em>
     </a>
-    <nav class="links" aria-label="Hauptmenü">
-      <a href="#leistungen">Leistungen</a>
-      <a href="#preise">Preise</a>
-      <a href="#kontakt">Kontakt</a>
+    <nav class="links" aria-label="Demo">
       <a class="mini" href="/terminbuch/">Demo</a>
     </nav>
   </div>
+  <nav class="tabs" aria-label="Bereiche der Seite">
+    <div class="wrap tabs-in" id="tabs">
+      <a href="#terminbuch">Terminbuch</a>
+      <a href="#ki-telefon">KI-Telefon</a>
+      <a href="#stempelkarte">Stempelkarte</a>
+      <a href="#videos">Videos</a>
+      <a href="#ablauf">So läuft's</a>
+      <a href="#preise">Preise</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </nav>
 </header>
 
 <main>
@@ -55,7 +63,7 @@
       </div>
       <div class="bento">
 
-        <article class="tile">
+        <article class="tile" id="terminbuch">
           <span class="k grad-text">Online-Terminbuch</span>
           <h3>Schluss mit dem Papierbuch.</h3>
           <p>Alle Termine auf Handy oder Tablet. Mit Warnung bei Doppelbuchung, Tagesumsatz und Terminerinnerung für Ihre Kunden.</p>
@@ -72,7 +80,7 @@
           </div>
         </article>
 
-        <article class="tile black">
+        <article class="tile black" id="ki-telefon">
           <span class="k grad-text">KI-Telefonassistent</span>
           <h3>Geht ran, wenn Sie keine Hand frei haben.</h3>
           <p>Beantwortet Fragen zu Preisen und Öffnungszeiten und nimmt Terminwünsche entgegen, rund um die Uhr.</p>
@@ -87,7 +95,7 @@
           </div>
         </article>
 
-        <article class="tile">
+        <article class="tile" id="stempelkarte">
           <span class="k grad-text">Digitale Stempelkarte</span>
           <h3>Stammkunden direkt im Wallet.</h3>
           <p>Die Stempelkarte im Apple- und Google-Wallet, ohne App und ohne Papier. Sie schicken Ihren Kunden Angebote direkt aufs Handy und sehen, wer wie oft kommt und wie viel Umsatz Ihre Stammkunden bringen.</p>
@@ -101,7 +109,7 @@
           </div>
         </article>
 
-        <article class="tile">
+        <article class="tile" id="videos">
           <span class="k grad-text">Videos für Social Media</span>
           <h3>Gesehen werden auf Instagram und TikTok.</h3>
           <p>Kurze Videos, die zeigen, was Ihr Betrieb kann. Damit neue Kunden Sie finden.</p>
@@ -293,6 +301,35 @@
   }
   bm.addEventListener('click',function(){set(false)});
   by.addEventListener('click',function(){set(true)});
+})();
+</script>
+<script>
+(function(){
+  var bar=document.getElementById('tabs');if(!bar)return;
+  var links=[].slice.call(bar.querySelectorAll('a'));
+  var targets=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1))});
+  var clicked=null,current=null,ticking=false;
+  function line(){var h=document.querySelector('.nav');return (h?h.getBoundingClientRect().bottom:110)+40}
+  function show(i){
+    if(i===current)return;current=i;
+    links.forEach(function(a,j){if(j===i)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+    if(i!=null){var a=links[i];var left=a.offsetLeft-(bar.clientWidth-a.offsetWidth)/2;
+      try{bar.scrollTo({left:left,behavior:'smooth'})}catch(e){bar.scrollLeft=left}}
+  }
+  function spy(){
+    ticking=false;var y=line();
+    if(clicked!=null){show(clicked);return}
+    var best=null,bestTop=-Infinity;
+    targets.forEach(function(t,i){if(!t)return;var top=t.getBoundingClientRect().top;if(top<=y&&top>bestTop){best=i;bestTop=top}});
+    var end=window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4;
+    show(end?targets.length-1:best);
+  }
+  links.forEach(function(a,i){a.addEventListener('click',function(){clicked=i;show(i)})});
+  function release(e){if(clicked!=null&&!(e.target&&e.target.closest&&e.target.closest('#tabs'))){clicked=null;spy()}}
+  ['wheel','touchstart','pointerdown','keydown'].forEach(function(ev){window.addEventListener(ev,release,{passive:true})});
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(spy)}},{passive:true});
+  window.addEventListener('resize',spy);
+  spy();
 })();
 </script>
 </body>
