@@ -140,6 +140,13 @@ textarea{resize:vertical}
 .price{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:10px 12px;background:var(--gold-soft);border:1px solid var(--gold-dim);border-radius:4px;font-size:14px}
 .price b{font-family:var(--cond);font-size:22px;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
 .price:empty{display:none}
+.pricefield{display:flex;flex-direction:column;gap:6px;padding:10px 12px;background:var(--gold-soft);border:1px solid var(--gold-dim);border-radius:4px}
+.pricefield .pin{display:flex;align-items:center;gap:8px}
+.pricefield .pin span{font-family:var(--cond);font-weight:700;font-size:20px;color:var(--gold)}
+.pricefield .pin input{font-family:var(--cond);font-weight:700;font-size:22px;color:var(--gold);font-variant-numeric:tabular-nums;background:var(--bg)}
+.pricefield small{font-size:13px;color:var(--muted)}
+.sheet input[type=date]{-webkit-appearance:none;appearance:none;display:block;height:44px;line-height:1.3}
+.sheet input[type=date]::-webkit-date-and-time-value{text-align:left;margin:0}
 .msg{border-radius:4px;padding:9px 11px;font-size:14px;border:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
 .msg p{margin:0}
 .msg.warn{background:var(--warn-soft);border-color:var(--warn)}
@@ -200,6 +207,7 @@ textarea{resize:vertical}
 <script>
 (function(){
 const DUR=[30,60,90,120];
+const BDUR=[30,60,90,120,150,180,210,240];
 const ROW=30;
 const HUES=[150,200,20,100,280,45,250,330,0,180,70,300];
 const I18N={
@@ -216,7 +224,7 @@ const I18N={
   tapHint:'Ketuk tempat kosong di kolom terapis untuk booking baru. Ketuk booking untuk detail.',openDaily:'Buka setiap hari',
   spaName:'Nama spa',open:'Buka',closeH:'Tutup',therapists:'Terapis',addTherapist:'Tambah terapis',treatments:'Perawatan dan harga (Rp)',addTreatment:'Tambah perawatan',priceHint:'Kosongkan harga kalau durasi itu tidak ada.',
   backup:'Cadangan data',copyBackup:'Salin cadangan',restorePh:'Tempel teks cadangan di sini untuk memulihkan',restoreBtn:'Pulihkan',copied:'Cadangan disalin',manualCopy:'Salin teks di kotak ini secara manual.',restored:'Data dipulihkan',badBackup:'Teks cadangan tidak bisa dibaca.',
-  remove:'Hapus',example:'contoh',inUse:'Masih ada booking dengan ini. Ganti nama saja, atau hapus booking-nya dulu.',newName:'Terapis baru',newTreat:'Perawatan baru',hoursBad:'Jam tutup harus setelah jam buka.'},
+  remove:'Hapus',example:'contoh',inUse:'Masih ada booking dengan ini. Ganti nama saja, atau hapus booking-nya dulu.',newName:'Terapis baru',newTreat:'Perawatan baru',hoursBad:'Jam tutup harus setelah jam buka.',priceRp:'Harga (Rp)',priceMenu:'Harga sesuai daftar harga.',priceCalc:(m,p)=>`Dihitung dari daftar harga (${m} mnt = ${p}). Bisa diubah.`,priceOwn:'Harga diubah manual.'},
  en:{appSub:'Appointment book',today:'Today',schedule:'Schedule',list:'List',menu:'Prices',add:'New booking',settings:'Settings',bookings:'Bookings',done:'Done',revenue:'Revenue (done)',expected:'Expected revenue',
   exampleNote:'These are example bookings to show how it works.',removeExamples:'Remove examples',storageOff:'Browser storage is off. Bookings are lost when this page closes.',
   guest:'Guest name',phone:'WhatsApp number (optional)',phoneShort:'WhatsApp',date:'Date',time:'Start time',menuTime:'Time',treatment:'Treatment',duration:'Duration',therapist:'Therapist',anyTherapist:'Whoever is free',notes:'Notes',price:'Price',
@@ -230,7 +238,7 @@ const I18N={
   tapHint:'Tap an empty spot in a therapist column to book. Tap a booking for details.',openDaily:'Open daily',
   spaName:'Spa name',open:'Opens',closeH:'Closes',therapists:'Therapists',addTherapist:'Add therapist',treatments:'Treatments and prices (Rp)',addTreatment:'Add treatment',priceHint:'Leave a price empty if that duration is not offered.',
   backup:'Backup',copyBackup:'Copy backup',restorePh:'Paste a backup here to restore',restoreBtn:'Restore',copied:'Backup copied',manualCopy:'Copy the text in this box by hand.',restored:'Data restored',badBackup:'That backup text could not be read.',
-  remove:'Remove',example:'example',inUse:'There are still bookings with this. Rename it, or delete those bookings first.',newName:'New therapist',newTreat:'New treatment',hoursBad:'Closing time must be after opening time.'}
+  remove:'Remove',example:'example',inUse:'There are still bookings with this. Rename it, or delete those bookings first.',newName:'New therapist',newTreat:'New treatment',hoursBad:'Closing time must be after opening time.',priceRp:'Price (Rp)',priceMenu:'Price from the price list.',priceCalc:(m,p)=>`Calculated from the price list (${m} min = ${p}). You can change it.`,priceOwn:'Price changed by hand.'}
 };
 const DEF={spaName:'Spa Bali',open:'10:00',close:'22:00',lang:'en',
  therapists:[{id:'t1',name:'Wayan'},{id:'t2',name:'Made'},{id:'t3',name:'Nyoman'},{id:'t4',name:'Ketut'}],
@@ -284,6 +292,7 @@ const T=()=>I18N[S().lang]||I18N.en;
 const trById=id=>S().treatments.find(x=>x.id===id);
 const thById=id=>S().therapists.find(x=>x.id===id);
 const endOf=b=>toMin(b.start)+Number(b.dur);
+function suggestPrice(tr,dur){if(!tr)return {p:0};const ks=Object.keys(tr.prices||{}).map(Number).filter(k=>tr.prices[k]>0);if(tr.prices&&tr.prices[dur])return {p:tr.prices[dur],menu:true};if(!ks.length)return {p:0};const base=ks.reduce((a,k)=>Math.abs(k-dur)<Math.abs(a-dur)||(Math.abs(k-dur)===Math.abs(a-dur)&&k>a)?k:a,ks[0]);return {p:Math.round(tr.prices[base]/base*dur/5000)*5000,base}}
 const isActive=b=>b.status==='booked'||b.status==='done';
 const dayBookings=date=>state.bookings.filter(b=>b.date===date).sort((a,b)=>toMin(a.start)-toMin(b.start));
 function conflictsFor(date,start,dur,thId,exId){const s=toMin(start),e=s+Number(dur);return state.bookings.filter(b=>b.id!==exId&&b.date===date&&b.therapistId===thId&&isActive(b)&&toMin(b.start)<e&&s<endOf(b))}
@@ -369,16 +378,17 @@ function openForm(id,pre){
   <div class="row2"><div class="field"><label for="f_date">${esc(t.date)}</label><input type="date" id="f_date" value="${esc(d.date)}"></div><div class="field"><label for="f_time">${esc(t.time)}</label><select id="f_time">${timeOpts(d.start)}</select></div></div>
   <div class="field"><label for="f_tr">${esc(t.treatment)}</label><select id="f_tr">${s.treatments.map(x=>`<option value="${esc(x.id)}" ${x.id===d.treatmentId?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div>
   <div class="row2"><div class="field"><label for="f_dur">${esc(t.duration)}</label><select id="f_dur"></select></div><div class="field"><label for="f_th">${esc(t.therapist)}</label><select id="f_th"><option value="any">${esc(t.anyTherapist)}</option>${s.therapists.map(x=>`<option value="${esc(x.id)}" ${x.id===d.therapistId?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div>
-  <div class="price" id="f_price"></div>
+  <div class="pricefield"><label for="f_pr">${esc(t.priceRp)}</label><div class="pin"><span aria-hidden="true">Rp</span><input id="f_pr" inputmode="numeric" autocomplete="off"></div><small id="f_prh"></small></div>
   <div id="f_msg" class="msg" hidden></div>
   <div class="field"><label for="f_notes">${esc(t.notes)}</label><textarea id="f_notes" rows="2">${esc(d.notes)}</textarea></div>
   <div class="actions"><button type="button" class="btn" data-close>${esc(t.cancel)}</button><button type="submit" class="btn primary" id="f_save">${esc(t.save)}</button></div>
  </form>`);
- const fillDur=()=>{const tr=trById($('f_tr').value);const ds=DUR.filter(m=>tr&&tr.prices[m]);const cur=Number($('f_dur').value)||Number(d.dur);$('f_dur').innerHTML=ds.map(m=>`<option value="${m}" ${m===cur?'selected':''}>${m} ${esc(t.min)}</option>`).join('');if(!ds.includes(cur)&&ds.length)$('f_dur').value=String(ds[0])};
+ let prEdited=!!b;const prNum=()=>Number(($('f_pr').value||'').replace(/[^0-9]/g,''))||0;
+ const fillDur=(first)=>{const tr=trById($('f_tr').value);const menu=DUR.filter(m=>tr&&tr.prices[m]);const cur=Number($('f_dur').value)||Number(d.dur);const ds=BDUR.slice();if(cur&&!ds.includes(cur)){ds.push(cur);ds.sort((a,b)=>a-b)}const sel=first?cur:(menu.includes(cur)?cur:(menu[0]||cur));$('f_dur').innerHTML=ds.map(m=>`<option value="${m}" ${m===sel?'selected':''}>${m} ${esc(t.min)}</option>`).join('')};
+ const fillPrice=()=>{const tr=trById($('f_tr').value);const dur=Number($('f_dur').value);const sp=suggestPrice(tr,dur);if(!prEdited)$('f_pr').value=sp.p?sp.p.toLocaleString('id-ID'):'';const own=prEdited&&prNum()!==sp.p;$('f_prh').textContent=own?t.priceOwn:(sp.menu?t.priceMenu:(sp.base?t.priceCalc(sp.base,rp(tr.prices[sp.base])):''))};
  const check=()=>{
   $('f_save').textContent=t.save;
   const tr=trById($('f_tr').value);const dur=Number($('f_dur').value);
-  $('f_price').innerHTML=tr&&tr.prices[dur]?`<span>${esc(tr.name)} · ${dur} ${esc(t.min)}</span><b>${rp(tr.prices[dur])}</b>`:'';
   const date=$('f_date').value,start=$('f_time').value,th=$('f_th').value;const msg=$('f_msg');msg.hidden=true;msg.className='msg';msg.innerHTML='';
   if(!date||!start||!dur)return;
   const notes=[];
@@ -387,9 +397,12 @@ function openForm(id,pre){
   else{const c=conflictsFor(date,start,dur,th,id);if(c.length){const free=freeTherapists(date,start,dur,id);const nm=(thById(th)||{name:'—'}).name;msg.className='msg warn';notes.push(`<p>${esc(t.conflict(nm,c[0].start,fromMin(endOf(c[0]))))}</p>`);notes.push(free.length?`<p>${esc(t.freeAt)}</p><div class="chips">${free.map(f=>`<button type="button" class="chip" data-pick="${esc(f.id)}">${esc(f.name)}</button>`).join('')}</div>`:`<p>${esc(t.noneFree)}</p>`);$('f_save').textContent=t.saveAnyway}else if(notes.length)msg.className='msg warn'}
   if(notes.length){msg.innerHTML=notes.join('');msg.hidden=false}
  };
- fillDur();check();
- $('f_tr').addEventListener('change',()=>{fillDur();check()});
- ['f_dur','f_date','f_time','f_th'].forEach(i=>$(i).addEventListener('change',check));
+ fillDur(true);if(b)$('f_pr').value=Number(b.price||0).toLocaleString('id-ID');fillPrice();check();
+ $('f_tr').addEventListener('change',()=>{prEdited=false;fillDur();fillPrice();check()});
+ $('f_dur').addEventListener('change',()=>{prEdited=false;fillPrice();check()});
+ $('f_pr').addEventListener('input',()=>{prEdited=true;fillPrice()});
+ $('f_pr').addEventListener('blur',()=>{const n=prNum();$('f_pr').value=n?n.toLocaleString('id-ID'):''});
+ ['f_date','f_time','f_th'].forEach(i=>$(i).addEventListener('change',check));
  $('f_msg').addEventListener('click',e=>{const p=e.target.closest('[data-pick]');if(p){$('f_th').value=p.dataset.pick;check()}});
  $('bf').addEventListener('submit',e=>{
   e.preventDefault();
@@ -398,9 +411,7 @@ function openForm(id,pre){
   const date=$('f_date').value,start=$('f_time').value,dur=Number($('f_dur').value),trId=$('f_tr').value;let th=$('f_th').value;
   if(!date||!start||!dur)return;
   if(th==='any'){const free=freeTherapists(date,start,dur,id);if(!free.length){check();return}th=free[0].id}
-  const tr=trById(trId);const newPrice=tr&&tr.prices[dur]?tr.prices[dur]:0;
-  const keepPrice=b&&b.treatmentId===trId&&Number(b.dur)===dur;
-  const rec={date,start,dur,treatmentId:trId,therapistId:th,guest,phone:$('f_phone').value.trim(),notes:$('f_notes').value.trim(),price:keepPrice?b.price:newPrice,example:false};
+  const rec={date,start,dur,treatmentId:trId,therapistId:th,guest,phone:$('f_phone').value.trim(),notes:$('f_notes').value.trim(),price:prNum(),example:false};
   if(b)Object.assign(b,rec);else state.bookings.push(Object.assign({id:uid(),status:'booked'},rec));
   persist();ui.date=date;if(ui.view==='menu')ui.view='sched';closeSheet();render();toast(t.saved);
  });
