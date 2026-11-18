@@ -79,7 +79,7 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(36px,6.2vw,64px);l
 .home section{padding-block:88px}
 .home section.alt{background:var(--bg2)}
 .home section[id]{scroll-margin-top:calc(36px + env(safe-area-inset-top,0px))}
-.home .card[id]{scroll-margin-top:calc(120px + env(safe-area-inset-top,0px))}
+.home .card[id],.home .mini-card[id]{scroll-margin-top:calc(120px + env(safe-area-inset-top,0px))}
 .home h2{font-size:clamp(34px,5.4vw,56px);max-width:16ch}
 .home .lead{margin-bottom:40px}
 @media (max-width:700px){.home section{padding-block:60px}.home section[id]{scroll-margin-top:calc(52px + env(safe-area-inset-top,0px))}.home .lead{margin-bottom:28px}}
@@ -262,3 +262,16 @@ footer a:hover{text-decoration:underline;color:var(--ink)}
 .direct .num a{text-decoration:none;color:var(--bg)}
 .direct .num a:hover{text-decoration:underline}
 .direct .who{font-size:14px;margin:0}
+
+/* Further services, compact */
+.more-h{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.02em;margin:44px 0 14px;text-align:center}
+.extra-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.extra-grid{grid-template-columns:1fr}}
+.mini-card{background:var(--bg2);border-radius:20px;padding:18px;display:flex;gap:14px;align-items:flex-start;min-width:0}
+.mini-card .ic{width:42px;height:42px;border-radius:12px;background:var(--card);display:grid;place-items:center;color:var(--accent);flex:none;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.mini-card .ic svg{width:21px;height:21px}
+.mini-card h4{margin:0 0 4px;font-size:17px;letter-spacing:-.01em}
+.mini-card p{margin:0 0 4px;color:var(--muted);font-size:15px}
+.mini-card .pa{font-size:14px;font-weight:600}
+.mini-card a{color:var(--link);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;margin-left:8px}
+.mini-card a:hover{text-decoration:underline}
