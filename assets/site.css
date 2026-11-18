@@ -161,3 +161,50 @@ footer a:hover{text-decoration:underline;color:var(--ink)}
 .legal p{margin:0 0 12px}
 .legal .muted{color:var(--muted);font-size:15px}
 .legal a{color:var(--link)}
+
+/* Pricing */
+.billing{display:inline-flex;background:var(--bg2);border-radius:980px;padding:4px;gap:2px;margin:0 auto 40px}
+.billing button{font:inherit;font-size:15px;font-weight:600;border:0;background:transparent;color:var(--muted);padding:9px 18px;border-radius:980px;cursor:pointer;min-height:40px}
+.billing button span{font-size:12px;font-weight:600;color:var(--accent);margin-left:4px}
+.billing button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.billing button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch}
+@media (max-width:900px){.plans{grid-template-columns:1fr;max-width:520px;margin:0 auto}}
+.plan{position:relative;background:var(--bg2);border-radius:28px;padding:32px 28px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.plan.featured{background:var(--card);box-shadow:0 0 0 2px var(--accent),0 30px 60px -30px rgba(0,0,0,.35)}
+.plan .badge{position:absolute;top:-13px;left:28px;background:var(--accent);color:#FFFFFF;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:980px}
+.plan h3{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.025em;margin:0}
+.plan .for{margin:0;color:var(--muted);font-size:16px}
+.plan .price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;margin-top:6px}
+.plan .price b{font-family:var(--display);font-size:52px;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.plan .price .per{color:var(--muted);font-size:15px}
+.plan .setup{margin:0;font-size:14px;color:var(--muted)}
+.feat{list-style:none;margin:8px 0 4px;padding:0;display:flex;flex-direction:column;gap:10px;font-size:15.5px;line-height:1.4}
+.feat li{position:relative;padding-left:26px}
+.feat li::before{content:"";position:absolute;left:2px;top:4px;width:7px;height:12px;border:solid var(--accent);border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.plan .vs{margin:auto 0 0;font-size:14px;font-weight:600;color:var(--accent)}
+.plan .btn{margin-top:8px;width:100%}
+.plan:not(.featured) .btn{margin-top:auto}
+.plan.featured .vs + .btn{margin-top:8px}
+.pilot{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;border:1.5px dashed var(--accent);border-radius:22px;padding:22px 26px}
+.pilot b{display:block;font-size:19px;margin-bottom:4px}
+.pilot span{color:var(--muted);max-width:44em;display:block}
+.sub-h{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.02em;margin:64px 0 16px}
+.cmp-wrap{overflow-x:auto;border-radius:20px;border:1px solid var(--line)}
+.cmp{width:100%;border-collapse:collapse;font-size:15px;min-width:620px}
+.cmp th,.cmp td{padding:13px 16px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}
+.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+.cmp thead th{font-size:15px;font-weight:700;background:var(--bg2)}
+.cmp thead th:nth-child(3){color:var(--accent)}
+.cmp tbody th{text-align:left;font-weight:500;white-space:normal}
+.cmp td.y{color:var(--accent);font-weight:700}
+.cmp td.n{color:var(--muted)}
+.extras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:20px}
+@media (max-width:780px){.extras{grid-template-columns:1fr}}
+.extra{background:var(--bg2);border-radius:22px;padding:26px}
+.rows{list-style:none;margin:0;padding:0}
+.rows li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.rows li:last-child{border-bottom:0}
+.rows li span{color:var(--muted);min-width:0}
+.rows li b{white-space:nowrap;font-variant-numeric:tabular-nums}
+.fine{font-size:13px;color:var(--muted);margin:22px 0 0;text-align:center}
