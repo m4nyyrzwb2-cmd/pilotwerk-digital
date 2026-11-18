@@ -100,6 +100,7 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(36px,6.2vw,64px);l
 
 /* Service cards */
 .svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.svc-grid > .card:last-child:nth-child(odd){grid-column:1/-1}
 @media (max-width:760px){.svc-grid{grid-template-columns:1fr;gap:16px}}
 .card{background:var(--bg2);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .card .ic{width:46px;height:46px;border-radius:13px;background:var(--card);display:grid;place-items:center;color:var(--accent);box-shadow:0 1px 2px rgba(0,0,0,.06)}
