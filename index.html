@@ -18,7 +18,7 @@
       <span>Pilotwerk</span><em>Digital</em>
     </a>
     <nav class="links" aria-label="Schnellkontakt">
-      <a class="mini" href="tel:+4917685959460">Anrufen</a>
+      <a class="mini" href="#kontakt">Gespräch buchen</a>
     </nav>
   </div>
   <nav class="tabs" aria-label="Bereiche der Seite">
@@ -105,7 +105,7 @@
             <li>Google-Unternehmensprofil eingerichtet</li>
             <li>Kleine Änderungen jeden Monat inklusive</li>
           </ul>
-          <div class="foot"><b>ab 39 € <small>/ Monat</small></b><a href="#kontakt">Anfragen ›</a></div>
+          <div class="foot"><b>ab 39 € <small>/ Monat</small></b><a href="#kontakt" data-int="Website">Anfragen ›</a></div>
         </article>
 
         <article class="card" id="videos">
@@ -117,7 +117,7 @@
             <li>Im Hochformat, fertig zum Hochladen</li>
             <li>Einzeln oder als Paket</li>
           </ul>
-          <div class="foot"><b>Preis auf Anfrage</b><a href="#kontakt">Anfragen ›</a></div>
+          <div class="foot"><b>Preis auf Anfrage</b><a href="#kontakt" data-int="Videobearbeitung">Anfragen ›</a></div>
         </article>
 
       </div>
@@ -149,7 +149,7 @@
         </div>
       </div>
 
-      <p class="pilot2"><span><b>Pilotkunden-Angebot:</b> Die ersten 10 Betriebe aus Wittgenstein zahlen 3 Monate lang den halben Preis.</span><a href="#kontakt">Platz sichern ›</a></p>
+      <p class="pilot2"><span><b>Pilotkunden-Angebot:</b> Die ersten 10 Betriebe aus Wittgenstein zahlen 3 Monate lang den halben Preis.</span><a href="#kontakt" data-pilot="1">Platz sichern ›</a></p>
 
       <div class="plans">
         <article class="plan">
@@ -165,7 +165,7 @@
             <li>Einrichtung vor Ort und Einweisung</li>
             <li>Support per WhatsApp innerhalb von 24 Stunden</li>
           </ul>
-          <a class="btn line" href="#kontakt">Start anfragen</a>
+          <a class="btn line" href="#kontakt" data-paket="Start">Start anfragen</a>
         </article>
 
         <article class="plan featured">
@@ -182,7 +182,7 @@
             <li>30 Min. Änderungen im Monat, Support am selben Werktag</li>
           </ul>
           <p class="vs">Einzeln 87 € · Sie sparen 28 € im Monat</p>
-          <a class="btn solid" href="#kontakt">Reiseflug anfragen</a>
+          <a class="btn solid" href="#kontakt" data-paket="Reiseflug">Reiseflug anfragen</a>
         </article>
 
         <article class="plan">
@@ -198,7 +198,7 @@
             <li>1 Std. Änderungen im Monat, Rückruf innerhalb von 2 Stunden</li>
           </ul>
           <p class="vs">Einzeln 231 € · Sie sparen 92 € im Monat</p>
-          <a class="btn line" href="#kontakt">Autopilot anfragen</a>
+          <a class="btn line" href="#kontakt" data-paket="Autopilot">Autopilot anfragen</a>
         </article>
       </div>
 
@@ -271,15 +271,91 @@
 
   <section id="kontakt">
     <div class="wrap">
-      <div class="contact2">
-        <h2>Lassen Sie uns reden.</h2>
-        <p>Das Erstgespräch ist kostenlos. Rufen Sie an oder schreiben Sie mir, ich melde mich schnell zurück.</p>
-        <div class="cta">
+      <div class="center">
+        <h2>Gespräch buchen.</h2>
+        <p class="lead">Kostenlos und unverbindlich. Ich komme zu Ihnen in den Betrieb, rufe Sie an oder wir sprechen per Video.</p>
+      </div>
+      <div class="book">
+        <form class="bform" id="bookForm" novalidate>
+          <fieldset>
+            <legend>Ihr Betrieb</legend>
+            <div class="f2">
+              <div class="fld"><label for="fBetrieb">Name des Betriebs <span class="req" aria-hidden="true">*</span></label><input id="fBetrieb" autocomplete="organization" required aria-describedby="eBetrieb"><p class="err" id="eBetrieb" hidden></p></div>
+              <div class="fld"><label for="fBranche">Branche</label><select id="fBranche"><option>Bitte wählen</option><option>Friseur oder Barbershop</option><option>Kosmetik oder Nagelstudio</option><option>Massage oder Physiotherapie</option><option>Café oder Bäckerei</option><option>Imbiss oder Restaurant</option><option>Werkstatt</option><option>Einzelhandel</option><option>Sonstiges</option></select></div>
+            </div>
+            <div class="fld"><label for="fStrasse">Straße und Hausnummer <span class="req" aria-hidden="true">*</span></label><input id="fStrasse" autocomplete="street-address" required aria-describedby="eStrasse"><p class="err" id="eStrasse" hidden></p></div>
+            <div class="f2 plz">
+              <div class="fld"><label for="fPlz">PLZ</label><input id="fPlz" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="57319"></div>
+              <div class="fld"><label for="fOrt">Ort <span class="req" aria-hidden="true">*</span></label><input id="fOrt" autocomplete="address-level2" value="Bad Berleburg" required aria-describedby="eOrt"><p class="err" id="eOrt" hidden></p></div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Ansprechpartner</legend>
+            <div class="fld"><label for="fName">Vor- und Nachname <span class="req" aria-hidden="true">*</span></label><input id="fName" autocomplete="name" required aria-describedby="eName"><p class="err" id="eName" hidden></p></div>
+            <div class="f2">
+              <div class="fld"><label for="fTel">Telefon oder Handy <span class="req" aria-hidden="true">*</span></label><input id="fTel" type="tel" autocomplete="tel" required aria-describedby="eTel"><p class="err" id="eTel" hidden></p></div>
+              <div class="fld"><label for="fMail">E-Mail</label><input id="fMail" type="email" autocomplete="email" aria-describedby="eMail"><p class="err" id="eMail" hidden></p></div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Wann und wie?</legend>
+            <div class="fld"><span class="lab" id="lWo">Gespräch</span>
+              <div class="pills" role="radiogroup" aria-labelledby="lWo">
+                <label class="pillc"><input type="radio" name="wo" value="Bei uns im Betrieb" checked><span>Bei uns im Betrieb</span></label>
+                <label class="pillc"><input type="radio" name="wo" value="Am Telefon"><span>Am Telefon</span></label>
+                <label class="pillc"><input type="radio" name="wo" value="Per Video"><span>Per Video</span></label>
+              </div>
+            </div>
+            <div class="fld"><span class="lab" id="lTag">Wunschtag <span class="req" aria-hidden="true">*</span></span>
+              <div class="pills" id="days" role="radiogroup" aria-labelledby="lTag" aria-describedby="eTag"></div><p class="err" id="eTag" hidden></p>
+            </div>
+            <div class="fld"><span class="lab" id="lZeit">Uhrzeit <span class="req" aria-hidden="true">*</span></span>
+              <div class="pills" role="radiogroup" aria-labelledby="lZeit" aria-describedby="eZeit">
+                <label class="pillc"><input type="radio" name="zeit" value="vormittags (9–12 Uhr)"><span>9–12 Uhr</span></label>
+                <label class="pillc"><input type="radio" name="zeit" value="mittags (12–15 Uhr)"><span>12–15 Uhr</span></label>
+                <label class="pillc"><input type="radio" name="zeit" value="nachmittags (15–18 Uhr)"><span>15–18 Uhr</span></label>
+                <label class="pillc"><input type="radio" name="zeit" value="abends (ab 18 Uhr)"><span>ab 18 Uhr</span></label>
+              </div><p class="err" id="eZeit" hidden></p>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Was interessiert Sie?</legend>
+            <div class="pills" id="interests">
+              <label class="pillc"><input type="checkbox" name="int" value="Online-Terminbuch"><span>Online-Terminbuch</span></label>
+              <label class="pillc"><input type="checkbox" name="int" value="Digitale Stempelkarte"><span>Digitale Stempelkarte</span></label>
+              <label class="pillc"><input type="checkbox" name="int" value="KI-Telefonassistent"><span>KI-Telefon</span></label>
+              <label class="pillc"><input type="checkbox" name="int" value="Website"><span>Website</span></label>
+              <label class="pillc"><input type="checkbox" name="int" value="Videobearbeitung"><span>Videobearbeitung</span></label>
+              <label class="pillc"><input type="checkbox" name="int" value="Noch unsicher"><span>Noch unsicher</span></label>
+            </div>
+            <div class="f2">
+              <div class="fld"><label for="fPaket">Paket</label><select id="fPaket"><option>Noch offen</option><option>Start</option><option>Reiseflug</option><option>Autopilot</option></select></div>
+              <label class="checkc"><input type="checkbox" id="fPilot"> Ich möchte Pilotkunde werden</label>
+            </div>
+            <div class="fld"><label for="fMsg">Nachricht</label><textarea id="fMsg" rows="3" placeholder="z. B. Wir verpassen viele Anrufe, wenn wir Kunden bedienen."></textarea></div>
+          </fieldset>
+          <label class="consent"><input type="checkbox" id="fOk" required aria-describedby="eOk"><span>Ich bin einverstanden, dass meine Angaben zur Terminabsprache verwendet werden. Mehr dazu in der <a href="/datenschutz/">Datenschutzerklärung</a>. <span class="req" aria-hidden="true">*</span></span></label>
+          <p class="err" id="eOk" hidden></p>
+          <div class="send">
+            <button type="submit" class="btn solid" data-via="wa">Per WhatsApp senden</button>
+            <button type="submit" class="btn line" data-via="mail">Per E-Mail senden</button>
+          </div>
+          <p class="fine2">Das Formular öffnet WhatsApp oder Ihr E-Mail-Programm mit Ihren Angaben. Erst wenn Sie dort auf Senden tippen, wird etwas verschickt. Ich bestätige Ihnen den Termin danach persönlich.</p>
+          <div class="done" id="done" hidden tabindex="-1" role="status">
+            <b>Fast geschafft</b>
+            <p id="doneText"></p>
+            <a class="btn line" id="doneLink" href="#" target="_blank" rel="noopener">Nochmal öffnen</a>
+          </div>
+        </form>
+        <aside class="direct">
+          <h3>Lieber direkt?</h3>
+          <p>Rufen Sie an oder schreiben Sie mir. Ich melde mich schnell zurück.</p>
           <a class="btn inv" href="tel:+4917685959460">Anrufen</a>
           <a class="btn ghost" href="https://wa.me/4917685959460" rel="noopener">WhatsApp</a>
           <a class="btn ghost" href="mailto:lukas@pilotwerk-digital.de">E-Mail</a>
-        </div>
-        <p class="num"><a href="tel:+4917685959460">+49 176 85959460</a> · <a href="mailto:lukas@pilotwerk-digital.de">lukas@pilotwerk-digital.de</a></p>
+          <p class="num"><a href="tel:+4917685959460">+49 176 85959460</a><br><a href="mailto:lukas@pilotwerk-digital.de">lukas@pilotwerk-digital.de</a></p>
+          <p class="who">Lukas Seibel · Pilotwerk Digital<br>Bad Berleburg</p>
+        </aside>
       </div>
     </div>
   </section>
@@ -330,6 +406,65 @@
   window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(spy)}},{passive:true});
   window.addEventListener('resize',spy);
   spy();
+})();
+</script>
+<script>
+(function(){
+  var form=document.getElementById('bookForm');if(!form)return;
+  var WD=['So','Mo','Di','Mi','Do','Fr','Sa'],WDL=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],MON=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  var days=document.getElementById('days'),d=new Date(),n=0,h='';
+  while(n<6){d.setDate(d.getDate()+1);if(d.getDay()===0)continue;n++;
+    var long=WDL[d.getDay()]+', '+d.getDate()+'. '+MON[d.getMonth()];
+    h+='<label class="pillc"><input type="radio" name="tag" value="'+long+'"><span>'+WD[d.getDay()]+' '+d.getDate()+'.'+(d.getMonth()+1)+'.</span></label>'}
+  h+='<label class="pillc"><input type="radio" name="tag" value="flexibel, bitte Vorschlag machen"><span>Flexibel</span></label>';
+  days.innerHTML=h;
+  function $(id){return document.getElementById(id)}
+  function checked(name){var el=form.querySelector('input[name="'+name+'"]:checked');return el?el.value:''}
+  function setErr(id,msg,field){var e=$(id);if(!e)return;e.textContent=msg||'';e.hidden=!msg;if(field)field.setAttribute('aria-invalid',msg?'true':'false')}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[data-int],a[data-paket],a[data-pilot]');if(!a)return;
+    if(a.dataset.int){var c=form.querySelector('input[name="int"][value="'+a.dataset.int+'"]');if(c)c.checked=true}
+    if(a.dataset.paket){$('fPaket').value=a.dataset.paket}
+    if(a.dataset.pilot){$('fPilot').checked=true}
+  });
+  var via='wa';
+  form.addEventListener('click',function(e){var b=e.target.closest('button[data-via]');if(b)via=b.dataset.via});
+  form.addEventListener('submit',function(e){
+    e.preventDefault();if(e.submitter&&e.submitter.dataset.via)via=e.submitter.dataset.via;
+    var first=null;function need(id,eid,msg){var f=$(id),bad=!f.value.trim();setErr(eid,bad?msg:'',f);if(bad&&!first)first=f}
+    need('fBetrieb','eBetrieb','Bitte den Namen des Betriebs eintragen.');
+    need('fStrasse','eStrasse','Bitte Straße und Hausnummer eintragen.');
+    need('fOrt','eOrt','Bitte den Ort eintragen.');
+    need('fName','eName','Bitte Ihren Namen eintragen.');
+    var tel=$('fTel'),telBad=tel.value.replace(/[^0-9]/g,'').length<6;setErr('eTel',telBad?'Bitte eine Telefonnummer eintragen.':'',tel);if(telBad&&!first)first=tel;
+    var mail=$('fMail'),mailBad=mail.value.trim()&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail.value.trim());setErr('eMail',mailBad?'Diese E-Mail-Adresse sieht nicht vollständig aus.':'',mail);if(mailBad&&!first)first=mail;
+    var tag=checked('tag'),zeit=checked('zeit');
+    setErr('eTag',tag?'':'Bitte einen Wunschtag wählen.');if(!tag&&!first)first=days.querySelector('input');
+    setErr('eZeit',zeit?'':'Bitte eine Uhrzeit wählen.');if(!zeit&&!first)first=form.querySelector('input[name="zeit"]');
+    var ok=$('fOk');setErr('eOk',ok.checked?'':'Bitte bestätigen Sie die Einwilligung.',ok);if(!ok.checked&&!first)first=ok;
+    if(first){first.focus();return}
+    var ints=[].map.call(form.querySelectorAll('input[name="int"]:checked'),function(x){return x.value});
+    var plz=$('fPlz').value.trim(),br=$('fBranche').value,paket=$('fPaket').value,msg=$('fMsg').value.trim();
+    var lines=['Neue Gesprächsanfrage über pilotwerk-digital.de','',
+      'Betrieb: '+$('fBetrieb').value.trim()+(br&&br!=='Bitte wählen'?' ('+br+')':''),
+      'Adresse: '+$('fStrasse').value.trim()+', '+(plz?plz+' ':'')+$('fOrt').value.trim(),
+      'Ansprechpartner: '+$('fName').value.trim(),
+      'Telefon: '+tel.value.trim()];
+    if(mail.value.trim())lines.push('E-Mail: '+mail.value.trim());
+    lines.push('','Gespräch: '+checked('wo'),'Wunschtermin: '+tag+', '+zeit);
+    lines.push('Interesse: '+(ints.length?ints.join(', '):'noch offen'));
+    if(paket!=='Noch offen')lines.push('Paket: '+paket);
+    if($('fPilot').checked)lines.push('Möchte Pilotkunde werden');
+    if(msg)lines.push('','Nachricht: '+msg);
+    var text=lines.join('\n'),url;
+    if(via==='mail')url='mailto:lukas@pilotwerk-digital.de?subject='+encodeURIComponent('Gesprächsanfrage: '+$('fBetrieb').value.trim())+'&body='+encodeURIComponent(text);
+    else url='https://wa.me/4917685959460?text='+encodeURIComponent(text);
+    $('doneText').textContent=via==='mail'?'Ihr E-Mail-Programm öffnet sich mit Ihrer Anfrage. Bitte dort noch auf Senden tippen.':'WhatsApp öffnet sich mit Ihrer Anfrage. Bitte dort noch auf Senden tippen.';
+    var dl=$('doneLink');dl.href=url;dl.textContent=via==='mail'?'E-Mail nochmal öffnen':'WhatsApp nochmal öffnen';if(via==='mail')dl.removeAttribute('target');else dl.setAttribute('target','_blank');
+    var box=$('done');box.hidden=false;
+    if(via==='mail')window.location.href=url;else{var wnd=window.open(url,'_blank','noopener');if(!wnd)window.location.href=url}
+    box.focus();
+  });
 })();
 </script>
 </body>

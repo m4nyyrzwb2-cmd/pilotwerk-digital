@@ -9,7 +9,7 @@
   --bg:#FFFFFF; --bg2:#F5F5F7; --ink:#1D1D1F; --muted:#6E6E73; --line:#D2D2D7; --card:#FFFFFF;
   --black:#000000; --on-black:#F5F5F7; --on-black-muted:#A1A1A6;
   --accent:#FF6A13; --accent-ink:#FFFFFF;
-  --link:#C94A0A;
+  --link:#C94A0A; --bad:#C0362C;
   --graphite:#1D1D1F;
   --font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --display:"Inter Display","Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
@@ -18,7 +18,7 @@
 @media (prefers-color-scheme:dark){
   :root{
     --bg:#000000; --bg2:#111113; --ink:#F5F5F7; --muted:#A1A1A6; --line:#2C2C2E; --card:#1C1C1E;
-    --accent:#FF8A3D; --accent-ink:#000000; --link:#FF8A3D; --graphite:#2C2C2E;
+    --accent:#FF8A3D; --accent-ink:#000000; --link:#FF8A3D; --graphite:#2C2C2E; --bad:#FF7A6E;
     color-scheme:dark;
   }
 }
@@ -217,3 +217,48 @@ footer a:hover{text-decoration:underline;color:var(--ink)}
 .legal .muted{color:var(--muted);font-size:15px}
 .legal a{color:var(--link)}
 
+
+/* Booking form */
+.book{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.book{grid-template-columns:1fr}}
+.bform{background:var(--bg2);border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:24px;min-width:0}
+@media (max-width:560px){.bform{padding:22px 18px;border-radius:24px}}
+.bform fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;min-width:0}
+.bform legend{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:-.01em;padding:0;margin:0 0 12px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f2.plz{grid-template-columns:120px minmax(0,1fr)}
+@media (max-width:560px){.f2{grid-template-columns:1fr}.f2.plz{grid-template-columns:100px minmax(0,1fr)}}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld label,.fld .lab{font-size:14.5px;font-weight:600}
+.req{color:var(--link)}
+.bform input:not([type=radio]):not([type=checkbox]),.bform select,.bform textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 13px;min-height:48px;width:100%;min-width:0}
+.bform textarea{resize:vertical}
+.bform input:focus-visible,.bform select:focus-visible,.bform textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.bform [aria-invalid="true"]{border-color:var(--bad)!important;box-shadow:0 0 0 1px var(--bad)}
+.err{margin:0;color:var(--bad);font-size:13.5px;font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pillc{position:relative;display:inline-flex}
+.pillc input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.pillc span{display:inline-flex;align-items:center;min-height:44px;padding:9px 16px;border-radius:980px;background:var(--bg);border:1px solid var(--line);font-size:15px;font-weight:600;cursor:pointer;user-select:none}
+.pillc input:checked + span{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pillc input:focus-visible + span{outline:3px solid var(--accent);outline-offset:2px}
+.checkc{display:flex;gap:10px;align-items:center;align-self:end;min-height:48px;font-size:15px;font-weight:600;cursor:pointer}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:15px;cursor:pointer}
+.checkc input,.consent input{width:22px;height:22px;flex:none;accent-color:var(--ink);margin:1px 0 0}
+.consent a{color:var(--link)}
+.send{display:flex;flex-wrap:wrap;gap:10px}
+.send .btn{flex:1 1 200px}
+.fine2{margin:0;font-size:13.5px;color:var(--muted)}
+.done{background:var(--bg);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.done:focus{outline:3px solid var(--accent);outline-offset:2px}
+.done b{font-size:18px}
+.done p{margin:0;color:var(--muted)}
+.direct{background:var(--ink);color:var(--bg);border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:10px;position:sticky;top:120px}
+@media (max-width:860px){.direct{position:static}}
+.direct h3{margin:0;font-family:var(--display);font-size:24px;letter-spacing:-.02em}
+.direct p{margin:0 0 6px;color:color-mix(in srgb,var(--bg) 72%,var(--ink))}
+.direct .btn{width:100%}
+.direct .num{margin:8px 0 0;font-size:15px;line-height:1.6}
+.direct .num a{text-decoration:none;color:var(--bg)}
+.direct .num a:hover{text-decoration:underline}
+.direct .who{font-size:14px;margin:0}
