@@ -115,6 +115,8 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(36px,6.2vw,64px);l
 .card .foot a{display:inline-flex;align-items:center;min-height:44px;color:var(--link);font-weight:600;text-decoration:none}
 .card .foot a:hover{text-decoration:underline}
 .card .note{margin-top:-8px;font-size:13px}
+.card .note a{color:var(--link);font-weight:600;text-decoration:none;display:inline-block;padding-block:6px}
+.card .note a:hover{text-decoration:underline}
 
 /* Steps */
 .steps2{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}

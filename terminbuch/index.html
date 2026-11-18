@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -11,25 +11,27 @@
 @font-face{font-family:"Inter";src:url("/assets/fonts/inter-400.woff") format("woff");font-weight:400;font-display:swap}
 @font-face{font-family:"Inter";src:url("/assets/fonts/inter-600.woff") format("woff");font-weight:500 600;font-display:swap}
 @font-face{font-family:"Inter";src:url("/assets/fonts/inter-700.woff") format("woff");font-weight:700 800;font-display:swap}
+@font-face{font-family:"Inter Display";src:url("/assets/fonts/interdisplay-700.woff") format("woff");font-weight:700;font-display:swap}
 @font-face{font-family:"Lora";src:url("/assets/fonts/lora-italic.woff") format("woff");font-style:italic;font-weight:400 700;font-display:swap}
 html{-webkit-text-size-adjust:100%}
 body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
-.demo-bar{background:#E6B53A;color:#0A0907;font:600 13.5px/1.3 "Inter",system-ui,sans-serif;text-align:center;padding:7px max(16px,env(safe-area-inset-left,0px));padding-top:calc(7px + env(safe-area-inset-top,0px))}
-.demo-bar a{color:inherit;font-weight:700}
-/* Layout: black-and-gold spa signboard look. Sticky header with script name and gold swoosh -> example note + framed day stats -> therapist timeline, list or price list; gold add button; bottom sheet for forms. Single dark theme by design. */
+.demo-bar{background:#FFF1E8;color:#1D1D1F;font:600 13.5px/1.3 "Inter",system-ui,sans-serif;text-align:center;padding:7px max(16px,env(safe-area-inset-left,0px));padding-top:calc(7px + env(safe-area-inset-top,0px))}
+.demo-bar a{color:#C94A0A;font-weight:700}
+.demo-bar a[aria-current="page"]{text-decoration:none;border-radius:999px;padding:1px 8px;background:rgba(0,0,0,.08)}
+/* Layout: light Pilotwerk look for a German hair salon. Sticky white header with salon name -> example note + day stats -> staff timeline, list or price list; dark add button; bottom sheet for forms. Single light theme by design. */
 :root{
-  --bg:#0A0907; --surface:#12110D; --surface-2:#1A1812; --ink:#F2EAD3; --muted:#B0A483; --line:#2F2A1B;
-  --gold:#E6B53A; --gold-dim:#6E5622; --gold-soft:#272010; --on-gold:#0A0907;
-  --ok:#8CCB8A; --warn:#F2A65A; --bad:#EE7A68; --ok-soft:#13261A; --warn-soft:#2E200F; --bad-soft:#331612;
-  --blk-s:38%; --blk-l:17%; --blk-edge-l:58%; --blk-ink:#F2EAD3;
-  --shadow:0 14px 34px rgba(0,0,0,.65);
+  --bg:#F5F5F7; --surface:#FFFFFF; --surface-2:#FAFAFB; --ink:#1D1D1F; --muted:#6E6E73; --line:#E5E5EA;
+  --gold:#C94A0A; --gold-dim:#D2D2D7; --gold-soft:#FFF1E8; --on-gold:#FFFFFF;
+  --ok:#1E7B3A; --warn:#9A5600; --bad:#C0362C; --ok-soft:#E8F5EC; --warn-soft:#FFF4E5; --bad-soft:#FDECEA;
+  --blk-s:75%; --blk-l:94%; --blk-edge-l:42%; --blk-ink:#1D1D1F;
+  --shadow:0 12px 30px rgba(0,0,0,.14);
   --script:"Lora",Georgia,serif;
   --cond:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --row:30px;
-  color-scheme:dark;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15.5px;line-height:1.45}
@@ -166,24 +168,59 @@ textarea{resize:vertical}
 .ed-row{display:flex;gap:8px}
 .ed-row input{flex:1}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom,0px));background:var(--gold);color:var(--on-gold);padding:9px 18px;border-radius:999px;font-family:var(--cond);font-size:16px;font-weight:700;letter-spacing:.05em;z-index:30;box-shadow:var(--shadow);white-space:nowrap}
+/* Calm overrides: no signboard script, swoosh or uppercase labels */
+.swoosh{display:none}
+.bar{border-bottom:1px solid var(--line)}
+.brand b{font-family:"Inter Display","Inter",sans-serif;font-style:normal;font-weight:700;font-size:26px;letter-spacing:-.02em;color:var(--ink);transform:none}
+.brand span{color:var(--muted);letter-spacing:.06em}
+.btn,.seg,.datepick{border-radius:10px;border-color:var(--line)}
+.btn:hover{border-color:var(--muted)}
+.datepick{color:var(--ink);letter-spacing:0;text-transform:none}
+.seg button[aria-pressed="true"],.btn.primary{background:var(--ink);border-color:var(--ink);color:#FFFFFF;text-transform:none;letter-spacing:0}
+.stat,.item,.tbl-wrap,.empty,.menu-card{border:1px solid var(--line);border-radius:14px}
+.stat b,.when b{color:var(--ink)}
+.stat span,.facts dt,.tbl thead th{letter-spacing:.02em;text-transform:none}
+.note{border-radius:12px;border-style:solid;border-color:#F6CDB4}
+.grid-scroll{border:1px solid var(--line);border-radius:14px}
+.colhead{color:var(--ink);border-bottom:1px solid var(--line);text-transform:none;letter-spacing:0}
+.col{border-left-color:var(--line)}
+.blk{border-radius:8px}
+h3{color:var(--ink);text-transform:none;letter-spacing:0;font-size:17px}
+.tbl thead th{color:var(--muted);border-bottom:1px solid var(--line)}
+.sheet{border-top:0;border-radius:18px 18px 0 0}
+@media (min-width:700px){.sheet{border:0;border-radius:18px}}
+.sheet h2{color:var(--ink);text-transform:none;letter-spacing:-.01em}
+input,select,textarea{border:1px solid var(--gold-dim);border-radius:10px;background:var(--surface)}
+.pricefield{border-radius:12px;border-color:#F6CDB4}
+.pricefield .pin span{order:2;color:var(--ink)}
+.pricefield .pin input{color:var(--ink)}
+.menu-head .script{font-family:"Inter Display","Inter",sans-serif;font-style:normal;font-weight:700;font-size:32px;color:var(--ink);transform:none}
+.menu-head small{color:var(--muted);letter-spacing:.06em}
+.menu-head svg{display:none}
+.tbl.menu th,.tbl.menu td{border:1px solid var(--line);color:var(--ink);text-transform:none;letter-spacing:0;font-size:16px}
+.tbl.menu td.pr{color:var(--gold)}
+.seg button{text-transform:none;letter-spacing:0}
+.chip{text-transform:none;letter-spacing:0}
+.toast{background:var(--ink);color:#FFFFFF;letter-spacing:0}
+.fab{text-transform:none}
 </style>
 </head>
 <body>
-<div class="demo-bar">Demo von <a href="/">Pilotwerk Digital</a> · Beispieldaten, nichts wird gesendet</div>
+<div class="demo-bar">Demo von <a href="/">Pilotwerk Digital</a> · Beispiele: <a href="/terminbuch/" aria-current="page">Friseur</a> · <a href="/terminbuch/nagelstudio/">Nagelstudio</a> · <a href="/terminbuch/spa/">Spa</a></div>
 
 <header class="bar">
   <div class="bar-in">
-    <div class="brand"><b id="spaTitle">Spa</b><span data-t="appSub"></span></div>
+    <div class="brand"><b id="spaTitle">Salon</b><span data-t="appSub"></span></div>
     <div class="datenav">
-      <button type="button" class="btn iconbtn" id="prevDay" aria-label="Previous day"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-      <label class="datepick"><span id="dateLabel"></span><input type="date" id="jumpDate" aria-label="Date"></label>
-      <button type="button" class="btn iconbtn" id="nextDay" aria-label="Next day"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+      <button type="button" class="btn iconbtn" id="prevDay" aria-label="Vorheriger Tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <label class="datepick"><span id="dateLabel"></span><input type="date" id="jumpDate" aria-label="Datum"></label>
+      <button type="button" class="btn iconbtn" id="nextDay" aria-label="Nächster Tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
       <button type="button" class="btn" id="todayBtn" data-t="today"></button>
     </div>
     <div class="tools">
       <div class="seg" role="group"><button type="button" id="vSched" data-t="schedule"></button><button type="button" id="vList" data-t="list"></button><button type="button" id="vMenu" data-t="menu"></button></div>
-      <div class="seg" role="group" aria-label="Language"><button type="button" id="lId">ID</button><button type="button" id="lEn">EN</button></div>
-      <button type="button" class="btn iconbtn" id="openSettings" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+      <div class="seg" role="group" aria-label="Sprache"><button type="button" id="lDe">DE</button><button type="button" id="lEn">EN</button></div>
+      <button type="button" class="btn iconbtn" id="openSettings" aria-label="Einstellungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
     </div>
   </div>
   <svg class="swoosh" viewBox="0 0 1200 18" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 C 260 2, 520 2, 760 9 S 1080 16, 1200 4"/></svg>
@@ -211,51 +248,45 @@ const BDUR=[30,60,90,120,150,180,210,240];
 const ROW=30;
 const HUES=[150,200,20,100,280,45,250,330,0,180,70,300];
 const I18N={
- id:{appSub:'Buku janji',today:'Hari ini',schedule:'Jadwal',list:'Daftar',menu:'Harga',add:'Booking baru',settings:'Pengaturan',bookings:'Booking',done:'Selesai',revenue:'Pendapatan (selesai)',expected:'Perkiraan pendapatan',
-  exampleNote:'Ini contoh booking supaya terlihat cara kerjanya.',removeExamples:'Hapus contoh',storageOff:'Penyimpanan browser tidak aktif. Data hilang kalau halaman ditutup.',
-  guest:'Nama tamu',phone:'Nomor WhatsApp (opsional)',phoneShort:'WhatsApp',date:'Tanggal',time:'Jam mulai',menuTime:'Waktu',treatment:'Perawatan',duration:'Durasi',therapist:'Terapis',anyTherapist:'Siapa saja yang kosong',notes:'Catatan',price:'Harga',
-  save:'Simpan',saveAnyway:'Tetap simpan',cancel:'Batal',close:'Tutup',edit:'Ubah',del:'Hapus',confirmDel:'Ya, hapus',
-  mark_done:'Selesai',mark_noshow:'Tidak datang',mark_cancelled:'Dibatalkan',reopen:'Jadikan booking lagi',
-  status:{booked:'Booking',done:'Selesai',noshow:'Tidak datang',cancelled:'Dibatalkan'},min:'mnt',
-  conflict:(n,a,b)=>`${n} sudah ada booking jam ${a}–${b}.`,freeAt:'Terapis yang kosong di jam ini:',noneFree:'Semua terapis sudah penuh di jam ini.',
-  needName:'Isi nama tamu dulu.',outside:'Jam ini di luar jam buka.',saved:'Tersimpan',deleted:'Booking dihapus',
-  remind:'Kirim pengingat via WhatsApp',remindMsg:(s,n,tr,d,h)=>`Halo ${n}, kami mengingatkan ${tr} Anda pada ${d} jam ${h} di ${s}. Sampai jumpa!`,
-  perTherapist:'Per terapis',jobs:'Tamu',minutes:'Menit',empty:'Belum ada booking di hari ini. Ketuk “Booking baru” untuk menambah.',
-  tapHint:'Ketuk tempat kosong di kolom terapis untuk booking baru. Ketuk booking untuk detail.',openDaily:'Buka setiap hari',
-  spaName:'Nama spa',open:'Buka',closeH:'Tutup',therapists:'Terapis',addTherapist:'Tambah terapis',treatments:'Perawatan dan harga (Rp)',addTreatment:'Tambah perawatan',priceHint:'Kosongkan harga kalau durasi itu tidak ada.',
-  backup:'Cadangan data',copyBackup:'Salin cadangan',restorePh:'Tempel teks cadangan di sini untuk memulihkan',restoreBtn:'Pulihkan',copied:'Cadangan disalin',manualCopy:'Salin teks di kotak ini secara manual.',restored:'Data dipulihkan',badBackup:'Teks cadangan tidak bisa dibaca.',
-  remove:'Hapus',example:'contoh',inUse:'Masih ada booking dengan ini. Ganti nama saja, atau hapus booking-nya dulu.',newName:'Terapis baru',newTreat:'Perawatan baru',hoursBad:'Jam tutup harus setelah jam buka.',priceRp:'Harga (Rp)',priceMenu:'Harga sesuai daftar harga.',priceCalc:(m,p)=>`Dihitung dari daftar harga (${m} mnt = ${p}). Bisa diubah.`,priceOwn:'Harga diubah manual.'},
+ de:{appSub:'Terminbuch',today:'Heute',schedule:'Tagesplan',list:'Liste',menu:'Preise',add:'Neuer Termin',settings:'Einstellungen',bookings:'Termine',done:'Erledigt',revenue:'Umsatz (erledigt)',expected:'Erwarteter Umsatz',
+  exampleNote:'Das sind Beispieltermine, damit Sie sehen, wie es funktioniert.',removeExamples:'Beispiele löschen',storageOff:'Der Browser-Speicher ist aus. Termine gehen verloren, wenn Sie die Seite schließen.',
+  guest:'Name des Kunden',phone:'WhatsApp-Nummer (freiwillig)',phoneShort:'WhatsApp',date:'Datum',time:'Uhrzeit',menuTime:'Dauer',treatment:'Leistung',duration:'Dauer',therapist:'Mitarbeiter',anyTherapist:'Wer gerade frei ist',notes:'Notiz',price:'Preis',
+  save:'Speichern',saveAnyway:'Trotzdem speichern',cancel:'Abbrechen',close:'Schließen',edit:'Bearbeiten',del:'Löschen',confirmDel:'Ja, löschen',
+  mark_done:'Erledigt',mark_noshow:'Nicht erschienen',mark_cancelled:'Abgesagt',reopen:'Wieder als Termin',
+  status:{booked:'Gebucht',done:'Erledigt',noshow:'Nicht erschienen',cancelled:'Abgesagt'},min:'Min.',
+  conflict:(n,a,b)=>`${n} hat von ${a} bis ${b} schon einen Termin.`,freeAt:'Zu dieser Zeit frei:',noneFree:'Zu dieser Zeit ist niemand frei.',
+  needName:'Bitte zuerst den Namen eintragen.',outside:'Diese Zeit liegt außerhalb der Öffnungszeiten.',saved:'Gespeichert',deleted:'Termin gelöscht',
+  remind:'Erinnerung per WhatsApp senden',remindMsg:(s,n,tr,d,h)=>`Hallo ${n}, wir erinnern Sie an Ihren Termin (${tr}) am ${d} um ${h} Uhr bei ${s}. Bis bald!`,
+  perTherapist:'Pro Mitarbeiter',jobs:'Kunden',minutes:'Minuten',empty:'An diesem Tag gibt es noch keine Termine. Tippen Sie auf „Neuer Termin“.',
+  tapHint:'Tippen Sie auf eine freie Stelle in der Spalte eines Mitarbeiters, um einen Termin anzulegen. Tippen Sie auf einen Termin für Details.',openDaily:'Öffnungszeiten',
+  spaName:'Name des Salons',open:'Öffnet',closeH:'Schließt',therapists:'Mitarbeiter',addTherapist:'Mitarbeiter hinzufügen',treatments:'Leistungen und Preise (€)',addTreatment:'Leistung hinzufügen',priceHint:'Preis leer lassen, wenn es diese Dauer nicht gibt.',
+  backup:'Sicherung',copyBackup:'Sicherung kopieren',restorePh:'Sicherung hier einfügen, um sie wiederherzustellen',restoreBtn:'Wiederherstellen',copied:'Sicherung kopiert',manualCopy:'Bitte den Text in diesem Feld von Hand kopieren.',restored:'Daten wiederhergestellt',badBackup:'Diese Sicherung konnte nicht gelesen werden.',
+  remove:'Entfernen',example:'Beispiel',inUse:'Es gibt noch Termine damit. Ändern Sie nur den Namen oder löschen Sie zuerst diese Termine.',newName:'Neue Person',newTreat:'Neue Leistung',hoursBad:'Die Schließzeit muss nach der Öffnungszeit liegen.',priceRp:'Preis (€)',priceMenu:'Preis laut Preisliste.',priceCalc:(m,p)=>`Aus der Preisliste berechnet (${m} Min. = ${p}). Sie können ihn ändern.`,priceOwn:'Preis von Hand geändert.'},
  en:{appSub:'Appointment book',today:'Today',schedule:'Schedule',list:'List',menu:'Prices',add:'New booking',settings:'Settings',bookings:'Bookings',done:'Done',revenue:'Revenue (done)',expected:'Expected revenue',
   exampleNote:'These are example bookings to show how it works.',removeExamples:'Remove examples',storageOff:'Browser storage is off. Bookings are lost when this page closes.',
-  guest:'Guest name',phone:'WhatsApp number (optional)',phoneShort:'WhatsApp',date:'Date',time:'Start time',menuTime:'Time',treatment:'Treatment',duration:'Duration',therapist:'Therapist',anyTherapist:'Whoever is free',notes:'Notes',price:'Price',
+  guest:'Customer name',phone:'WhatsApp number (optional)',phoneShort:'WhatsApp',date:'Date',time:'Start time',menuTime:'Duration',treatment:'Service',duration:'Duration',therapist:'Staff',anyTherapist:'Whoever is free',notes:'Notes',price:'Price',
   save:'Save',saveAnyway:'Save anyway',cancel:'Cancel',close:'Close',edit:'Edit',del:'Delete',confirmDel:'Yes, delete',
   mark_done:'Mark done',mark_noshow:'No-show',mark_cancelled:'Cancelled',reopen:'Back to booked',
   status:{booked:'Booked',done:'Done',noshow:'No-show',cancelled:'Cancelled'},min:'min',
-  conflict:(n,a,b)=>`${n} is already booked ${a}–${b}.`,freeAt:'Free at this time:',noneFree:'Every therapist is busy at this time.',
-  needName:'Enter the guest name first.',outside:'This time is outside opening hours.',saved:'Saved',deleted:'Booking deleted',
+  conflict:(n,a,b)=>`${n} is already booked ${a}–${b}.`,freeAt:'Free at this time:',noneFree:'Everyone is busy at this time.',
+  needName:'Enter the customer name first.',outside:'This time is outside opening hours.',saved:'Saved',deleted:'Booking deleted',
   remind:'Send WhatsApp reminder',remindMsg:(s,n,tr,d,h)=>`Hi ${n}, a reminder of your ${tr} on ${d} at ${h} at ${s}. See you soon!`,
-  perTherapist:'Per therapist',jobs:'Guests',minutes:'Minutes',empty:'No bookings on this day yet. Tap “New booking” to add one.',
-  tapHint:'Tap an empty spot in a therapist column to book. Tap a booking for details.',openDaily:'Open daily',
-  spaName:'Spa name',open:'Opens',closeH:'Closes',therapists:'Therapists',addTherapist:'Add therapist',treatments:'Treatments and prices (Rp)',addTreatment:'Add treatment',priceHint:'Leave a price empty if that duration is not offered.',
+  perTherapist:'Per staff member',jobs:'Customers',minutes:'Minutes',empty:'No bookings on this day yet. Tap “New booking” to add one.',
+  tapHint:'Tap an empty spot in a staff column to book. Tap a booking for details.',openDaily:'Opening hours',
+  spaName:'Salon name',open:'Opens',closeH:'Closes',therapists:'Staff',addTherapist:'Add staff',treatments:'Services and prices (€)',addTreatment:'Add service',priceHint:'Leave a price empty if that duration is not offered.',
   backup:'Backup',copyBackup:'Copy backup',restorePh:'Paste a backup here to restore',restoreBtn:'Restore',copied:'Backup copied',manualCopy:'Copy the text in this box by hand.',restored:'Data restored',badBackup:'That backup text could not be read.',
-  remove:'Remove',example:'example',inUse:'There are still bookings with this. Rename it, or delete those bookings first.',newName:'New therapist',newTreat:'New treatment',hoursBad:'Closing time must be after opening time.',priceRp:'Price (Rp)',priceMenu:'Price from the price list.',priceCalc:(m,p)=>`Calculated from the price list (${m} min = ${p}). You can change it.`,priceOwn:'Price changed by hand.'}
+  remove:'Remove',example:'example',inUse:'There are still bookings with this. Rename it, or delete those bookings first.',newName:'New staff member',newTreat:'New service',hoursBad:'Closing time must be after opening time.',priceRp:'Price (€)',priceMenu:'Price from the price list.',priceCalc:(m,p)=>`Calculated from the price list (${m} min = ${p}). You can change it.`,priceOwn:'Price changed by hand.'}
 };
-const DEF={spaName:'Spa Bali',open:'10:00',close:'22:00',lang:'en',
- therapists:[{id:'t1',name:'Wayan'},{id:'t2',name:'Made'},{id:'t3',name:'Nyoman'},{id:'t4',name:'Ketut'}],
+const DEF={spaName:'Salon Muster',open:'09:00',close:'18:00',lang:'de',
+ therapists:[{id:'t1',name:'Anna'},{id:'t2',name:'Jonas'},{id:'t3',name:'Mia'}],
  treatments:[
-  {id:'full',name:'Full Body Massage',h:150,prices:{60:100000,90:130000,120:180000}},
-  {id:'foot',name:'Foot Massage',h:200,prices:{60:100000,90:130000,120:180000}},
-  {id:'stone',name:'Warm Stone Body Massage',h:20,prices:{60:140000,90:170000}},
-  {id:'aloe',name:'Aloe Vera Sunburn Massage',h:100,prices:{60:120000,90:160000}},
-  {id:'aroma',name:'Aroma Therapy Massage',h:280,prices:{60:120000,90:160000}},
-  {id:'head',name:'Head Massage',h:45,prices:{30:60000}},
-  {id:'back',name:'Back Massage',h:250,prices:{30:60000}},
-  {id:'wx_arm',name:'Armpit Waxing',h:330,prices:{30:80000}},
-  {id:'wx_legs',name:'Full Legs Waxing',h:330,prices:{60:150000}},
-  {id:'wx_hand',name:'Full Hand Waxing',h:330,prices:{30:120000}},
-  {id:'wx_back',name:'Back Waxing',h:330,prices:{30:100000}},
-  {id:'wx_chest',name:'Chest / Stomach Waxing',h:330,prices:{30:100000}}]};
-const KEY='bali-spa-terminbuch-v2';
+  {id:'damen',name:'Damenhaarschnitt',h:330,prices:{60:45}},
+  {id:'herren',name:'Herrenhaarschnitt',h:200,prices:{30:28}},
+  {id:'kinder',name:'Kinderhaarschnitt',h:100,prices:{30:18}},
+  {id:'bart',name:'Bart trimmen',h:45,prices:{30:15}},
+  {id:'faerben',name:'Färben',h:280,prices:{90:65,120:85}},
+  {id:'straehnen',name:'Strähnchen',h:20,prices:{120:75}}]};
+const KEY='pw-terminbuch-salon-v1';
 let storageOk=true;
 
 const pad=n=>String(n).padStart(2,'0');
@@ -265,8 +296,8 @@ function addDays(s,n){const p=s.split('-').map(Number);const d=new Date(p[0],p[1
 const toMin=t=>{const p=String(t).split(':').map(Number);return p[0]*60+(p[1]||0)};
 const fromMin=x=>pad(Math.floor(x/60))+':'+pad(x%60);
 const uid=()=>Math.random().toString(36).slice(2,10);
-const rp=n=>'Rp '+Number(n||0).toLocaleString('id-ID');
-const kfmt=n=>(Number(n||0)/1000).toLocaleString('id-ID')+'K';
+const rp=n=>Number(n||0).toLocaleString('de-DE')+' €';
+const kfmt=n=>Number(n||0).toLocaleString('de-DE')+' €';
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $=id=>document.getElementById(id);
 
@@ -274,9 +305,9 @@ function seed(){
  const t=todayStr(),tm=addDays(t,1);
  const B=(date,start,dur,tr,th,guest,status)=>({id:uid(),date,start,dur,treatmentId:tr,therapistId:th,guest,phone:'',notes:'',price:(DEF.treatments.find(x=>x.id===tr).prices[dur])||0,status:status||'booked',example:true});
  return {settings:JSON.parse(JSON.stringify(DEF)),bookings:[
-  B(t,'10:30',90,'full','t1','Sophie','done'),B(t,'11:00',60,'foot','t2','Tom','done'),B(t,'12:00',60,'aroma','t3','Lena'),
-  B(t,'13:00',90,'stone','t1','Marco'),B(t,'14:00',60,'aloe','t4','Yuki'),B(t,'15:30',60,'full','t2','Pak Budi'),
-  B(t,'17:00',30,'head','t3','Emma'),B(t,'19:00',120,'full','t4','Chris'),B(tm,'10:00',90,'full','t1','Julia'),B(tm,'16:00',60,'foot','t2','Daniel')]};
+  B(t,'09:00',60,'damen','t1','Frau Weber','done'),B(t,'09:30',30,'herren','t2','Herr Klein','done'),B(t,'10:00',30,'kinder','t3','Leon'),
+  B(t,'10:30',90,'faerben','t1','Sabine K.'),B(t,'11:00',30,'bart','t2','Mehmet A.'),B(t,'13:00',120,'straehnen','t3','Jana R.'),
+  B(t,'14:00',60,'damen','t1','Laura M.'),B(t,'15:30',30,'herren','t2','Peter W.'),B(tm,'09:30',60,'damen','t1','Frau Schmidt'),B(tm,'11:00',30,'herren','t2','Tom B.')]};
 }
 function valid(o){return o&&o.settings&&Array.isArray(o.settings.therapists)&&Array.isArray(o.settings.treatments)&&Array.isArray(o.bookings)}
 function load(){try{const s=localStorage.getItem(KEY);if(s){const o=JSON.parse(s);if(valid(o))return o}}catch(e){storageOk=false}return null}
@@ -292,12 +323,12 @@ const T=()=>I18N[S().lang]||I18N.en;
 const trById=id=>S().treatments.find(x=>x.id===id);
 const thById=id=>S().therapists.find(x=>x.id===id);
 const endOf=b=>toMin(b.start)+Number(b.dur);
-function suggestPrice(tr,dur){if(!tr)return {p:0};const ks=Object.keys(tr.prices||{}).map(Number).filter(k=>tr.prices[k]>0);if(tr.prices&&tr.prices[dur])return {p:tr.prices[dur],menu:true};if(!ks.length)return {p:0};const base=ks.reduce((a,k)=>Math.abs(k-dur)<Math.abs(a-dur)||(Math.abs(k-dur)===Math.abs(a-dur)&&k>a)?k:a,ks[0]);return {p:Math.round(tr.prices[base]/base*dur/5000)*5000,base}}
+function suggestPrice(tr,dur){if(!tr)return {p:0};const ks=Object.keys(tr.prices||{}).map(Number).filter(k=>tr.prices[k]>0);if(tr.prices&&tr.prices[dur])return {p:tr.prices[dur],menu:true};if(!ks.length)return {p:0};const base=ks.reduce((a,k)=>Math.abs(k-dur)<Math.abs(a-dur)||(Math.abs(k-dur)===Math.abs(a-dur)&&k>a)?k:a,ks[0]);return {p:Math.round(tr.prices[base]/base*dur),base}}
 const isActive=b=>b.status==='booked'||b.status==='done';
 const dayBookings=date=>state.bookings.filter(b=>b.date===date).sort((a,b)=>toMin(a.start)-toMin(b.start));
 function conflictsFor(date,start,dur,thId,exId){const s=toMin(start),e=s+Number(dur);return state.bookings.filter(b=>b.id!==exId&&b.date===date&&b.therapistId===thId&&isActive(b)&&toMin(b.start)<e&&s<endOf(b))}
 const freeTherapists=(date,start,dur,exId)=>S().therapists.filter(t=>conflictsFor(date,start,dur,t.id,exId).length===0);
-function fmtDate(s,opts){const p=s.split('-').map(Number);try{return new Intl.DateTimeFormat(S().lang==='id'?'id-ID':'en-GB',opts||{weekday:'short',day:'numeric',month:'short',year:'numeric'}).format(new Date(p[0],p[1]-1,p[2]))}catch(e){return s}}
+function fmtDate(s,opts){const p=s.split('-').map(Number);try{return new Intl.DateTimeFormat(S().lang==='de'?'de-DE':'en-GB',opts||{weekday:'short',day:'numeric',month:'short',year:'numeric'}).format(new Date(p[0],p[1]-1,p[2]))}catch(e){return s}}
 
 let toastTimer;
 function toast(msg){const el=$('toast');el.textContent=msg;el.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>{el.hidden=true},2200)}
@@ -306,12 +337,12 @@ function render(){
  const t=T();
  document.documentElement.lang=S().lang;
  document.querySelectorAll('[data-t]').forEach(el=>{const k=el.getAttribute('data-t');if(typeof t[k]==='string')el.textContent=t[k]});
- $('spaTitle').textContent=S().spaName||'Spa';
+ $('spaTitle').textContent=S().spaName||'Salon';
  $('dateLabel').textContent=fmtDate(ui.date);
  $('jumpDate').value=ui.date;
  $('todayBtn').disabled=ui.date===todayStr();
  [['vSched','sched'],['vList','list'],['vMenu','menu']].forEach(([b,v])=>$(b).setAttribute('aria-pressed',String(ui.view===v)));
- $('lId').setAttribute('aria-pressed',String(S().lang==='id'));$('lEn').setAttribute('aria-pressed',String(S().lang==='en'));
+ $('lDe').setAttribute('aria-pressed',String(S().lang==='de'));$('lEn').setAttribute('aria-pressed',String(S().lang==='en'));
  const day=dayBookings(ui.date);
  renderNote();renderStats(day);
  $('stats').hidden=ui.view==='menu';
@@ -374,18 +405,18 @@ function openForm(id,pre){
  openSheet(`<form id="bf" novalidate>
   <div class="sheet-head"><h2>${esc(b?t.edit:t.add)}</h2>${closeX(t)}</div>
   <div class="field"><label for="f_guest">${esc(t.guest)}</label><input id="f_guest" autocomplete="off" value="${esc(d.guest)}"></div>
-  <div class="field"><label for="f_phone">${esc(t.phone)}</label><input id="f_phone" inputmode="tel" autocomplete="off" placeholder="+62 …" value="${esc(d.phone)}"></div>
+  <div class="field"><label for="f_phone">${esc(t.phone)}</label><input id="f_phone" inputmode="tel" autocomplete="off" placeholder="+49 …" value="${esc(d.phone)}"></div>
   <div class="row2"><div class="field"><label for="f_date">${esc(t.date)}</label><input type="date" id="f_date" value="${esc(d.date)}"></div><div class="field"><label for="f_time">${esc(t.time)}</label><select id="f_time">${timeOpts(d.start)}</select></div></div>
   <div class="field"><label for="f_tr">${esc(t.treatment)}</label><select id="f_tr">${s.treatments.map(x=>`<option value="${esc(x.id)}" ${x.id===d.treatmentId?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div>
   <div class="row2"><div class="field"><label for="f_dur">${esc(t.duration)}</label><select id="f_dur"></select></div><div class="field"><label for="f_th">${esc(t.therapist)}</label><select id="f_th"><option value="any">${esc(t.anyTherapist)}</option>${s.therapists.map(x=>`<option value="${esc(x.id)}" ${x.id===d.therapistId?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div>
-  <div class="pricefield"><label for="f_pr">${esc(t.priceRp)}</label><div class="pin"><span aria-hidden="true">Rp</span><input id="f_pr" inputmode="numeric" autocomplete="off"></div><small id="f_prh"></small></div>
+  <div class="pricefield"><label for="f_pr">${esc(t.priceRp)}</label><div class="pin"><span aria-hidden="true">€</span><input id="f_pr" inputmode="numeric" autocomplete="off"></div><small id="f_prh"></small></div>
   <div id="f_msg" class="msg" hidden></div>
   <div class="field"><label for="f_notes">${esc(t.notes)}</label><textarea id="f_notes" rows="2">${esc(d.notes)}</textarea></div>
   <div class="actions"><button type="button" class="btn" data-close>${esc(t.cancel)}</button><button type="submit" class="btn primary" id="f_save">${esc(t.save)}</button></div>
  </form>`);
  let prEdited=!!b;const prNum=()=>Number(($('f_pr').value||'').replace(/[^0-9]/g,''))||0;
- const fillDur=(first)=>{const tr=trById($('f_tr').value);const menu=DUR.filter(m=>tr&&tr.prices[m]);const cur=Number($('f_dur').value)||Number(d.dur);const ds=BDUR.slice();if(cur&&!ds.includes(cur)){ds.push(cur);ds.sort((a,b)=>a-b)}const sel=first?cur:(menu.includes(cur)?cur:(menu[0]||cur));$('f_dur').innerHTML=ds.map(m=>`<option value="${m}" ${m===sel?'selected':''}>${m} ${esc(t.min)}</option>`).join('')};
- const fillPrice=()=>{const tr=trById($('f_tr').value);const dur=Number($('f_dur').value);const sp=suggestPrice(tr,dur);if(!prEdited)$('f_pr').value=sp.p?sp.p.toLocaleString('id-ID'):'';const own=prEdited&&prNum()!==sp.p;$('f_prh').textContent=own?t.priceOwn:(sp.menu?t.priceMenu:(sp.base?t.priceCalc(sp.base,rp(tr.prices[sp.base])):''))};
+ const fillDur=(first)=>{const tr=trById($('f_tr').value);const menu=DUR.filter(m=>tr&&tr.prices[m]);const cur=Number($('f_dur').value)||Number(d.dur);const ds=BDUR.slice();if(cur&&!ds.includes(cur)){ds.push(cur);ds.sort((a,b)=>a-b)}const sel=first&&b?cur:(menu.includes(cur)?cur:(menu[0]||cur));$('f_dur').innerHTML=ds.map(m=>`<option value="${m}" ${m===sel?'selected':''}>${m} ${esc(t.min)}</option>`).join('')};
+ const fillPrice=()=>{const tr=trById($('f_tr').value);const dur=Number($('f_dur').value);const sp=suggestPrice(tr,dur);if(!prEdited)$('f_pr').value=sp.p?sp.p.toLocaleString('de-DE'):'';const own=prEdited&&prNum()!==sp.p;$('f_prh').textContent=own?t.priceOwn:(sp.menu?t.priceMenu:(sp.base?t.priceCalc(sp.base,rp(tr.prices[sp.base])):''))};
  const check=()=>{
   $('f_save').textContent=t.save;
   const tr=trById($('f_tr').value);const dur=Number($('f_dur').value);
@@ -397,11 +428,11 @@ function openForm(id,pre){
   else{const c=conflictsFor(date,start,dur,th,id);if(c.length){const free=freeTherapists(date,start,dur,id);const nm=(thById(th)||{name:'—'}).name;msg.className='msg warn';notes.push(`<p>${esc(t.conflict(nm,c[0].start,fromMin(endOf(c[0]))))}</p>`);notes.push(free.length?`<p>${esc(t.freeAt)}</p><div class="chips">${free.map(f=>`<button type="button" class="chip" data-pick="${esc(f.id)}">${esc(f.name)}</button>`).join('')}</div>`:`<p>${esc(t.noneFree)}</p>`);$('f_save').textContent=t.saveAnyway}else if(notes.length)msg.className='msg warn'}
   if(notes.length){msg.innerHTML=notes.join('');msg.hidden=false}
  };
- fillDur(true);if(b)$('f_pr').value=Number(b.price||0).toLocaleString('id-ID');fillPrice();check();
+ fillDur(true);if(b)$('f_pr').value=Number(b.price||0).toLocaleString('de-DE');fillPrice();check();
  $('f_tr').addEventListener('change',()=>{prEdited=false;fillDur();fillPrice();check()});
  $('f_dur').addEventListener('change',()=>{prEdited=false;fillPrice();check()});
  $('f_pr').addEventListener('input',()=>{prEdited=true;fillPrice()});
- $('f_pr').addEventListener('blur',()=>{const n=prNum();$('f_pr').value=n?n.toLocaleString('id-ID'):''});
+ $('f_pr').addEventListener('blur',()=>{const n=prNum();$('f_pr').value=n?n.toLocaleString('de-DE'):''});
  ['f_date','f_time','f_th'].forEach(i=>$(i).addEventListener('change',check));
  $('f_msg').addEventListener('click',e=>{const p=e.target.closest('[data-pick]');if(p){$('f_th').value=p.dataset.pick;check()}});
  $('bf').addEventListener('submit',e=>{
@@ -421,7 +452,7 @@ function openDetail(id){
  const t=T();const b=state.bookings.find(x=>x.id===id);if(!b)return;
  const tr=trById(b.treatmentId)||{name:'?',h:0};const th=thById(b.therapistId);
  let wa='';
- if(b.phone){let digits=b.phone.replace(/[^0-9]/g,'');if(digits.startsWith('0'))digits='62'+digits.slice(1);if(digits)wa='https://wa.me/'+digits+'?text='+encodeURIComponent(t.remindMsg(S().spaName,b.guest,tr.name,fmtDate(b.date,{weekday:'long',day:'numeric',month:'long'}),b.start))}
+ if(b.phone){let digits=b.phone.replace(/[^0-9]/g,'');if(digits.startsWith('0'))digits='49'+digits.slice(1);if(digits)wa='https://wa.me/'+digits+'?text='+encodeURIComponent(t.remindMsg(S().spaName,b.guest,tr.name,fmtDate(b.date,{weekday:'long',day:'numeric',month:'long'}),b.start))}
  const others=['booked','done','noshow','cancelled'].filter(x=>x!==b.status);
  openSheet(`<div class="sheet-head"><h2>${esc(b.guest)}</h2>${closeX(t)}</div>
   <dl class="facts">
@@ -447,7 +478,7 @@ function openSettings(){
  const t=T(),s=S();
  const hrs=[];for(let m=6*60;m<=24*60;m+=30)hrs.push(fromMin(m));
  const thRow=th=>`<div class="ed-row" data-id="${esc(th.id)}"><input id="s_th_${esc(th.id)}" aria-label="${esc(t.therapist)}" value="${esc(th.name)}"><button type="button" class="btn iconbtn" data-rmth aria-label="${esc(t.remove)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>`;
- const trRow=tr=>`<tr data-id="${esc(tr.id)}" data-h="${tr.h}"><td><input id="s_tr_${esc(tr.id)}" class="nm" aria-label="${esc(t.treatment)}" value="${esc(tr.name)}"></td>${DUR.map(m=>`<td><input id="s_tr_${esc(tr.id)}_${m}" class="pr" data-m="${m}" inputmode="numeric" aria-label="${m} ${esc(t.min)}" value="${tr.prices[m]?Number(tr.prices[m]).toLocaleString('id-ID'):''}"></td>`).join('')}<td><button type="button" class="btn iconbtn" data-rmtr aria-label="${esc(t.remove)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></td></tr>`;
+ const trRow=tr=>`<tr data-id="${esc(tr.id)}" data-h="${tr.h}"><td><input id="s_tr_${esc(tr.id)}" class="nm" aria-label="${esc(t.treatment)}" value="${esc(tr.name)}"></td>${DUR.map(m=>`<td><input id="s_tr_${esc(tr.id)}_${m}" class="pr" data-m="${m}" inputmode="numeric" aria-label="${m} ${esc(t.min)}" value="${tr.prices[m]?Number(tr.prices[m]).toLocaleString('de-DE'):''}"></td>`).join('')}<td><button type="button" class="btn iconbtn" data-rmtr aria-label="${esc(t.remove)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></td></tr>`;
  openSheet(`<div class="sheet-head"><h2>${esc(t.settings)}</h2>${closeX(t)}</div>
   <div class="field"><label for="s_name">${esc(t.spaName)}</label><input id="s_name" value="${esc(s.spaName)}"></div>
   <div class="row2"><div class="field"><label for="s_open">${esc(t.open)}</label><select id="s_open">${hrs.map(h=>`<option ${h===s.open?'selected':''}>${h}</option>`).join('')}</select></div><div class="field"><label for="s_close">${esc(t.closeH)}</label><select id="s_close">${hrs.map(h=>`<option ${h===s.close?'selected':''}>${h}</option>`).join('')}</select></div></div>
@@ -492,7 +523,7 @@ const setView=v=>{ui.view=v;try{localStorage.setItem(KEY+':view',v)}catch(e){}re
 $('vSched').addEventListener('click',()=>setView('sched'));
 $('vList').addEventListener('click',()=>setView('list'));
 $('vMenu').addEventListener('click',()=>setView('menu'));
-$('lId').addEventListener('click',()=>{S().lang='id';persist();render()});
+$('lDe').addEventListener('click',()=>{S().lang='de';persist();render()});
 $('lEn').addEventListener('click',()=>{S().lang='en';persist();render()});
 $('openSettings').addEventListener('click',openSettings);
 $('addBtn').addEventListener('click',()=>openForm(null));
