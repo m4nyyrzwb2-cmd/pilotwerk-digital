@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Stempelkarte Demo – Pilotwerk Digital</title>
+<link rel="canonical" href="https://pilotwerk-digital.de/stempelkarte/demo/">
+<meta name="description" content="Demo der digitalen Stempelkarte von Pilotwerk Digital: Kundenkarte im Wallet, Stempeln per Scan, Nachrichten an Kunden, Übersicht über Kunden und Umsatz.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+/* Layout: page head -> stage. Wide screens: customer phone on the left, staff/owner panels on the right. Narrow: three tabs. */
+.demo-head{text-align:center;padding-block:48px 8px}
+.demo-head h1{font-family:var(--display);font-weight:700;font-size:clamp(36px,6vw,56px);letter-spacing:-.035em;line-height:1.05;margin:0 0 10px}
+.demo-head p{color:var(--muted);font-size:18px;max-width:34em;margin:0 auto}
+.demo-note{display:inline-block;margin-top:14px;font-size:13px;font-weight:600;color:var(--accent);border:1px solid var(--accent);border-radius:980px;padding:4px 12px}
+.tabs{display:flex;justify-content:center;margin:28px 0 24px}
+.tabs .seg{display:inline-flex;background:var(--bg2);border-radius:980px;padding:4px;gap:2px}
+.tabs button{font:inherit;font-size:15px;font-weight:600;border:0;background:transparent;color:var(--muted);padding:9px 18px;border-radius:980px;cursor:pointer;min-height:40px}
+.tabs button[aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tabs button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.stage{display:grid;grid-template-columns:1fr;gap:32px;padding-bottom:96px}
+.panel[hidden]{display:none!important}
+@media (min-width:900px){
+  .stage{grid-template-columns:360px minmax(0,1fr);align-items:start}
+  #p-kunde{display:block!important;position:sticky;top:76px}
+  .tabs [data-tab="kunde"]{display:none}
+}
+/* phone */
+.phone{width:340px;max-width:100%;margin:0 auto;border-radius:50px;padding:10px;background:#1D1D1F;box-shadow:0 40px 80px -24px rgba(0,0,0,.35)}
+.ph-screen{border-radius:41px;overflow:hidden;background:#F2F2F7;min-height:640px;position:relative;padding:54px 16px 24px;color:#1D1D1F}
+.ph-time{position:absolute;top:16px;left:0;right:0;text-align:center;font-weight:600;font-size:14px}
+.notif{position:absolute;left:12px;right:12px;top:40px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:18px;padding:11px 13px;box-shadow:0 10px 30px rgba(0,0,0,.18);display:flex;gap:10px;z-index:3;font-size:13px;line-height:1.35}
+.notif i{flex:none;width:34px;height:34px;border-radius:9px;background:var(--wc,#1D1D1F)}
+.notif b{display:block;font-size:13px}
+@media (prefers-reduced-motion:no-preference){.notif{animation:drop .35s ease-out}@keyframes drop{from{transform:translateY(-14px);opacity:.4}to{transform:none;opacity:1}}}
+.ph-label{font-size:13px;font-weight:600;color:#6E6E73;margin:6px 4px 10px;display:flex;justify-content:space-between}
+.wcard{border-radius:18px;background:var(--wc,#1D1D1F);color:#FFFFFF;padding:16px 18px;box-shadow:0 18px 40px -18px rgba(0,0,0,.5)}
+.wcard .row1{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.wcard .biz{font-weight:700;font-size:17px;display:flex;align-items:center;gap:9px}
+.wcard .biz i{width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.22);display:inline-grid;place-items:center;font-style:normal;font-size:13px}
+.wcard .lbl{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.wcard .val{font-size:15px;font-weight:600}
+.wcard .stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:18px 0 14px}
+.wcard .stamps i{aspect-ratio:1;border-radius:50%;border:2px solid rgba(255,255,255,.8)}
+.wcard .stamps i.on{background:#FFFFFF}
+.wcard .stamps i.pop{animation:pop .35s ease-out}
+@keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.wcard .stamps i.pop{animation:none}}
+.wcard .row2{display:flex;justify-content:space-between;gap:12px}
+.qr{background:#FFFFFF;border-radius:14px;margin:16px auto 0;width:170px;padding:12px;text-align:center}
+.qr svg{display:block;width:100%;height:auto}
+.qr small{display:block;font-size:11px;color:#6E6E73;margin-top:6px;font-variant-numeric:tabular-nums}
+.addw{display:flex;align-items:center;justify-content:center;gap:8px;margin:18px auto 0;width:100%;max-width:250px;background:#000000;color:#FFFFFF;border-radius:12px;padding:11px;font-weight:600;font-size:14px;border:0}
+.reward{margin-top:14px;background:#FFFFFF;border-radius:14px;padding:12px 14px;font-size:13.5px;display:flex;gap:10px;align-items:center}
+.reward b{font-size:14px}
+/* panels */
+.card2{background:var(--bg2);border-radius:26px;padding:26px;display:flex;flex-direction:column;gap:14px}
+.card2 + .card2{margin-top:20px}
+.card2 h2{font-family:var(--display);font-size:26px;letter-spacing:-.025em;margin:0;max-width:none;text-align:left}
+.card2 p.hint{margin:0;color:var(--muted);font-size:15px}
+.scan{display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px;border:2px dashed var(--line);border-radius:20px;text-align:center}
+.scan .vf{width:150px;height:150px;border-radius:18px;position:relative;background:var(--card)}
+.scan .vf::before,.scan .vf::after{content:"";position:absolute;inset:14px;border:3px solid var(--accent);border-radius:12px;clip-path:polygon(0 0,30% 0,30% 6%,6% 6%,6% 30%,0 30%,0 70%,6% 70%,6% 94%,30% 94%,30% 100%,70% 100%,70% 94%,94% 94%,94% 70%,100% 70%,100% 30%,94% 30%,94% 6%,70% 6%,70% 0,100% 0,100% 100%,0 100%)}
+.scan .vf::after{border:0;clip-path:none;inset:auto 22px 50% 22px;height:2px;background:var(--accent);opacity:.8}
+.found{background:var(--card);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.found .who{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.found .who b{font-size:18px}
+.found .who span{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.bar{height:10px;border-radius:980px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:980px;transition:width .3s}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px}
+.btnrow .btn{flex:1 1 160px}
+.btn:disabled{opacity:.4;cursor:default}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:620px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{background:var(--card);border-radius:18px;padding:16px}
+.stat b{display:block;font-family:var(--display);font-size:30px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:13px;color:var(--muted)}
+label.fl{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
+textarea,select,input[type=text]{font:inherit;font-size:16px;width:100%;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:12px 14px}
+textarea{min-height:84px;resize:vertical}
+textarea:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.presets{display:flex;flex-wrap:wrap;gap:8px}
+.presets button{font:inherit;font-size:13.5px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:980px;padding:6px 12px;cursor:pointer}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);border-radius:16px;padding:14px 16px}
+.switch b{display:block}
+.switch span{font-size:14px;color:var(--muted)}
+.tgl{position:relative;width:52px;height:32px;flex:none;border-radius:980px;border:0;background:var(--line);cursor:pointer}
+.tgl::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:left .2s}
+.tgl[aria-checked="true"]{background:var(--accent)}
+.tgl[aria-checked="true"]::after{left:23px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:620px){.grid2{grid-template-columns:1fr}}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:980px;font-weight:600;font-size:14px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:calc(100% - 32px);text-align:center}
+.tag{display:inline-block;vertical-align:middle;margin-left:8px;font-family:var(--font, inherit);font-size:12px;font-weight:600;letter-spacing:0;color:var(--accent);border:1px solid var(--accent);border-radius:980px;padding:2px 9px}
+.amt{display:flex;flex-direction:column;gap:6px}
+.amt .in{position:relative}
+.amt .in input{padding-right:40px;font-variant-numeric:tabular-nums}
+.amt .in span{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:600}
+.amt small{color:var(--muted);font-size:13px}
+.ktab{width:100%;border-collapse:collapse;background:var(--card);border-radius:18px;overflow:hidden;font-size:14.5px}
+.ktab th,.ktab td{padding:11px 14px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.ktab th:first-child,.ktab td:first-child{text-align:left}
+.ktab thead th{font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.ktab tbody tr:last-child td{border-bottom:0}
+.ktab td.old{color:var(--accent);font-weight:600}
+@media (max-width:480px){.ktab th:nth-child(4),.ktab td:nth-child(4){display:none}}
+.cta-end{text-align:center;padding-bottom:80px}
+.cta-end p{color:var(--muted);margin:0 0 18px}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="/" aria-label="Pilotwerk Digital, Startseite">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect class="mk-bg" width="40" height="40" rx="11"/><path class="mk-ar" d="M10 29 C 16 29, 20 23, 23.5 17.5 L 29 11" stroke-width="4" fill="none" stroke-linecap="round"/><path class="mk-ar" d="M21.5 11 H29 V18.5" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Pilotwerk</span><em>Digital</em>
+    </a>
+    <nav class="links" aria-label="Hauptmenü"><a href="/stempelkarte/">Stempelkarte</a><a href="/#preise">Preise</a><a class="mini" href="/#kontakt">Kontakt</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="demo-head">
+    <h1>Digitale Stempelkarte</h1>
+    <p>So sieht es für Ihre Kunden, Ihr Personal und Sie als Inhaber aus. Probieren Sie es aus: mit Bonbetrag stempeln, Prämie einlösen, Umsatz ansehen, Nachricht senden.</p>
+    <span class="demo-note">Demo mit Beispieldaten · nichts wird gesendet</span>
+  </div>
+
+  <div class="tabs">
+    <div class="seg" role="tablist" aria-label="Ansicht">
+      <button type="button" role="tab" data-tab="kunde" aria-selected="true">Kunde</button>
+      <button type="button" role="tab" data-tab="personal" aria-selected="false">Personal</button>
+      <button type="button" role="tab" data-tab="inhaber" aria-selected="false">Inhaber</button>
+    </div>
+  </div>
+
+  <div class="stage">
+    <!-- Customer -->
+    <div class="panel" id="p-kunde" role="tabpanel" aria-label="Kundenansicht">
+      <div class="phone">
+        <div class="ph-screen" id="screen">
+          <div class="ph-time" id="clock">9:41</div>
+          <div id="notifSlot"></div>
+          <div class="ph-label"><span>Wallet</span><span>Kundenkarte</span></div>
+          <div class="wcard" id="wcard">
+            <div class="row1">
+              <div class="biz"><i id="bizIni">C</i><span id="bizName">Café am Markt</span></div>
+              <div style="text-align:right"><div class="lbl">Stempel</div><div class="val" id="cnt">7 / 10</div></div>
+            </div>
+            <div class="stamps" id="stamps"></div>
+            <div class="row2">
+              <div><div class="lbl">Prämie</div><div class="val" id="rewardTxt">1 Kaffee gratis</div></div>
+              <div style="text-align:right"><div class="lbl">Mitglied</div><div class="val">#A7K2</div></div>
+            </div>
+          </div>
+          <div class="qr" aria-hidden="true"><svg id="qr" viewBox="0 0 25 25" shape-rendering="crispEdges"></svg><small>A7K2-4410</small></div>
+          <div class="reward" id="rewardBox" hidden><i style="flex:none;width:28px;height:28px;border-radius:50%;background:#FF6A13;color:#fff;display:grid;place-items:center;font-style:normal;font-weight:700">✓</i><span><b>Prämie bereit!</b><br>Zeigen Sie die Karte an der Kasse.</span></div>
+          <button type="button" class="addw" aria-label="Beispiel-Button: Zum Wallet hinzufügen">Zum Wallet hinzufügen</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Staff -->
+    <div class="panel" id="p-personal" role="tabpanel" aria-label="Personalansicht" hidden>
+      <div class="card2">
+        <h2>An der Kasse</h2>
+        <p class="hint">Das Personal scannt die Karte mit dem Handy. Kein Zusatzgerät, keine App.</p>
+        <div class="scan" id="scanBox">
+          <div class="vf" aria-hidden="true"></div>
+          <button type="button" class="btn solid" id="scanBtn">Kundenkarte scannen</button>
+        </div>
+        <div class="found" id="found" hidden>
+          <div class="who"><b>Karte #A7K2</b><span id="fCnt">7 von 10 Stempeln</span></div>
+          <div class="bar"><i id="fBar" style="width:70%"></i></div>
+          <div class="amt">
+            <label class="fl" for="amt" style="margin:0">Bonbetrag (freiwillig)</label>
+            <div class="in"><input type="text" id="amt" inputmode="decimal" autocomplete="off" placeholder="z. B. 8,50"><span aria-hidden="true">€</span></div>
+            <small>Mit Betrag sehen Sie als Inhaber, wie viel Umsatz Ihre Stammkunden bringen.</small>
+          </div>
+          <div class="btnrow">
+            <button type="button" class="btn solid" id="addStamp">+1 Stempel</button>
+            <button type="button" class="btn line" id="redeem" disabled>Prämie einlösen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Owner -->
+    <div class="panel" id="p-inhaber" role="tabpanel" aria-label="Inhaberansicht" hidden>
+      <div class="card2">
+        <h2>Überblick</h2>
+        <div class="stats">
+          <div class="stat"><b id="sKunden">312</b><span>Kunden mit Karte</span></div>
+          <div class="stat"><b id="sHeute">48</b><span>Stempel heute</span></div>
+          <div class="stat"><b id="sRevDay">386 €</b><span>Umsatz Stammkunden heute</span></div>
+          <div class="stat"><b id="sRevMon">6.940 €</b><span>Umsatz Stammkunden im Monat</span></div>
+          <div class="stat"><b id="sBon">8,40 €</b><span>Ø Bon pro Besuch</span></div>
+          <div class="stat"><b id="sPraemien">19</b><span>Prämien eingelöst</span></div>
+          <div class="stat"><b>23</b><span>neue Kunden im Monat</span></div>
+          <div class="stat"><b>64 %</b><span>kommen wieder</span></div>
+        </div>
+      </div>
+      <div class="card2">
+        <h2>Ihre Stammkunden</h2>
+        <p class="hint">Wer am häufigsten kommt. Orange markiert: länger als 30 Tage nicht da.</p>
+        <table class="ktab">
+          <thead><tr><th scope="col">Kunde</th><th scope="col">Besuche</th><th scope="col">Umsatz</th><th scope="col">Zuletzt da</th></tr></thead>
+          <tbody>
+            <tr><td>Sabine K.</td><td>34</td><td>291 €</td><td>heute</td></tr>
+            <tr><td>Mehmet A.</td><td>29</td><td>262 €</td><td>gestern</td></tr>
+            <tr><td>Jana R.</td><td>22</td><td>174 €</td><td>vor 3 Tagen</td></tr>
+            <tr><td>Peter W.</td><td>19</td><td>205 €</td><td class="old">vor 38 Tagen</td></tr>
+            <tr><td>Karte #A7K2</td><td id="kVisits">17</td><td id="kRev">139 €</td><td id="kLast">vor 5 Tagen</td></tr>
+          </tbody>
+        </table>
+        <p class="hint" style="font-size:13px">Name nur, wenn der Kunde ihn freiwillig angibt. Sonst erscheint die Kartennummer.</p>
+      </div>
+      <div class="card2">
+        <h2>Nachricht an Ihre Kunden</h2>
+        <p class="hint">Erscheint als Mitteilung auf dem Handy der Kartenbesitzer.</p>
+        <div><label class="fl" for="to">An wen?</label>
+          <select id="to"><option value="312">Alle Kunden (312)</option><option value="118">Stammkunden mit 5+ Besuchen (118)</option><option value="41">Länger als 30 Tage nicht da (41)</option></select></div>
+        <div class="presets" id="presets">
+          <button type="button">Heute bis 18 Uhr: jeder Kaffee 2 €</button>
+          <button type="button">Neu bei uns: hausgemachter Apfelkuchen</button>
+          <button type="button">Am Samstag doppelte Stempel</button>
+        </div>
+        <label class="fl" for="msg">Ihre Nachricht</label>
+        <textarea id="msg" maxlength="120" placeholder="z. B. Heute bis 18 Uhr: jeder Kaffee 2 €"></textarea>
+        <button type="button" class="btn solid" id="send">Nachricht senden</button>
+      </div>
+      <div class="card2">
+        <h2>Automatische Rückholung<span class="tag">inklusive</span></h2>
+        <div class="switch">
+          <div><b>Kunden zurückholen</b><span id="rbTxt">Wer 21 Tage nicht da war, bekommt automatisch eine Nachricht.</span></div>
+          <button type="button" class="tgl" id="rb" role="switch" aria-checked="true" aria-label="Automatische Rückholung"></button>
+        </div>
+        <div class="grid2">
+          <div><label class="fl" for="days">Nach wie vielen Tagen?</label><select id="days"><option>14</option><option selected>21</option><option>30</option><option>45</option></select></div>
+          <div><label class="fl" for="rbMsg">Nachricht</label><input type="text" id="rbMsg" value="Lange nicht gesehen! Heute gibt es einen Stempel extra."></div>
+        </div>
+        <button type="button" class="btn line" id="rbTest">Vorschau auf dem Kundenhandy</button>
+      </div>
+      <div class="card2">
+        <h2>Ihre Karte</h2>
+        <div class="grid2">
+          <div><label class="fl" for="setName">Name des Betriebs</label><input type="text" id="setName" value="Café am Markt"></div>
+          <div><label class="fl" for="setReward">Prämie</label><input type="text" id="setReward" value="1 Kaffee gratis"></div>
+          <div><label class="fl" for="setNeed">Stempel bis zur Prämie</label><select id="setNeed"><option>5</option><option>8</option><option selected>10</option></select></div>
+          <div><label class="fl" for="setColor">Farbe der Karte</label><select id="setColor"><option value="#1D1D1F" selected>Graphit</option><option value="#FF6A13">Orange</option><option value="#1F4E3D">Waldgrün</option><option value="#6B2D2D">Bordeaux</option><option value="#24406E">Nachtblau</option></select></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-end">
+    <p>Die Stempelkarte gibt es für 29 € im Monat, alles inklusive. Die ersten 30 Tage sind kostenlos.</p>
+    <a class="btn solid" href="/stempelkarte/">So funktioniert die Stempelkarte</a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Pilotwerk Digital · Inhaber Lukas Seibel · Bad Berleburg</span>
+    <nav aria-label="Rechtliches"><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></nav>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+  var KEY='pw-stempel-demo-v1';
+  var st={count:7,need:10,name:'Café am Markt',reward:'1 Kaffee gratis',color:'#1D1D1F',today:48,redeemed:19,customers:312,rb:true,days:21,revDay:386,revMon:6940,bons:826,kVisits:17,kRev:139,kToday:false};
+  var eur0=new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+  var eur2=new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'});
+  try{var saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&typeof saved==='object'){for(var k in saved)if(k in st)st[k]=saved[k]}}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+  var $=function(id){return document.getElementById(id)};
+  var tt;function toast(t){var el=$('toast');el.textContent=t;el.hidden=false;clearTimeout(tt);tt=setTimeout(function(){el.hidden=true},2600)}
+
+  // decorative QR-like pattern (not a real code)
+  (function(){var n=25,s='',seed=7;function r(){seed=(seed*9301+49297)%233280;return seed/233280}
+    function finder(x,y){s+='<rect x="'+x+'" y="'+y+'" width="7" height="7" fill="#000"/><rect x="'+(x+1)+'" y="'+(y+1)+'" width="5" height="5" fill="#fff"/><rect x="'+(x+2)+'" y="'+(y+2)+'" width="3" height="3" fill="#000"/>'}
+    for(var y=0;y<n;y++)for(var x=0;x<n;x++){var inF=(x<8&&y<8)||(x>16&&y<8)||(x<8&&y>16);if(!inF&&r()>.52)s+='<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="#000"/>'}
+    finder(0,0);finder(18,0);finder(0,18);$('qr').innerHTML=s})();
+
+  function clock(){var d=new Date();$('clock').textContent=d.getHours()+':'+String(d.getMinutes()).padStart(2,'0')}
+  clock();setInterval(clock,30000);
+
+  var popIdx=-1;
+  function render(){
+    document.documentElement.style.setProperty('--wc',st.color);
+    $('wcard').style.background=st.color;
+    $('bizName').textContent=st.name||'Ihr Betrieb';
+    $('bizIni').textContent=(st.name||'?').trim().charAt(0).toUpperCase();
+    $('rewardTxt').textContent=st.reward||'Prämie';
+    $('cnt').textContent=st.count+' / '+st.need;
+    var h='';for(var i=0;i<st.need;i++)h+='<i class="'+(i<st.count?'on':'')+(i===popIdx?' pop':'')+'"></i>';
+    $('stamps').innerHTML=h;popIdx=-1;
+    $('rewardBox').hidden=st.count<st.need;
+    $('fCnt').textContent=st.count+' von '+st.need+' Stempeln';
+    $('fBar').style.width=Math.min(100,st.count/st.need*100)+'%';
+    $('addStamp').disabled=st.count>=st.need;
+    $('redeem').disabled=st.count<st.need;
+    $('sHeute').textContent=st.today;$('sPraemien').textContent=st.redeemed;$('sKunden').textContent=st.customers;
+    $('sRevDay').textContent=eur0.format(st.revDay);$('sRevMon').textContent=eur0.format(st.revMon);
+    $('sBon').textContent=eur2.format(st.bons?st.revMon/st.bons:0);
+    $('kVisits').textContent=st.kVisits;$('kRev').textContent=eur0.format(st.kRev);$('kLast').textContent=st.kToday?'heute':'vor 5 Tagen';
+    $('rb').setAttribute('aria-checked',String(st.rb));
+    $('rbTxt').textContent=st.rb?('Wer '+st.days+' Tage nicht da war, bekommt automatisch eine Nachricht.'):'Ausgeschaltet.';
+  }
+
+  var nt;
+  function notify(title,text){
+    var slot=$('notifSlot');
+    slot.innerHTML='<div class="notif" role="status"><i></i><div><b></b><span></span></div></div>';
+    slot.querySelector('b').textContent=title;slot.querySelector('span').textContent=text;
+    clearTimeout(nt);nt=setTimeout(function(){slot.innerHTML=''},6000);
+    if(!isWide())select('kunde');
+  }
+
+  // tabs
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  function isWide(){return window.matchMedia('(min-width:900px)').matches}
+  function select(name){
+    if(isWide()&&name==='kunde')name='personal';
+    tabs.forEach(function(b){b.setAttribute('aria-selected',String(b.dataset.tab===name))});
+    ['kunde','personal','inhaber'].forEach(function(p){$('p-'+p).hidden=(p!==name)});
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){select(b.dataset.tab)})});
+  window.matchMedia('(min-width:900px)').addEventListener('change',function(){var cur=tabs.filter(function(b){return b.getAttribute('aria-selected')==='true'})[0];select(cur?cur.dataset.tab:'personal')});
+  select(isWide()?'personal':'kunde');
+
+  // staff
+  $('scanBtn').addEventListener('click',function(){$('found').hidden=false;$('scanBtn').textContent='Erneut scannen';toast('Karte #A7K2 erkannt')});
+  $('addStamp').addEventListener('click',function(){
+    if(st.count>=st.need)return;
+    var raw=$('amt').value.trim().replace(/\s|€/g,'').replace(/\.(?=\d{3}(\D|$))/g,'').replace(',','.');
+    var a=raw?Number(raw):0;
+    if(raw&&!(a>0&&a<10000)){$('amt').focus();toast('Bitte einen gültigen Betrag eingeben, z. B. 8,50');return}
+    a=Math.round(a*100)/100;
+    st.count++;st.today++;st.kVisits++;st.kToday=true;popIdx=st.count-1;
+    if(a>0){st.revDay+=a;st.revMon+=a;st.bons++;st.kRev+=a}
+    $('amt').value='';save();render();
+    if(st.count>=st.need){notify(st.name,'Glückwunsch! Ihre Prämie ist bereit: '+st.reward+'.')}
+    else{toast('Stempel vergeben · '+st.count+' von '+st.need+(a>0?' · '+eur2.format(a)+' Umsatz erfasst':''))}
+  });
+  $('redeem').addEventListener('click',function(){
+    if(st.count<st.need)return;st.count=0;st.redeemed++;save();render();
+    notify(st.name,'Prämie eingelöst. Danke für Ihren Besuch, die nächste Karte läuft schon!');
+  });
+
+  // owner
+  [].forEach.call(document.querySelectorAll('#presets button'),function(b){b.addEventListener('click',function(){$('msg').value=b.textContent})});
+  $('send').addEventListener('click',function(){
+    var m=$('msg').value.trim();if(!m){$('msg').focus();toast('Bitte zuerst eine Nachricht eingeben');return}
+    var to=$('to');notify(st.name,m);toast('Demo: an '+to.value+' Kunden gesendet');
+  });
+  $('rb').addEventListener('click',function(){st.rb=!st.rb;save();render()});
+  $('days').addEventListener('change',function(e){st.days=Number(e.target.value);save();render()});
+  $('rbTest').addEventListener('click',function(){notify(st.name,$('rbMsg').value||'Lange nicht gesehen!')});
+  $('setName').value=st.name;$('setReward').value=st.reward;$('setNeed').value=String(st.need);$('setColor').value=st.color;$('days').value=String(st.days);
+  $('setName').addEventListener('input',function(e){st.name=e.target.value;save();render()});
+  $('setReward').addEventListener('input',function(e){st.reward=e.target.value;save();render()});
+  $('setNeed').addEventListener('change',function(e){st.need=Number(e.target.value);if(st.count>st.need)st.count=st.need;save();render()});
+  $('setColor').addEventListener('change',function(e){st.color=e.target.value;save();render()});
+
+  render();
+})();
+</script>
+</body>
+</html>

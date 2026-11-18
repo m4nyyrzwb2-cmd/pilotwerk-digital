@@ -74,13 +74,14 @@
         <article class="card" id="stempelkarte">
           <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><circle cx="7.5" cy="12" r="1.8"/><circle cx="12.5" cy="12" r="1.8"/><path d="m16 12 1.5 1.5L20 11"/></svg></span>
           <h3>Digitale Stempelkarte</h3>
-          <p>Stammkunden belohnen, direkt im Apple- und Google-Wallet. Ohne App und ohne Papier.</p>
+          <p>Wie die Stempelkarte aus Papier, nur im Handy Ihrer Kunden. Ohne App. Und Sie können Ihren Kunden schreiben.</p>
           <ul class="ticks">
+            <li>Kunde scannt einen QR-Code, die Karte ist sofort im Handy</li>
             <li>Angebote direkt aufs Handy Ihrer Kunden</li>
-            <li>Sehen, wer wie oft kommt und was er ausgibt</li>
-            <li>Aufsteller mit QR-Code inklusive</li>
+            <li>Wer lange nicht da war, wird automatisch erinnert</li>
           </ul>
-          <div class="foot"><b>29 € <small>/ Monat</small></b><a href="/stempelkarte/">Demo ansehen ›</a></div>
+          <div class="foot"><b>29 € <small>/ Monat</small></b><a href="/stempelkarte/">So funktioniert's ›</a></div>
+          <p class="note">Alles inklusive, 30 Tage kostenlos testen · <a href="/stempelkarte/demo/">Demo ansehen</a></p>
         </article>
 
         <article class="card" id="ki-telefon">
@@ -166,11 +167,11 @@
           <p class="for">Ein Werkzeug nach Wahl.</p>
           <div class="price"><b data-m="ab 19 €" data-y="ab 190 €">ab 19 €</b><span class="per" data-m="pro Monat" data-y="pro Jahr · entspricht 15,83 € im Monat">pro Monat</span></div>
           <p class="setup opt" data-m="Terminbuch 19 € · Stempelkarte 29 € im Monat" data-y="Terminbuch 190 € · Stempelkarte 290 € im Jahr">Terminbuch 19 € · Stempelkarte 29 € im Monat</p>
-          <p class="setup">Einrichtung 49 € · bei 12 Monaten gratis</p>
+          <p class="setup">Einrichtung: Terminbuch 49 €, Stempelkarte gratis</p>
           <ul class="feat">
             <li>Online-Terminbuch <b>oder</b> digitale Stempelkarte</li>
             <li>Terminerinnerung per E-Mail</li>
-            <li>Mit Stempelkarte: Nachrichten an Kunden und Umsatz-Übersicht</li>
+            <li>Mit Stempelkarte: Nachrichten, automatische Rückholung, Monatsbericht</li>
             <li>Einrichtung vor Ort und Einweisung</li>
             <li>Support per WhatsApp innerhalb von 24 Stunden</li>
           </ul>
@@ -388,6 +389,7 @@
   function $(id){return document.getElementById(id)}
   function checked(name){var el=form.querySelector('input[name="'+name+'"]:checked');return el?el.value:''}
   function setErr(id,msg,field){var e=$(id);if(!e)return;e.textContent=msg||'';e.hidden=!msg;if(field)field.setAttribute('aria-invalid',msg?'true':'false')}
+  try{var qi=new URLSearchParams(location.search).get('int');if(qi){var qc=form.querySelector('input[name="int"][value="'+qi.replace(/"/g,'')+'"]');if(qc)qc.checked=true}}catch(_){}
   document.addEventListener('click',function(e){
     var a=e.target.closest('a[data-int],a[data-paket],a[data-pilot]');if(!a)return;
     if(a.dataset.int){var c=form.querySelector('input[name="int"][value="'+a.dataset.int+'"]');if(c)c.checked=true}
