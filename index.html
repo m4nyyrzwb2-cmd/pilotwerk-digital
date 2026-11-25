@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Pilotwerk Digital – Das Update für Ihren Laden</title>
+<title>Pilotwerk Digital – Ihr Betrieb auf Autopilot</title>
 <meta name="description" content="Online-Terminbuch, digitale Stempelkarte, KI-Telefonassistent, Website, Google-Profil, Gestaltung, Videobearbeitung und Geräte-Service für Betriebe in Bad Berleburg und Wittgenstein. Persönlich eingerichtet, monatlich kündbar.">
 <meta name="theme-color" content="#05070D">
 <script>try{var t=localStorage.getItem('pw-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);if(t==='light')document.querySelector('meta[name="theme-color"]').setAttribute('content','#FBFBFD')}}catch(e){}</script>
@@ -30,7 +30,7 @@
   --glass:rgba(9,12,20,.62);--glass2:rgba(13,17,27,.8);--pop:rgba(13,17,27,.96);--veil:rgba(3,4,8,.6);--menu:rgba(5,7,13,.92);--nav-sh:0 10px 40px -18px rgba(0,0,0,.9);
   --demo:rgba(5,7,13,.7);--toast:rgba(18,24,38,.96);--hit:#121826;--ring:#FFFFFF;--word:rgba(238,240,244,.16);--stroke:rgba(255,255,255,.28);--stroke2:rgba(255,255,255,.16);
   --map:#0F1522;--map-w:#1C2A44;--map-r:#1A2233;--dot3:#2A3040;--k-a:#151B28;--k-a-t:#C9D0DC;--k-k:rgba(255,106,19,.14);--k-k-t:#FFD2B8;
-  --feat:linear-gradient(180deg,rgba(255,106,19,.12),rgba(255,255,255,.02) 50%);--feat-sh:none;--hot-sh:0 0 24px rgba(255,106,19,.6);--pilot-a:.22;--orb1:.42;--orb2:.3;--noise:.05;--glow:.11;
+  --feat:linear-gradient(180deg,rgba(255,106,19,.12),rgba(255,255,255,.02) 50%);--feat-sh:none;--hot-sh:0 0 24px rgba(255,106,19,.6);--pilot-a:.22;--orb1:.42;--orb2:.3;--noise:.05;--glow:.11;--ap-glow:.3;--ap-shadow:26px;
   --font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--display:"Inter Display","Inter",ui-sans-serif,system-ui,sans-serif;--mono:"Pilot Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;color-scheme:dark}
 [data-theme="light"]{--bg:#FBFBFD;--bg2:#FFFFFF;--bg3:#F1F3F7;--line:rgba(15,23,42,.09);--line2:rgba(15,23,42,.16);--text:#0B0F19;--sub:#3F4756;--muted:#4B5563;--dim:#6B7280;--orange2:#C2410C;--orange-t:#C2410C;--green-t:#15803D;--red:#D92D3F;
   --h-grad:linear-gradient(180deg,#0B0F19 35%,#4A5568);--card:#FFFFFF;--card-sh:inset 0 0 0 1px rgba(15,23,42,.09),0 1px 2px rgba(15,23,42,.04),0 18px 40px -24px rgba(15,23,42,.22);
@@ -38,7 +38,7 @@
   --glass:rgba(255,255,255,.72);--glass2:rgba(255,255,255,.9);--pop:rgba(255,255,255,.98);--veil:rgba(15,23,42,.28);--menu:rgba(251,251,253,.95);--nav-sh:0 10px 30px -16px rgba(15,23,42,.28);
   --demo:#F6F7F9;--toast:rgba(255,255,255,.98);--hit:#FFFFFF;--ring:#0B0F19;--word:rgba(11,15,25,.14);--stroke:rgba(15,23,42,.25);--stroke2:rgba(15,23,42,.14);
   --map:#EEF1F5;--map-w:#C9DAF0;--map-r:#FFFFFF;--dot3:#D5DAE2;--k-a:#EEF0F4;--k-a-t:#1F2937;--k-k:rgba(255,106,19,.1);--k-k-t:#9A3412;
-  --feat:linear-gradient(180deg,rgba(255,106,19,.09),#FFFFFF 55%);--feat-sh:0 24px 50px -28px rgba(255,106,19,.45);--hot-sh:none;--pilot-a:.14;--orb1:.2;--orb2:.12;--noise:.025;--glow:.07;color-scheme:light}
+  --feat:linear-gradient(180deg,rgba(255,106,19,.09),#FFFFFF 55%);--feat-sh:0 24px 50px -28px rgba(255,106,19,.45);--hot-sh:none;--pilot-a:.14;--orb1:.2;--orb2:.12;--noise:.025;--glow:.07;--ap-glow:.16;--ap-shadow:12px;color-scheme:light}
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
 ::view-transition-new(root){z-index:9999}
 *{box-sizing:border-box;min-width:0}
@@ -67,17 +67,17 @@ main{position:relative;z-index:1}
 .logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:16.5px;letter-spacing:-.01em;margin-right:auto;flex:none}
 .logo svg{width:28px;height:28px;flex:none;filter:drop-shadow(0 0 12px rgba(255,106,19,.55))}
 .logo em{font-style:normal;font-weight:500;color:var(--muted)}
-@media (max-width:420px){.logo em{display:none}}
-.links{position:relative;display:flex;gap:2px;margin-right:6px}
+@media (max-width:400px){.nav:not(.fit) .logo em{display:none}}
+.links{position:relative;display:flex;gap:2px;margin-right:6px;flex:none}
 .links a{position:relative;z-index:1;display:inline-flex;align-items:center;min-height:38px;padding:6px 12px;border-radius:9px;color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:600;transition:color .2s}
 .links a:hover,.links a[aria-current="true"]{color:var(--text)}
 .links .ind{position:absolute;z-index:0;top:0;height:100%;border-radius:9px;background:var(--chip2);box-shadow:inset 0 0 0 1px var(--line);transition:transform .35s cubic-bezier(.3,1.3,.5,1),width .35s cubic-bezier(.3,1.3,.5,1),opacity .2s;opacity:0;pointer-events:none}
-.kbtn{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:6px 10px 6px 12px;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--muted);font:500 14px var(--font);cursor:pointer}
+.kbtn{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:6px 10px 6px 12px;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--muted);font:500 14px var(--font);cursor:pointer}
 .kbtn:hover{color:var(--text);border-color:var(--line2)}
 .kbtn kbd{font:12px var(--mono);padding:2px 6px;border-radius:6px;background:var(--chip2);border:1px solid var(--line);color:var(--text)}
 .kbtn svg{width:16px;height:16px}
-.ncta{display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border-radius:10px;background:linear-gradient(180deg,#FF8A4C,#FF6A13);color:#140700;font-weight:700;font-size:14.5px;text-decoration:none;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 22px -6px rgba(255,106,19,.8)}
-.mbtn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--text);cursor:pointer;place-items:center;padding:0}
+.ncta{flex:none;display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border-radius:10px;background:linear-gradient(180deg,#FF8A4C,#FF6A13);color:#140700;font-weight:700;font-size:14.5px;text-decoration:none;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 22px -6px rgba(255,106,19,.8)}
+.mbtn{display:none;flex:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--text);cursor:pointer;place-items:center;padding:0}
 .mbtn svg{width:20px;height:20px}
 .tbtn{display:grid;place-items:center;width:42px;height:42px;flex:none;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--text);cursor:pointer;padding:0;overflow:hidden}
 .tbtn:hover{border-color:var(--line2)}
@@ -85,8 +85,14 @@ main{position:relative;z-index:1}
 .tbtn .moon{opacity:0;transform:rotate(-90deg) scale(.4)}
 [data-theme="light"] .tbtn .sun{opacity:0;transform:rotate(90deg) scale(.4)}
 [data-theme="light"] .tbtn .moon{opacity:1;transform:none}
-@media (max-width:940px){.links{display:none}.mbtn{display:grid}.kbtn .lbl,.kbtn kbd{display:none}.kbtn{width:42px;height:42px;padding:0;justify-content:center}}
-@media (max-width:420px){.ncta{display:none}}
+@media (max-width:1000px){.nav:not(.fit) .links{display:none}.nav:not(.fit) .mbtn{display:grid}.nav:not(.fit) .kbtn .lbl,.nav:not(.fit) .kbtn kbd{display:none}.nav:not(.fit) .kbtn{width:42px;height:42px;padding:0;justify-content:center}}
+@media (max-width:600px){.nav:not(.fit) .ncta{display:none}}
+.nav.s-icon .kbtn .lbl,.nav.s-icon .kbtn kbd{display:none}
+.nav.s-icon .kbtn{width:42px;height:42px;padding:0;justify-content:center}
+.nav.no-links .links{display:none}
+.nav.no-links .mbtn{display:grid}
+.nav.no-dig .logo em{display:none}
+.nav.no-cta .ncta{display:none}
 .menu{position:fixed;inset:0;z-index:75;display:flex;flex-direction:column;padding:92px 24px 32px;background:var(--menu);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s}
 .menu.open{opacity:1;visibility:visible;transition:opacity .3s}
 .menu a.big{display:block;padding:8px 0;font:700 clamp(34px,9vw,54px)/1.1 var(--display);letter-spacing:-.035em;text-decoration:none;color:var(--text);transform:translateY(24px);opacity:0;transition:transform .5s cubic-bezier(.2,.9,.3,1),opacity .4s}
@@ -119,7 +125,7 @@ main{position:relative;z-index:1}
 .live::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--green);animation:ping 1.8s ease-out infinite}
 @keyframes ping{from{transform:scale(.6);opacity:1}to{transform:scale(2.2);opacity:0}}
 .h1{margin:22px 0 18px;font:700 clamp(46px,7.4vw,98px)/.98 var(--display);letter-spacing:-.045em;background:var(--h-grad);-webkit-background-clip:text;background-clip:text;color:transparent;text-wrap:balance}
-.h1 .w{display:inline-block;opacity:0;transform:translateY(.35em);filter:blur(10px);transition:opacity .8s,transform .9s cubic-bezier(.2,.9,.3,1),filter .8s;background:inherit;-webkit-background-clip:text;background-clip:text}
+.h1 .w{display:inline-block;padding-bottom:.14em;margin-bottom:-.14em;opacity:0;transform:translateY(.35em);filter:blur(10px);transition:opacity .8s,transform .9s cubic-bezier(.2,.9,.3,1),filter .8s;background:inherit;-webkit-background-clip:text;background-clip:text}
 .ready .h1 .w{opacity:1;transform:none;filter:none}
 .sub{margin:0;max-width:34em;font-size:clamp(17px,1.6vw,19.5px);color:var(--sub);text-wrap:pretty}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
@@ -175,6 +181,46 @@ main{position:relative;z-index:1}
 .cur{display:inline-block;width:.6em;height:1.1em;vertical-align:-.15em;background:var(--orange);animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .term-f{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px 10px 18px;border-top:1px solid var(--line);font:12.5px var(--mono);color:var(--dim)}
+
+/* Autopilot statement: pinned while you scroll, the switch flips, the plane takes off */
+.ap{position:relative;height:250vh}
+.ap-stage{position:sticky;top:0;height:100vh;height:100svh;display:grid;place-items:center;overflow:hidden;isolation:isolate}
+.ap-stage::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px;background-position:center;-webkit-mask:radial-gradient(ellipse 60% 55% at 50% 50%,#000 10%,transparent 75%);mask:radial-gradient(ellipse 60% 55% at 50% 50%,#000 10%,transparent 75%)}
+.ap-glow{position:absolute;z-index:-1;left:50%;top:50%;width:110vmax;height:110vmax;margin:-55vmax 0 0 -55vmax;border-radius:50%;background:radial-gradient(circle,rgba(255,106,19,var(--ap-glow)),rgba(255,106,19,0) 58%);transform:scale(.15);opacity:0;transition:transform 1.2s cubic-bezier(.2,.9,.3,1),opacity .8s;pointer-events:none}
+.ap.on .ap-glow{transform:scale(1);opacity:1}
+.ap-fly{position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.ap-trail{fill:none;stroke:var(--orange);stroke-width:2.6;stroke-linecap:round;stroke-dasharray:1 11;opacity:.9}
+.ap-plane{fill:var(--orange);filter:drop-shadow(0 0 8px rgba(255,106,19,.85))}
+.ap-in{position:relative;z-index:1;text-align:center}
+.ap-h{margin:0;font:700 clamp(54px,10.5vw,168px)/.94 var(--display);letter-spacing:-.05em}
+.ap-h .l1{display:block}
+.aw{display:inline-block;padding-bottom:.16em;margin-bottom:-.16em;background:var(--h-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ap.js .aw{opacity:var(--o,0);transform:translateY(calc((1 - var(--o,0)) * .35em)) scale(calc(.94 + var(--o,0) * .06));filter:blur(calc((1 - var(--o,0)) * 14px))}
+.aw.ap-word{position:relative;background:none;-webkit-text-stroke:1.5px var(--stroke);padding-right:.04em}
+.aw.ap-word::after{content:attr(data-text);position:absolute;left:0;top:0;padding-bottom:.16em;-webkit-text-stroke:0;background:linear-gradient(100deg,#FF6A13 0%,#FF9B5E 38%,#FFE3D0 50%,#FF9B5E 62%,#FF6A13 100%);background-size:250% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 var(--ap-shadow) rgba(255,106,19,.55));opacity:0}
+.ap:not(.js) .aw.ap-word::after{opacity:1}
+.ap.on .aw.ap-word::after{animation:neon .95s linear forwards,sweep 1.6s .95s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes neon{0%{opacity:0}7%{opacity:1}11%{opacity:.1}19%{opacity:1}24%{opacity:.3}31%,100%{opacity:1}}
+@keyframes sweep{from{background-position:100% 0}to{background-position:0 0}}
+.ap-row{display:flex;justify-content:center;margin-top:clamp(26px,5vh,54px)}
+.ap-sw{display:inline-flex;align-items:center;gap:16px;padding:8px 20px 8px 8px;border-radius:999px;border:1px solid var(--line2);background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--text);cursor:pointer;font:inherit}
+.ap-track{position:relative;flex:none;width:92px;height:50px;border-radius:999px;background:var(--track);box-shadow:inset 0 2px 6px rgba(0,0,0,.35);transition:background .35s,box-shadow .35s}
+.ap-knob{position:absolute;left:5px;top:5px;width:40px;height:40px;border-radius:50%;background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.45);transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.ap.on .ap-track{background:linear-gradient(90deg,#FF8A4C,#FF6A13);box-shadow:0 0 0 4px rgba(255,106,19,.18),0 0 40px rgba(255,106,19,.75)}
+.ap.on .ap-knob{transform:translateX(42px)}
+.ap-lbl{font:15px var(--mono);color:var(--muted);white-space:nowrap}
+.ap-lbl b{font-weight:400;color:var(--dim);transition:color .3s}
+.ap.on .ap-lbl b{color:var(--green-t)}
+.ap-burst{position:absolute;z-index:2;left:0;top:0;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;border:2px solid var(--orange);pointer-events:none;animation:burst .9s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes burst{from{transform:scale(.4);opacity:1}to{transform:scale(9);opacity:0}}
+.ap-list{list-style:none;margin:clamp(22px,4vh,40px) auto 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:820px}
+.ap-list li{display:inline-flex;align-items:center;gap:9px;padding:9px 16px;border-radius:999px;border:1px solid var(--line2);background:var(--glass);font-size:15px;font-weight:600;color:var(--muted);opacity:.35;transform:translateY(8px) scale(.97);transition:opacity .45s,transform .55s cubic-bezier(.3,1.5,.5,1),color .3s,border-color .3s}
+.ap-list li i{width:8px;height:8px;border-radius:50%;background:var(--dim);flex:none;transition:background .3s,box-shadow .3s}
+.ap-list li.on{opacity:1;transform:none;color:var(--text);border-color:rgba(59,217,139,.45)}
+.ap-list li.on i{background:var(--green);box-shadow:0 0 10px var(--green)}
+@media (max-width:700px){.ap{height:220vh}.ap-h{font-size:15vw;line-height:.98}.ap-h .l2,.ap-h .l3{display:block}}
+@media (max-width:520px){.ap-list{gap:8px}.ap-list li{font-size:13.5px;padding:7px 12px}.ap-track{width:80px;height:44px}.ap-knob{width:34px;height:34px}.ap.on .ap-knob{transform:translateX(36px)}}
+@media (prefers-reduced-motion:reduce){.ap{height:auto}.ap-stage{position:relative;height:auto;padding:110px 0}.ap .aw.ap-word::after{opacity:1;animation:none}.ap-glow,.ap-knob,.ap-track,.ap-list li{transition:none}}
 
 /* Bento with live demos */
 .bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
@@ -594,7 +640,25 @@ footer a:hover{color:var(--orange2)}
     </div>
   </section>
 
-  <section class="sec" id="leistungen" style="padding-top:0">
+  <section class="ap" id="autopilot" aria-labelledby="apH">
+    <div class="ap-stage" id="apStage">
+      <span class="ap-glow" aria-hidden="true"></span>
+      <svg class="ap-fly" id="apFly" aria-hidden="true"><path id="apRef" fill="none" stroke="none"/><path class="ap-trail" id="apTrail"/><path class="ap-plane" id="apPlane" opacity="0" d="M12 2c.6 0 1 .5 1 1.2V9l7 4.3v1.9l-7-2.1v4.8l2 1.6V21l-3-.9-3 .9v-1.5l2-1.6v-4.8l-7 2.1v-1.9L11 9V3.2C11 2.5 11.4 2 12 2z"/></svg>
+      <div class="wrap ap-in">
+        <p class="cmd" aria-hidden="true"><b>~ %</b> pilotwerk autopilot --an</p>
+        <h2 class="ap-h" id="apH"><span class="l1"><span class="aw">Ihr</span> <span class="aw">Betrieb</span></span> <span class="l2"><span class="aw">auf</span></span> <span class="l3"><span class="aw ap-word" data-text="Autopilot.">Autopilot.</span></span></h2>
+        <div class="ap-row"><button class="ap-sw" id="apSw" type="button" role="switch" aria-checked="false" aria-label="Autopilot"><span class="ap-track" aria-hidden="true"><span class="ap-knob"></span></span><span class="ap-lbl" aria-hidden="true">autopilot <b id="apSt">aus</b></span></button></div>
+        <ul class="ap-list" id="apList">
+          <li><i aria-hidden="true"></i>Termine buchen sich selbst</li>
+          <li><i aria-hidden="true"></i>Stempelkarte im Handy</li>
+          <li><i aria-hidden="true"></i>Anrufe werden angenommen</li>
+          <li><i aria-hidden="true"></i>Bei Google gefunden</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="leistungen">
     <div class="wrap">
       <div class="sh">
         <p class="cmd" aria-hidden="true"><b>~ %</b> pilotwerk werkzeuge --live</p>
@@ -1143,7 +1207,7 @@ footer a:hover{color:var(--orange2)}
   /* Terminal: the update runs when it comes into view */
   (function terminal() {
     const el = $('term'), state = $('termState'), run = $('termRun');
-    const L = [['cmd', 'pilotwerk update --betrieb "Ihr Laden"'], ['ok', 'Verbinde mit Pilotwerk', 'ok'], ['bar', 'Online-Terminbuch', 'installiert'], ['bar', 'Digitale Stempelkarte', 'installiert'], ['bar', 'KI-Telefonassistent', 'verbunden'], ['bar', 'Website + Google-Profil', 'online'], ['done', 'Update fertig. Ihr Laden ist bereit.']];
+    const L = [['cmd', 'pilotwerk update --betrieb "Ihr Laden"'], ['ok', 'Verbinde mit Pilotwerk', 'ok'], ['bar', 'Online-Terminbuch', 'installiert'], ['bar', 'Digitale Stempelkarte', 'installiert'], ['bar', 'KI-Telefonassistent', 'verbunden'], ['bar', 'Website + Google-Profil', 'online'], ['done', 'Update fertig. Autopilot bereit.']];
     const SP = ['|', '/', '-', '\\'];
     let job = 0, started = false;
     const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
@@ -1412,6 +1476,95 @@ footer a:hover{color:var(--orange2)}
     place();
   })();
 
+  /* Autopilot statement: words appear, the switch flips, the plane takes off */
+  (function autopilot() {
+    const sec = $('autopilot'), stage = $('apStage'), sw = $('apSw'), st = $('apSt'), words = [...sec.querySelectorAll('.aw')], chips = [...$('apList').children];
+    const svg = $('apFly'), ref = $('apRef'), trail = $('apTrail'), plane = $('apPlane');
+    let on = false, forced = null, lastWant = false, pts = [], W = 0, H = 0, tick = false;
+    function setOn(v, fx) {
+      if (v === on) return;
+      on = v;
+      sec.classList.toggle('on', v);
+      sw.setAttribute('aria-checked', String(v));
+      st.textContent = v ? 'an' : 'aus';
+      if (v && fx && !reduce) {
+        const k = sw.querySelector('.ap-knob').getBoundingClientRect(), s = stage.getBoundingClientRect(), b = document.createElement('span');
+        b.className = 'ap-burst'; b.style.left = (k.left - s.left + k.width / 2 + 36) + 'px'; b.style.top = (k.top - s.top + k.height / 2) + 'px';
+        stage.append(b); setTimeout(() => b.remove(), 950);
+        if (navigator.vibrate) { try { navigator.vibrate(15); } catch (_) {} }
+      }
+    }
+    if (reduce) {
+      setOn(true, false);
+      chips.forEach(c => c.classList.add('on'));
+      sw.addEventListener('click', () => { setOn(!on, false); chips.forEach(c => c.classList.toggle('on', on)); });
+      return;
+    }
+    sec.classList.add('js');
+    function build() {
+      const r = stage.getBoundingClientRect();
+      W = r.width; H = r.height;
+      svg.setAttribute('viewBox', '0 0 ' + W.toFixed(0) + ' ' + H.toFixed(0));
+      const P = W > H ? [[-.06, .82], [.2, .9], [.34, .52], [.52, .58], [.8, .26], [1.08, .16]] : [[-.14, .9], [.25, .97], [.16, .66], [.5, .64], [.96, .36], [1.16, .14]];
+      const q = ([x, y]) => (x * W).toFixed(1) + ' ' + (y * H).toFixed(1);
+      ref.setAttribute('d', 'M' + q(P[0]) + 'C' + q(P[1]) + ' ' + q(P[2]) + ' ' + q(P[3]) + 'S' + q(P[4]) + ' ' + q(P[5]));
+      const L = ref.getTotalLength();
+      pts = [];
+      for (let i = 0; i <= 160; i++) { const pt = ref.getPointAtLength(L * i / 160); pts.push([pt.x, pt.y]); }
+    }
+    function fly(f) {
+      if (f <= 0 || !pts.length) { trail.setAttribute('d', 'M0 0'); plane.setAttribute('opacity', '0'); return; }
+      const n = Math.max(2, Math.round(f * 160));
+      let d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+      for (let i = 1; i <= n; i++) d += 'L' + pts[i][0].toFixed(1) + ' ' + pts[i][1].toFixed(1);
+      trail.setAttribute('d', d);
+      const a = pts[n - 2], b = pts[n], ang = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI + 90, sc = W < 700 ? 1.5 : 2.1;
+      plane.setAttribute('transform', 'translate(' + b[0].toFixed(1) + ' ' + b[1].toFixed(1) + ') rotate(' + ang.toFixed(1) + ') scale(' + sc + ') translate(-12 -12)');
+      plane.setAttribute('opacity', f >= 1 ? '0' : '1');
+    }
+    function update() {
+      tick = false;
+      const r = sec.getBoundingClientRect(), ih = innerHeight;
+      if (r.bottom < -50 || r.top > ih + 50) return;
+      const t = clamp((ih * .55 - r.top) / (r.height - ih * .45), 0, 1);
+      words.forEach((w, k) => w.style.setProperty('--o', clamp((t - .02 - k * .07) / .08, 0, 1).toFixed(3)));
+      const want = t >= .4;
+      if (want !== lastWant) { forced = null; lastWant = want; }
+      setOn(forced === null ? want : forced, true);
+      chips.forEach((c, k) => c.classList.toggle('on', on && (forced === true || t >= .46 + k * .06)));
+      fly(on ? clamp((t - .42) / .56, 0, 1) : 0);
+    }
+    sw.addEventListener('click', () => { forced = !on; setOn(forced, true); update(); });
+    addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(update); } }, {passive: true});
+    addEventListener('resize', () => { build(); update(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { build(); update(); });
+    build(); update();
+  })();
+
+  /* Top bar: shows as much as fits, nothing gets squeezed */
+  (function navFit() {
+    const nav = $('nav'), ALL = ['s-icon', 'no-links', 'no-dig', 'no-cta'];
+    const OPTS = [[], ['s-icon'], ['s-icon', 'no-links'], ['s-icon', 'no-links', 'no-dig'], ['s-icon', 'no-links', 'no-cta'], ['s-icon', 'no-links', 'no-cta', 'no-dig']];
+    function fits() {
+      const nr = nav.getBoundingClientRect(), right = nr.right - parseFloat(getComputedStyle(nav).paddingRight) + .5;
+      const kids = [...nav.children].filter(k => k.getClientRects().length);
+      for (let i = 0; i < kids.length; i++) {
+        const r = kids[i].getBoundingClientRect();
+        if (r.right > right) return false;
+        if (i && r.left < kids[i - 1].getBoundingClientRect().right + 4) return false;
+      }
+      return true;
+    }
+    function fit() {
+      nav.classList.add('fit');
+      for (const o of OPTS) { ALL.forEach(c => nav.classList.toggle(c, o.includes(c))); if (fits()) return; }
+    }
+    fit();
+    let rq = 0;
+    addEventListener('resize', () => { if (!rq) rq = requestAnimationFrame(() => { rq = 0; fit(); }); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { fit(); dispatchEvent(new Event('resize')); });
+  })();
+
   /* Scroll-linked: progress bar, pipeline, story highlight, section menu */
   const progBar = $('progBar'), pipe = $('pipe'), nodes = [...pipe.querySelectorAll('.node')], story = $('story');
   let inHl = false;
@@ -1483,7 +1636,7 @@ footer a:hover{color:var(--orange2)}
     const IC = {theme: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>', sec: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg>', demo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8z"/></svg>', ct: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>'};
     const ITEMS = [
       ['Darstellung', 'theme', () => root.getAttribute('data-theme') === 'light' ? 'Dunkles Design einschalten' : 'Helles Design einschalten', 'theme:toggle', 'Hell / Dunkel'],
-      ['Bereiche', 'sec', 'Online-Terminbuch', '#terminbuch', 'Leistung'], ['Bereiche', 'sec', 'Digitale Stempelkarte', '#stempelkarte', 'Leistung'], ['Bereiche', 'sec', 'KI-Telefonassistent', '#ki-telefon', 'Leistung'], ['Bereiche', 'sec', 'Website', '#website', 'Leistung'],
+      ['Bereiche', 'sec', 'Ihr Betrieb auf Autopilot', '#autopilot', 'Abschnitt'], ['Bereiche', 'sec', 'Online-Terminbuch', '#terminbuch', 'Leistung'], ['Bereiche', 'sec', 'Digitale Stempelkarte', '#stempelkarte', 'Leistung'], ['Bereiche', 'sec', 'KI-Telefonassistent', '#ki-telefon', 'Leistung'], ['Bereiche', 'sec', 'Website', '#website', 'Leistung'],
       ['Bereiche', 'sec', 'Verpasste Anrufe nachrechnen', '#rechner', 'Rechner'], ['Bereiche', 'sec', 'Ablauf', '#ablauf', 'Abschnitt'], ['Bereiche', 'sec', 'Preise', '#preise', 'Abschnitt'], ['Bereiche', 'sec', 'Pilotkunde werden', '#preise', 'Angebot'], ['Bereiche', 'sec', 'Über mich', '#ueber', 'Abschnitt'],
       ['Demos', 'demo', 'Terminbuch-Demo öffnen', '/terminbuch/', 'Demo'], ['Demos', 'demo', 'Stempelkarten-Demo öffnen', '/stempelkarte/demo/', 'Demo'], ['Demos', 'demo', 'KI-Telefon anrufen', ELEVEN, 'Demo'],
       ['Kontakt', 'ct', 'Gespräch buchen', '#kontakt', 'Formular'], ['Kontakt', 'ct', 'Anrufen: +49 176 85959460', 'tel:+4917685959460', 'Telefon'], ['Kontakt', 'ct', 'WhatsApp schreiben', 'https://wa.me/4917685959460', 'WhatsApp'], ['Kontakt', 'ct', 'E-Mail schreiben', 'mailto:lukas@pilotwerk-digital.de', 'E-Mail'],
