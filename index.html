@@ -30,7 +30,7 @@
   --glass:rgba(9,12,20,.62);--glass2:rgba(13,17,27,.8);--pop:rgba(13,17,27,.96);--veil:rgba(3,4,8,.6);--menu:rgba(5,7,13,.92);--nav-sh:0 10px 40px -18px rgba(0,0,0,.9);
   --demo:rgba(5,7,13,.7);--toast:rgba(18,24,38,.96);--hit:#121826;--ring:#FFFFFF;--word:rgba(238,240,244,.16);--stroke:rgba(255,255,255,.28);--stroke2:rgba(255,255,255,.16);
   --map:#0F1522;--map-w:#1C2A44;--map-r:#1A2233;--dot3:#2A3040;--k-a:#151B28;--k-a-t:#C9D0DC;--k-k:rgba(255,106,19,.14);--k-k-t:#FFD2B8;
-  --feat:linear-gradient(180deg,rgba(255,106,19,.12),rgba(255,255,255,.02) 50%);--feat-sh:none;--hot-sh:0 0 24px rgba(255,106,19,.6);--pilot-a:.22;--orb1:.42;--orb2:.3;--noise:.05;--glow:.11;--ap-glow:.3;--ap-shadow:26px;
+  --feat:linear-gradient(180deg,rgba(255,106,19,.12),rgba(255,255,255,.02) 50%);--feat-sh:none;--hot-sh:0 0 24px rgba(255,106,19,.6);--pilot-a:.22;--orb1:.42;--orb2:.3;--noise:.05;--glow:.11;--ap-glow:.3;--ap-shadow:26px;--menu-solid:#07090F;--mglow:.28;
   --font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--display:"Inter Display","Inter",ui-sans-serif,system-ui,sans-serif;--mono:"Pilot Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;color-scheme:dark}
 [data-theme="light"]{--bg:#FBFBFD;--bg2:#FFFFFF;--bg3:#F1F3F7;--line:rgba(15,23,42,.09);--line2:rgba(15,23,42,.16);--text:#0B0F19;--sub:#3F4756;--muted:#4B5563;--dim:#6B7280;--orange2:#C2410C;--orange-t:#C2410C;--green-t:#15803D;--red:#D92D3F;
   --h-grad:linear-gradient(180deg,#0B0F19 35%,#4A5568);--card:#FFFFFF;--card-sh:inset 0 0 0 1px rgba(15,23,42,.09),0 1px 2px rgba(15,23,42,.04),0 18px 40px -24px rgba(15,23,42,.22);
@@ -38,7 +38,7 @@
   --glass:rgba(255,255,255,.72);--glass2:rgba(255,255,255,.9);--pop:rgba(255,255,255,.98);--veil:rgba(15,23,42,.28);--menu:rgba(251,251,253,.95);--nav-sh:0 10px 30px -16px rgba(15,23,42,.28);
   --demo:#F6F7F9;--toast:rgba(255,255,255,.98);--hit:#FFFFFF;--ring:#0B0F19;--word:rgba(11,15,25,.14);--stroke:rgba(15,23,42,.25);--stroke2:rgba(15,23,42,.14);
   --map:#EEF1F5;--map-w:#C9DAF0;--map-r:#FFFFFF;--dot3:#D5DAE2;--k-a:#EEF0F4;--k-a-t:#1F2937;--k-k:rgba(255,106,19,.1);--k-k-t:#9A3412;
-  --feat:linear-gradient(180deg,rgba(255,106,19,.09),#FFFFFF 55%);--feat-sh:0 24px 50px -28px rgba(255,106,19,.45);--hot-sh:none;--pilot-a:.14;--orb1:.2;--orb2:.12;--noise:.025;--glow:.07;--ap-glow:.16;--ap-shadow:12px;color-scheme:light}
+  --feat:linear-gradient(180deg,rgba(255,106,19,.09),#FFFFFF 55%);--feat-sh:0 24px 50px -28px rgba(255,106,19,.45);--hot-sh:none;--pilot-a:.14;--orb1:.2;--orb2:.12;--noise:.025;--glow:.07;--ap-glow:.16;--ap-shadow:12px;--menu-solid:#FBFBFD;--mglow:.16;color-scheme:light}
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
 ::view-transition-new(root){z-index:9999}
 *{box-sizing:border-box;min-width:0}
@@ -93,11 +93,50 @@ main{position:relative;z-index:1}
 .nav.no-links .mbtn{display:grid}
 .nav.no-dig .logo em{display:none}
 .nav.no-cta .ncta{display:none}
-.menu{position:fixed;inset:0;z-index:75;display:flex;flex-direction:column;padding:92px 24px 32px;background:var(--menu);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s}
-.menu.open{opacity:1;visibility:visible;transition:opacity .3s}
-.menu a.big{display:block;padding:8px 0;font:700 clamp(34px,9vw,54px)/1.1 var(--display);letter-spacing:-.035em;text-decoration:none;color:var(--text);transform:translateY(24px);opacity:0;transition:transform .5s cubic-bezier(.2,.9,.3,1),opacity .4s}
-.menu.open a.big{transform:none;opacity:1}
-.menu .mrow{margin-top:auto;display:grid;gap:10px}
+/* Menu on phones: an orange wipe grows out of the button, the list slides up, the button turns into an X */
+.menu{position:fixed;inset:0;z-index:68;visibility:hidden;pointer-events:none;transition:visibility 0s .62s}
+.menu.open{visibility:visible;pointer-events:auto;transition:visibility 0s}
+.menu-wipe,.menu-body{position:absolute;inset:0;clip-path:circle(0px at var(--cx,92%) var(--cy,40px))}
+.menu-wipe{background:linear-gradient(140deg,#FFB089,#FF6A13 45%,#D94A00);transition:clip-path .5s .1s cubic-bezier(.7,0,.25,1)}
+.menu-body{display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;padding:max(98px,calc(env(safe-area-inset-top,0px) + 92px)) max(24px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px));background:var(--menu-solid);transition:clip-path .45s cubic-bezier(.7,0,.25,1)}
+.menu-body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;-webkit-mask:radial-gradient(ellipse 85% 60% at 75% 25%,#000,transparent 75%);mask:radial-gradient(ellipse 85% 60% at 75% 25%,#000,transparent 75%)}
+.menu.open .menu-wipe{clip-path:circle(150vmax at var(--cx) var(--cy));transition:clip-path .62s cubic-bezier(.7,0,.25,1)}
+.menu.open .menu-body{clip-path:circle(150vmax at var(--cx) var(--cy));transition:clip-path .62s .12s cubic-bezier(.7,0,.25,1)}
+.menu-glow{position:absolute;left:0;top:0;z-index:-1;width:460px;height:460px;margin:-230px 0 0 -230px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,106,19,var(--mglow)),transparent 65%);transform:translate(var(--gx,70vw),var(--gy,20vh));transition:transform .6s cubic-bezier(.2,.8,.3,1)}
+.menu-cmd{margin:0 0 14px;font:13.5px var(--mono);color:var(--muted);min-height:1.4em}
+.menu-cmd b{font-weight:400;color:var(--orange-t)}
+.mlist{list-style:none;margin:0;padding:0}
+.mlist li{position:relative}
+.mlist li::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line2);transform:scaleX(0);transform-origin:0 50%;transition:transform .2s}
+.menu.open .mlist li::after{transform:scaleX(1);transition:transform .8s calc(.32s + var(--i) * .06s) cubic-bezier(.2,.9,.3,1)}
+.mi{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:16px;padding:11px 2px 12px;text-decoration:none;color:var(--text);-webkit-tap-highlight-color:transparent}
+.mt-m{grid-column:1;display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.mt{display:block;font:700 clamp(32px,9vw,54px)/1.05 var(--display);letter-spacing:-.035em;transform:translateY(112%);transition:transform .3s cubic-bezier(.5,0,.75,0)}
+.menu.open .mt{transform:none;transition:transform .8s calc(.26s + var(--i) * .06s) cubic-bezier(.2,.9,.3,1)}
+.ms{grid-column:1;display:block;margin-top:3px;font:12.5px var(--mono);color:var(--muted);min-height:1.3em;opacity:0;transition:opacity .15s}
+.menu.open .ms{opacity:1;transition:opacity .4s calc(.4s + var(--i) * .06s)}
+.ma{grid-row:1/3;grid-column:2;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line2);color:var(--text);transform:scale(.4) rotate(-90deg);opacity:0;transition:transform .3s,opacity .2s,background .25s,color .25s,border-color .25s}
+.ma svg{width:20px;height:20px}
+.menu.open .ma{transform:none;opacity:1;transition:transform .6s calc(.36s + var(--i) * .06s) cubic-bezier(.3,1.5,.5,1),opacity .3s calc(.36s + var(--i) * .06s),background .25s,color .25s,border-color .25s}
+.menu.open .mi:hover .ma,.menu.open .mi:focus-visible .ma,.menu.open .mi:active .ma{background:var(--orange);border-color:var(--orange);color:#140700;transform:rotate(45deg);transition:transform .35s cubic-bezier(.3,1.5,.5,1),background .2s,color .2s,border-color .2s}
+.mi:hover .mt,.mi:active .mt,.mi:focus-visible .mt{background:linear-gradient(90deg,#FFB089,#FF6A13);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mi.here .mt::after{content:"";display:inline-block;width:.17em;height:.17em;margin-left:.14em;border-radius:50%;background:var(--orange);box-shadow:0 0 14px var(--orange);vertical-align:.55em}
+.mfoot{margin-top:auto;padding-top:22px;display:grid;gap:10px;opacity:0;transform:translateY(16px);transition:opacity .2s,transform .3s}
+.menu.open .mfoot{opacity:1;transform:none;transition:opacity .5s .6s,transform .7s .6s cubic-bezier(.2,.9,.3,1)}
+.mquick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.mquick a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:68px;border-radius:16px;border:1px solid var(--line2);background:var(--chip);color:var(--text);text-decoration:none;font-size:13.5px;font-weight:600;-webkit-tap-highlight-color:transparent}
+.mquick a:active{background:var(--chip2)}
+.mquick svg{width:22px;height:22px;color:var(--orange2)}
+@media (max-height:740px){.menu-body{padding-top:max(88px,calc(env(safe-area-inset-top,0px) + 84px))}.menu-cmd{margin-bottom:8px}.mi{padding:7px 2px 8px}.mt{font-size:min(9vw,40px)}.ma{width:42px;height:42px}.mfoot{padding-top:16px}.mquick a{min-height:56px;gap:3px}}
+.mb{position:relative;display:block;width:20px;height:14px}
+.mb i{position:absolute;left:0;top:6px;width:20px;height:2px;border-radius:2px;background:currentColor;transition:transform .5s cubic-bezier(.3,1.5,.5,1),opacity .25s}
+.mb i:nth-child(1){transform:translateY(-6px)}
+.mb i:nth-child(3){transform:translateY(6px)}
+.menu-open .mb i:nth-child(1){transform:rotate(45deg)}
+.menu-open .mb i:nth-child(2){opacity:0;transform:scaleX(0)}
+.menu-open .mb i:nth-child(3){transform:rotate(-45deg)}
+.menu-open .mbtn{background:linear-gradient(180deg,#FF8A4C,#FF6A13);border-color:transparent;color:#140700;box-shadow:0 8px 24px -8px rgba(255,106,19,.85)}
+@media (prefers-reduced-motion:reduce){.menu-wipe,.menu-body,.menu.open .menu-wipe,.menu.open .menu-body,.mt,.menu.open .mt,.ms,.menu.open .ms,.ma,.menu.open .ma,.mfoot,.menu.open .mfoot,.mlist li::after,.menu.open .mlist li::after,.menu-glow{transition:none}.menu{transition:none}}
 
 /* Buttons */
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 22px;border-radius:12px;border:0;font:700 16.5px/1.2 var(--font);text-decoration:none;cursor:pointer;text-align:center;overflow:hidden;transition:transform .2s cubic-bezier(.3,1.4,.5,1),box-shadow .2s}
@@ -587,16 +626,30 @@ footer a:hover{color:var(--orange2)}
   <button class="tbtn" id="tbtn" type="button" aria-label="Helles Design einschalten" title="Hell oder dunkel"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg></button>
   <button class="kbtn" id="kbtn" type="button" aria-haspopup="dialog" aria-label="Suchen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="lbl">Suchen</span><kbd id="kbdHint">⌘K</kbd></button>
   <a class="ncta mag" href="#kontakt">Gespräch buchen</a>
-  <button class="mbtn" id="mbtn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menü öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path id="mIcon" d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <button class="mbtn" id="mbtn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menü öffnen"><span class="mb" aria-hidden="true"><i></i><i></i><i></i></span></button>
 </header>
-<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menü">
-  <a class="big" href="#leistungen">Leistungen</a>
-  <a class="big" href="#rechner">Rechner</a>
-  <a class="big" href="#ablauf">Ablauf</a>
-  <a class="big" href="#preise">Preise</a>
-  <a class="big" href="#ueber">Über mich</a>
-  <a class="big" href="#kontakt">Kontakt</a>
-  <div class="mrow"><a class="btn pri" href="#kontakt">Kostenloses Erstgespräch</a><a class="btn gl" href="tel:+4917685959460">+49 176 85959460 anrufen</a></div>
+<div class="menu" id="menu" role="dialog" aria-label="Menü">
+  <div class="menu-wipe" aria-hidden="true"></div>
+  <div class="menu-body" id="menuBody">
+    <span class="menu-glow" id="menuGlow" aria-hidden="true"></span>
+    <p class="menu-cmd" aria-hidden="true"><b>~ %</b> <span id="menuCmd"></span><i class="cur"></i></p>
+    <ul class="mlist">
+      <li style="--i:0"><a class="mi" href="#leistungen"><span class="mt-m"><span class="mt">Leistungen</span></span><span class="ms">Vier Werkzeuge, live erklärt</span><span class="ma" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+      <li style="--i:1"><a class="mi" href="#rechner"><span class="mt-m"><span class="mt">Rechner</span></span><span class="ms">Was verpasste Anrufe kosten</span><span class="ma" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+      <li style="--i:2"><a class="mi" href="#ablauf"><span class="mt-m"><span class="mt">Ablauf</span></span><span class="ms">In drei Schritten startklar</span><span class="ma" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+      <li style="--i:3"><a class="mi" href="#preise"><span class="mt-m"><span class="mt">Preise</span></span><span class="ms">Ab 19 € im Monat</span><span class="ma" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+      <li style="--i:4"><a class="mi" href="#ueber"><span class="mt-m"><span class="mt">Über mich</span></span><span class="ms">Lukas Seibel aus Bad Berleburg</span><span class="ma" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+      <li style="--i:5"><a class="mi" href="#kontakt"><span class="mt-m"><span class="mt">Kontakt</span></span><span class="ms">Kostenlos und unverbindlich</span><span class="ma" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+    </ul>
+    <div class="mfoot">
+      <a class="btn pri" href="#kontakt">Kostenloses Erstgespräch</a>
+      <div class="mquick">
+        <a href="tel:+4917685959460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Anrufen</a>
+        <a href="https://wa.me/4917685959460" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>WhatsApp</a>
+        <a href="mailto:lukas@pilotwerk-digital.de"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>E-Mail</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <main>
@@ -1619,16 +1672,46 @@ footer a:hover{color:var(--orange2)}
   applyTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
 
   /* Menu on phones */
-  const menu = $('menu'), mbtn = $('mbtn');
+  const menu = $('menu'), mbtn = $('mbtn'), menuBody = $('menuBody'), menuGlow = $('menuGlow'), menuCmd = $('menuCmd'), mItems = [...menu.querySelectorAll('.mi')];
+  let menuJob = 0;
+  const glowAt = (x, y) => { menuGlow.style.setProperty('--gx', x + 'px'); menuGlow.style.setProperty('--gy', y + 'px'); };
   function setMenu(open) {
-    menu.classList.toggle('open', open); mbtn.setAttribute('aria-expanded', String(open)); mbtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
-    $('mIcon').setAttribute('d', open ? 'M6 6l12 12M18 6 6 18' : 'M4 7h16M4 12h16M4 17h16');
-    document.documentElement.style.overflow = open ? 'hidden' : '';
-    menu.querySelectorAll('a.big').forEach((a, i) => { a.style.transitionDelay = open ? (i * 50 + 60) + 'ms' : '0ms'; });
-    if (open) setTimeout(() => menu.querySelector('a').focus(), 60);
+    if (open === menu.classList.contains('open')) return;
+    const b = mbtn.getBoundingClientRect(), bx = b.left + b.width / 2, by = b.top + b.height / 2;
+    menu.style.setProperty('--cx', bx + 'px');
+    menu.style.setProperty('--cy', by + 'px');
+    menu.classList.toggle('open', open);
+    root.classList.toggle('menu-open', open);
+    mbtn.setAttribute('aria-expanded', String(open));
+    mbtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    root.style.overflow = open ? 'hidden' : '';
+    ['main', 'footer', '#up'].forEach(q => { const el = document.querySelector(q); if (el) el.inert = open; });
+    const job = ++menuJob;
+    if (!open) return;
+    menuBody.scrollTop = 0;
+    let hi = -1, ht = -Infinity;
+    mItems.forEach((m, i) => { const t = document.querySelector(m.getAttribute('href')); if (!t) return; const top = t.getBoundingClientRect().top; if (top <= 160 && top > ht) { hi = i; ht = top; } });
+    mItems.forEach((m, i) => { m.classList.toggle('here', i === hi); if (i === hi) m.setAttribute('aria-current', 'true'); else m.removeAttribute('aria-current'); });
+    glowAt(bx, by);
+    setTimeout(() => { if (job === menuJob) glowAt(innerWidth * .6, innerHeight * .38); }, reduce ? 0 : 320);
+    const txt = 'pilotwerk menü';
+    menuCmd.textContent = reduce ? txt : '';
+    if (!reduce) (async () => { await sleep(300); for (let i = 1; i <= txt.length; i++) { if (job !== menuJob) return; menuCmd.textContent = txt.slice(0, i); await sleep(28); } })();
+    menu.querySelectorAll('.ms').forEach((el, i) => {
+      const t = el.dataset.t || (el.dataset.t = el.textContent);
+      if (reduce) { el.textContent = t; return; }
+      el.textContent = '';
+      setTimeout(() => { if (job === menuJob) scramble(el, t, 650); }, 400 + i * 60);
+    });
+    setTimeout(() => { if (job === menuJob && mItems[0]) mItems[0].focus({preventScroll: true}); }, reduce ? 0 : 450);
   }
   mbtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
-  menu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  menu.addEventListener('click', e => {
+    if (e.target.closest('a')) { setMenu(false); return; }
+    if (!e.target.closest('.mlist,.mfoot')) setMenu(false);
+  });
+  menu.addEventListener('pointermove', e => glowAt(e.clientX, e.clientY + menuBody.scrollTop), {passive: true});
+  addEventListener('resize', () => requestAnimationFrame(() => { if (menu.classList.contains('open') && !mbtn.getClientRects().length) setMenu(false); }));
 
   /* Command palette */
   (function palette() {
@@ -1665,7 +1748,7 @@ footer a:hover{color:var(--orange2)}
       else if (/^https?:/.test(href)) { const w = window.open(href, '_blank'); if (w) { try { w.opener = null; } catch (_) {} } else location.href = href; }
       else location.href = href;
     }
-    function open() { opener = document.activeElement; pal.classList.add('open'); inp.value = ''; sel = 0; render(); setTimeout(() => inp.focus(), 30); document.documentElement.style.overflow = 'hidden'; }
+    function open() { if (menu.classList.contains('open')) setMenu(false); opener = document.activeElement; pal.classList.add('open'); inp.value = ''; sel = 0; render(); setTimeout(() => inp.focus(), 30); document.documentElement.style.overflow = 'hidden'; }
     function close(restore) { pal.classList.remove('open'); document.documentElement.style.overflow = ''; if (restore !== false && opener && opener.focus) opener.focus(); }
     $('kbtn').addEventListener('click', open);
     addEventListener('keydown', e => {
