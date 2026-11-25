@@ -1,328 +1,948 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Pilotwerk Digital – Ihr Betrieb auf Autopilot</title>
+<title>Pilotwerk Digital – Das Update für Ihren Laden</title>
 <meta name="description" content="Online-Terminbuch, digitale Stempelkarte, KI-Telefonassistent, Website, Google-Profil, Gestaltung, Videobearbeitung und Geräte-Service für Betriebe in Bad Berleburg und Wittgenstein. Persönlich eingerichtet, monatlich kündbar.">
-<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#05070D">
+<script>try{var t=localStorage.getItem('pw-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);if(t==='light')document.querySelector('meta[name="theme-color"]').setAttribute('content','#FBFBFD')}}catch(e){}</script>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/site.css">
+<style>
+/* VOICE   a software company from Bad Berleburg: precise, quick, still on first-name terms with the town
+   IDEA    the shop gets "an update": the site behaves like a product page for software, with live demos
+   COLOUR  night #05070D, surfaces #0B0F18 / #121826, hairlines white 8 %, text #EEF0F4, muted #8E96A6,
+           Pilotwerk orange #FF6A13 as the light source, electric blue #4C7DFF as the cold counter-light, green #3BD98B for "done"
+           LIGHT: near-white #FBFBFD with white cards and soft shadows, ink #0B0F19, orange text #C2410C; terminal and phone stay dark
+   TYPE    Inter Display 700 with tight tracking and a white-to-steel gradient for headlines; Inter for reading;
+           Pilot Mono (DejaVu Sans Mono subset) for terminal, status and numbers
+   MOTION  every effect answers something: the swarm reacts to the pointer, demos run while visible, the pipeline fills
+           with your scroll, prices decode when you switch billing, the plane launches when you tap it */
+@font-face{font-family:"Inter";src:url("/assets/fonts/inter-400.woff") format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter";src:url("/assets/fonts/inter-600.woff") format("woff");font-weight:500 600;font-display:swap}
+@font-face{font-family:"Inter";src:url("/assets/fonts/inter-700.woff") format("woff");font-weight:700;font-display:swap}
+@font-face{font-family:"Inter Display";src:url("/assets/fonts/interdisplay-700.woff") format("woff");font-weight:700;font-display:swap}
+@font-face{font-family:"Pilot Mono";src:url("/assets/fonts/pilotmono-400.woff") format("woff");font-weight:400;font-display:swap}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+:root{--bg:#05070D;--bg2:#0B0F18;--bg3:#121826;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.15);--text:#EEF0F4;--sub:#B7BECB;--muted:#8E96A6;--dim:#667084;--orange:#FF6A13;--orange2:#FF9B5E;--orange-t:#FF6A13;--blue:#4C7DFF;--green:#3BD98B;--green-t:#3BD98B;--red:#FF5A6A;
+  --h-grad:linear-gradient(180deg,#FFFFFF 30%,#9AA3B5);--card:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));--card-sh:inset 0 0 0 1px rgba(255,255,255,.08);
+  --chip:rgba(255,255,255,.04);--chip2:rgba(255,255,255,.08);--inset:rgba(5,7,13,.5);--input:rgba(5,7,13,.6);--track:rgba(255,255,255,.1);--grid:rgba(255,255,255,.08);
+  --glass:rgba(9,12,20,.62);--glass2:rgba(13,17,27,.8);--pop:rgba(13,17,27,.96);--veil:rgba(3,4,8,.6);--menu:rgba(5,7,13,.92);--nav-sh:0 10px 40px -18px rgba(0,0,0,.9);
+  --demo:rgba(5,7,13,.7);--toast:rgba(18,24,38,.96);--hit:#121826;--ring:#FFFFFF;--word:rgba(238,240,244,.16);--stroke:rgba(255,255,255,.28);--stroke2:rgba(255,255,255,.16);
+  --map:#0F1522;--map-w:#1C2A44;--map-r:#1A2233;--dot3:#2A3040;--k-a:#151B28;--k-a-t:#C9D0DC;--k-k:rgba(255,106,19,.14);--k-k-t:#FFD2B8;
+  --feat:linear-gradient(180deg,rgba(255,106,19,.12),rgba(255,255,255,.02) 50%);--feat-sh:none;--hot-sh:0 0 24px rgba(255,106,19,.6);--pilot-a:.22;--orb1:.42;--orb2:.3;--noise:.05;--glow:.11;
+  --font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--display:"Inter Display","Inter",ui-sans-serif,system-ui,sans-serif;--mono:"Pilot Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;color-scheme:dark}
+[data-theme="light"]{--bg:#FBFBFD;--bg2:#FFFFFF;--bg3:#F1F3F7;--line:rgba(15,23,42,.09);--line2:rgba(15,23,42,.16);--text:#0B0F19;--sub:#3F4756;--muted:#4B5563;--dim:#6B7280;--orange2:#C2410C;--orange-t:#C2410C;--green-t:#15803D;--red:#D92D3F;
+  --h-grad:linear-gradient(180deg,#0B0F19 35%,#4A5568);--card:#FFFFFF;--card-sh:inset 0 0 0 1px rgba(15,23,42,.09),0 1px 2px rgba(15,23,42,.04),0 18px 40px -24px rgba(15,23,42,.22);
+  --chip:rgba(15,23,42,.035);--chip2:rgba(15,23,42,.07);--inset:#F6F7F9;--input:#FFFFFF;--track:rgba(15,23,42,.1);--grid:rgba(15,23,42,.06);
+  --glass:rgba(255,255,255,.72);--glass2:rgba(255,255,255,.9);--pop:rgba(255,255,255,.98);--veil:rgba(15,23,42,.28);--menu:rgba(251,251,253,.95);--nav-sh:0 10px 30px -16px rgba(15,23,42,.28);
+  --demo:#F6F7F9;--toast:rgba(255,255,255,.98);--hit:#FFFFFF;--ring:#0B0F19;--word:rgba(11,15,25,.14);--stroke:rgba(15,23,42,.25);--stroke2:rgba(15,23,42,.14);
+  --map:#EEF1F5;--map-w:#C9DAF0;--map-r:#FFFFFF;--dot3:#D5DAE2;--k-a:#EEF0F4;--k-a-t:#1F2937;--k-k:rgba(255,106,19,.1);--k-k-t:#9A3412;
+  --feat:linear-gradient(180deg,rgba(255,106,19,.09),#FFFFFF 55%);--feat-sh:0 24px 50px -28px rgba(255,106,19,.45);--hot-sh:none;--pilot-a:.14;--orb1:.2;--orb2:.12;--noise:.025;--glow:.07;color-scheme:light}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-new(root){z-index:9999}
+*{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
+html{background:var(--bg);-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:var(--noise);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+::selection{background:rgba(255,106,19,.4)}
+a{color:inherit}
+svg{max-width:100%}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--mono)}
+main{position:relative;z-index:1}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Pointer light and scroll progress */
+.cglow{position:fixed;left:0;top:0;z-index:0;width:620px;height:620px;margin:-310px 0 0 -310px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,106,19,var(--glow)),rgba(255,106,19,0) 62%);opacity:0;transition:opacity .4s}
+.cglow.on{opacity:1}
+.prog{position:fixed;left:0;right:0;top:0;z-index:80;height:2px;pointer-events:none}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--orange));transform-origin:0 50%;transform:scaleX(0)}
+
+/* Navigation: floating glass bar */
+.nav{position:fixed;top:12px;left:50%;z-index:70;width:min(1160px,calc(100% - 24px));transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 8px 8px 16px;border-radius:16px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);box-shadow:var(--nav-sh)}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:16.5px;letter-spacing:-.01em;margin-right:auto;flex:none}
+.logo svg{width:28px;height:28px;flex:none;filter:drop-shadow(0 0 12px rgba(255,106,19,.55))}
+.logo em{font-style:normal;font-weight:500;color:var(--muted)}
+@media (max-width:420px){.logo em{display:none}}
+.links{position:relative;display:flex;gap:2px;margin-right:6px}
+.links a{position:relative;z-index:1;display:inline-flex;align-items:center;min-height:38px;padding:6px 12px;border-radius:9px;color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:600;transition:color .2s}
+.links a:hover,.links a[aria-current="true"]{color:var(--text)}
+.links .ind{position:absolute;z-index:0;top:0;height:100%;border-radius:9px;background:var(--chip2);box-shadow:inset 0 0 0 1px var(--line);transition:transform .35s cubic-bezier(.3,1.3,.5,1),width .35s cubic-bezier(.3,1.3,.5,1),opacity .2s;opacity:0;pointer-events:none}
+.kbtn{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:6px 10px 6px 12px;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--muted);font:500 14px var(--font);cursor:pointer}
+.kbtn:hover{color:var(--text);border-color:var(--line2)}
+.kbtn kbd{font:12px var(--mono);padding:2px 6px;border-radius:6px;background:var(--chip2);border:1px solid var(--line);color:var(--text)}
+.kbtn svg{width:16px;height:16px}
+.ncta{display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border-radius:10px;background:linear-gradient(180deg,#FF8A4C,#FF6A13);color:#140700;font-weight:700;font-size:14.5px;text-decoration:none;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 22px -6px rgba(255,106,19,.8)}
+.mbtn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--text);cursor:pointer;place-items:center;padding:0}
+.mbtn svg{width:20px;height:20px}
+.tbtn{display:grid;place-items:center;width:42px;height:42px;flex:none;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--text);cursor:pointer;padding:0;overflow:hidden}
+.tbtn:hover{border-color:var(--line2)}
+.tbtn svg{grid-area:1/1;width:19px;height:19px;transition:transform .55s cubic-bezier(.3,1.4,.5,1),opacity .3s}
+.tbtn .moon{opacity:0;transform:rotate(-90deg) scale(.4)}
+[data-theme="light"] .tbtn .sun{opacity:0;transform:rotate(90deg) scale(.4)}
+[data-theme="light"] .tbtn .moon{opacity:1;transform:none}
+@media (max-width:940px){.links{display:none}.mbtn{display:grid}.kbtn .lbl,.kbtn kbd{display:none}.kbtn{width:42px;height:42px;padding:0;justify-content:center}}
+@media (max-width:420px){.ncta{display:none}}
+.menu{position:fixed;inset:0;z-index:75;display:flex;flex-direction:column;padding:92px 24px 32px;background:var(--menu);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s}
+.menu.open{opacity:1;visibility:visible;transition:opacity .3s}
+.menu a.big{display:block;padding:8px 0;font:700 clamp(34px,9vw,54px)/1.1 var(--display);letter-spacing:-.035em;text-decoration:none;color:var(--text);transform:translateY(24px);opacity:0;transition:transform .5s cubic-bezier(.2,.9,.3,1),opacity .4s}
+.menu.open a.big{transform:none;opacity:1}
+.menu .mrow{margin-top:auto;display:grid;gap:10px}
+
+/* Buttons */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 22px;border-radius:12px;border:0;font:700 16.5px/1.2 var(--font);text-decoration:none;cursor:pointer;text-align:center;overflow:hidden;transition:transform .2s cubic-bezier(.3,1.4,.5,1),box-shadow .2s}
+.btn.pri{background:linear-gradient(180deg,#FF8A4C,#FF6A13);color:#140700;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 0 0 1px rgba(255,106,19,.5),0 10px 34px -8px rgba(255,106,19,.85)}
+.btn.pri::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn.pri:hover::after{left:130%}
+.btn.gl{background:var(--chip);color:var(--text);box-shadow:inset 0 0 0 1px var(--line2)}
+.btn.gl:hover{background:var(--chip2)}
+.btn.sm{min-height:44px;padding:8px 16px;font-size:15px;border-radius:10px}
+.btn svg{width:18px;height:18px;flex:none}
+.mag{will-change:transform}
+
+/* Hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:110px 0 60px;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px;background-position:center top;-webkit-mask:radial-gradient(ellipse 70% 60% at 60% 40%,#000 20%,transparent 75%);mask:radial-gradient(ellipse 70% 60% at 60% 40%,#000 20%,transparent 75%)}
+.orb{position:absolute;z-index:-1;border-radius:50%;filter:blur(70px);pointer-events:none}
+.orb.o1{width:560px;height:560px;right:-120px;top:-80px;background:radial-gradient(circle,rgba(255,106,19,var(--orb1)),transparent 65%)}
+.orb.o2{width:520px;height:520px;left:-200px;bottom:-200px;background:radial-gradient(circle,rgba(76,125,255,var(--orb2)),transparent 65%)}
+#swarm{position:absolute;inset:0;width:100%;height:100%;z-index:0;touch-action:pan-y}
+.hgrid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);gap:26px;align-items:center;width:100%;pointer-events:none}
+.hgrid a,.hgrid button{pointer-events:auto}
+@media (min-width:960px){.hgrid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 10px;border-radius:999px;border:1px solid var(--line2);background:var(--chip);font-size:14px;color:var(--text);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.live{position:relative;width:8px;height:8px;border-radius:50%;background:var(--green);flex:none;box-shadow:0 0 10px var(--green)}
+.live::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--green);animation:ping 1.8s ease-out infinite}
+@keyframes ping{from{transform:scale(.6);opacity:1}to{transform:scale(2.2);opacity:0}}
+.h1{margin:22px 0 18px;font:700 clamp(46px,7.4vw,98px)/.98 var(--display);letter-spacing:-.045em;background:var(--h-grad);-webkit-background-clip:text;background-clip:text;color:transparent;text-wrap:balance}
+.h1 .w{display:inline-block;opacity:0;transform:translateY(.35em);filter:blur(10px);transition:opacity .8s,transform .9s cubic-bezier(.2,.9,.3,1),filter .8s;background:inherit;-webkit-background-clip:text;background-clip:text}
+.ready .h1 .w{opacity:1;transform:none;filter:none}
+.sub{margin:0;max-width:34em;font-size:clamp(17px,1.6vw,19.5px);color:var(--sub);text-wrap:pretty}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.tags{list-style:none;margin:24px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.tags li{font:13px var(--mono);color:var(--muted);padding:5px 10px;border-radius:8px;border:1px solid var(--line);background:var(--chip)}
+.tags li::before{content:"✓ ";color:var(--green-t)}
+.fade{opacity:0;transform:translateY(16px);transition:opacity .8s .5s,transform .9s .5s cubic-bezier(.2,.9,.3,1)}
+.ready .fade{opacity:1;transform:none}
+.sbox{position:relative;justify-self:center;width:min(100%,520px);aspect-ratio:1;pointer-events:none}
+@media (max-width:959px){.hgrid{gap:0}.hcopy{display:contents}.hcopy>.pill{order:1;justify-self:start}.h1{order:2}.sbox{order:3;width:min(84vw,340px);margin:0 auto 30px}.hcopy>.sub{order:4}.cta-row{order:5}.tags{order:6}}
+@media (min-width:600px) and (max-width:959px){.sbox{width:min(58vw,460px)}}
+@media (max-width:520px){.cta-row .btn{flex:1 1 100%}}
+.slabel{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;font:13px var(--mono);color:var(--muted);padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--glass)}
+.slabel i{width:6px;height:6px;border-radius:50%;background:var(--orange);box-shadow:0 0 8px var(--orange)}
+.sfall{position:absolute;inset:12%;display:none}
+.nogl .sfall{display:block}
+.nogl #swarm{display:none}
+.hint{position:absolute;z-index:1;left:50%;bottom:18px;transform:translateX(-50%);font:12.5px var(--mono);color:var(--dim);white-space:nowrap;pointer-events:none}
+.nogl .hint{display:none}
+
+/* Sections */
+.sec{position:relative;padding-block:clamp(80px,11vw,140px)}
+.sh{max-width:760px;margin-bottom:clamp(34px,5vw,56px)}
+.sh.c{margin-inline:auto;text-align:center}
+.cmd{margin:0 0 16px;font:13.5px var(--mono);color:var(--muted)}
+.cmd b{font-weight:400;color:var(--orange-t)}
+.h2{margin:0;font:700 clamp(36px,5.4vw,66px)/1.02 var(--display);letter-spacing:-.04em;background:var(--h-grad);-webkit-background-clip:text;background-clip:text;color:transparent;text-wrap:balance}
+.h2 .scr{display:block}
+.lead{margin:18px 0 0;font-size:clamp(17px,1.6vw,19px);color:var(--sub);text-wrap:pretty;max-width:36em}
+.sh.c .lead{margin-inline:auto}
+.card{position:relative;isolation:isolate;border-radius:22px;background:var(--card);box-shadow:var(--card-sh)}
+.spot::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:radial-gradient(280px circle at var(--mx,-999px) var(--my,-999px),rgba(255,155,94,.95),rgba(255,106,19,.25) 40%,transparent 70%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none;z-index:2}
+.spot::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(520px circle at var(--mx,-999px) var(--my,-999px),rgba(255,106,19,.08),transparent 45%);pointer-events:none;z-index:-1}
+
+/* Update terminal */
+.upd{display:grid;gap:40px 64px;align-items:center}
+@media (min-width:960px){.upd{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}}
+.tl{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:10px}
+.tl li{display:flex;justify-content:space-between;gap:16px;padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:var(--chip);font-weight:600}
+.tl li span{font:14px var(--mono);color:var(--orange2);white-space:nowrap}
+.term,.phone{--text:#EEF0F4;--sub:#B7BECB;--muted:#8E96A6;--dim:#667084;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.15);--chip:rgba(255,255,255,.04);--chip2:rgba(255,255,255,.08);--orange2:#FF9B5E;--green-t:#3BD98B;color:var(--text);color-scheme:dark}
+.term{border-radius:16px;background:#0A0D16;box-shadow:inset 0 0 0 1px var(--line2),0 40px 80px -40px rgba(0,0,0,.7),0 0 80px -30px rgba(255,106,19,.35);overflow:hidden}
+.term-h{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);font:12.5px var(--mono);color:var(--muted)}
+.term-h i{width:11px;height:11px;border-radius:50%;background:#2A3040}
+.term-h i:nth-child(1){background:#FF5F57}.term-h i:nth-child(2){background:#FEBC2E}.term-h i:nth-child(3){background:#28C840}
+.term-h span{margin-left:auto;margin-right:auto;padding-right:44px}
+.term-b{min-height:320px;padding:18px 18px 22px;font:14px/1.85 var(--mono);color:#C9D0DC;white-space:pre-wrap;overflow-wrap:anywhere}
+@media (max-width:560px){.term-b{font-size:12px;min-height:300px;padding:14px}}
+.term-b .p{color:var(--green)}
+.term-b .o{color:var(--orange2)}
+.term-b .ok{color:var(--green)}
+.term-b .d{color:var(--dim)}
+.cur{display:inline-block;width:.6em;height:1.1em;vertical-align:-.15em;background:var(--orange);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.term-f{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px 10px 18px;border-top:1px solid var(--line);font:12.5px var(--mono);color:var(--dim)}
+
+/* Bento with live demos */
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.bento>.card{grid-column:span 6;display:flex;flex-direction:column;overflow:hidden}
+.bento>.w7{grid-column:span 7}.bento>.w5{grid-column:span 5}
+@media (max-width:980px){.bento>.card,.bento>.w7,.bento>.w5{grid-column:1/-1}}
+.demo{position:relative;height:300px;margin:10px 10px 0;border-radius:16px;background:var(--demo);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.demo .ex{position:absolute;right:10px;bottom:10px;z-index:3;font:11px var(--mono);color:var(--dim);padding:2px 8px;border-radius:6px;border:1px solid var(--line);background:var(--glass2)}
+.bc{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.bc h3{margin:0;font:700 26px/1.1 var(--display);letter-spacing:-.025em}
+.bc>p{margin:0;color:var(--sub);font-size:16px}
+.ticks{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:6px;font-size:15px;color:var(--sub)}
+.ticks li{position:relative;padding-left:24px}
+.ticks li::before{content:"";position:absolute;left:3px;top:4px;width:6px;height:11px;border:solid var(--orange);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.pr{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+.pr b{font:700 22px var(--display);letter-spacing:-.02em}
+.pr b small{font:500 14px var(--font);color:var(--muted);letter-spacing:0}
+.pr .note{flex-basis:100%;font-size:14px;color:var(--muted)}
+.lk{display:flex;flex-wrap:wrap;gap:0 18px;font-size:15px}
+.lk a{display:inline-flex;align-items:center;gap:6px;min-height:42px;color:var(--orange2);font-weight:600;text-decoration:none}
+.lk a:hover{text-decoration:underline}
+.lk .muted{color:var(--muted);font-size:14px}
+.lk .muted a{display:inline;color:var(--orange2)}
+/* demo: calendar */
+.app-h{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;font-size:14px}
+.app-h b{font-weight:700}
+.app-h .mono{font-size:12px;color:var(--dim)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;font:12px var(--mono);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.ok{color:var(--green-t);border-color:rgba(59,217,139,.35);background:rgba(59,217,139,.08)}
+.app-h .chip{margin-left:auto}
+.cal{position:absolute;left:16px;right:16px;top:50px;bottom:16px;display:grid;grid-template-columns:28px minmax(0,1fr);grid-template-rows:18px minmax(0,1fr)}
+.cal .days{grid-column:2;display:grid;grid-template-columns:repeat(6,1fr);font:11px var(--mono);color:var(--dim);text-align:center}
+.cal .hrs{grid-row:2;display:grid;grid-template-rows:repeat(9,1fr);font:10px var(--mono);color:var(--dim)}
+.cg{position:relative;grid-row:2;grid-column:2;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:calc(100% / 6) calc(100% / 9);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.blk{position:absolute;left:calc(var(--d) * 100% / 6 + 3px);width:calc(100% / 6 - 6px);top:calc(var(--h) * 100% / 9 + 2px);height:calc(var(--l) * 100% / 9 - 4px);border-radius:6px;background:var(--c);opacity:.92;box-shadow:inset 0 1px 0 rgba(255,255,255,.25);transform-origin:50% 0}
+.blk.new{animation:pop .6s cubic-bezier(.3,1.6,.5,1) both;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 0 0 2px var(--ring),0 0 22px var(--c)}
+.blk.warn{animation:shake .5s;box-shadow:0 0 0 2px var(--red),0 0 22px var(--red)}
+@keyframes pop{from{transform:scaleY(0);opacity:0}}
+@keyframes shake{20%,60%{transform:translateX(-4px)}40%,80%{transform:translateX(4px)}}
+.toast{position:absolute;right:14px;top:12px;z-index:2;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--toast);box-shadow:inset 0 0 0 1px var(--line2),0 10px 30px -10px rgba(0,0,0,.55);font-size:13px;font-weight:600;transform:translateY(-140%);opacity:0;transition:transform .5s cubic-bezier(.3,1.4,.5,1),opacity .3s}
+.toast.on{transform:none;opacity:1}
+.toast i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);flex:none}
+@media (max-width:560px){.toast{left:10px;right:10px;top:8px}}
+.toast.bad i{background:var(--red);box-shadow:0 0 8px var(--red)}
+/* demo: stamp card */
+.stp{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;height:100%;padding:16px 20px}
+.phone{position:relative;width:150px;height:268px;border-radius:30px;background:#0C0F16;box-shadow:inset 0 0 0 2px #2A3142,inset 0 0 0 7px #0C0F16,inset 0 0 0 8px #1A2030,0 30px 50px -20px rgba(0,0,0,.6);padding:34px 12px 12px}
+.phone::before{content:"";position:absolute;left:50%;top:11px;width:44px;height:12px;margin-left:-22px;border-radius:8px;background:#05070D}
+.wcard{border-radius:14px;padding:12px;background:linear-gradient(145deg,#FF8A4C,#FF6A13 60%,#E05400);color:#1A0800;box-shadow:0 10px 30px -10px rgba(255,106,19,.8);transition:box-shadow .4s,transform .4s}
+.wcard b{display:block;font-size:13px}
+.wcard span{display:block;font-size:10.5px;opacity:.75}
+.slots{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0 10px}
+.slots i{aspect-ratio:1;border-radius:50%;border:1.5px solid rgba(26,8,0,.45);display:grid;place-items:center;transition:background .2s}
+.slots i.on{background:#1A0800;border-color:#1A0800;animation:stamp .45s cubic-bezier(.3,1.7,.5,1)}
+.slots i.on::after{content:"";width:5px;height:9px;border:solid #FF9B5E;border-width:0 2px 2px 0;transform:translateY(-1px) rotate(45deg)}
+@keyframes stamp{from{transform:scale(1.9);opacity:0}}
+.wc-c{margin:0;font:600 12px var(--mono)}
+.wcard.full{transform:scale(1.04);box-shadow:0 0 0 2px #fff,0 0 50px rgba(255,106,19,.9)}
+.ph-msg{margin-top:10px;padding:8px 10px;border-radius:10px;background:#151B28;font-size:10.5px;color:var(--muted);line-height:1.35}
+.ph-msg b{display:block;color:var(--text);font-size:11px}
+.stp-r{display:grid;gap:12px;justify-items:start}
+.stp-r p{margin:0;font-size:14px;color:var(--muted)}
+.stp-r .big-n{font:700 44px/1 var(--display);letter-spacing:-.03em}
+.stp-r .big-n small{font:500 15px var(--font);color:var(--muted);letter-spacing:0}
+@media (max-width:440px){.stp{grid-template-columns:minmax(0,1fr);justify-items:center;padding:12px}.stp-r{display:none}.demo.tall{height:auto;padding-bottom:58px}.demo.tall .stp{height:auto}.stp-btn{position:absolute;left:50%;bottom:10px;transform:translateX(-50%)}}
+@media (min-width:441px){.stp-btn{display:none}}
+/* demo: call */
+.call{display:flex;flex-direction:column;height:100%;padding:16px 16px 40px}
+.call-h{display:flex;align-items:center;gap:12px}
+.ava{position:relative;width:40px;height:40px;border-radius:50%;background:linear-gradient(145deg,#FF8A4C,#FF6A13);display:grid;place-items:center;flex:none}
+.ava svg{width:20px;height:20px;color:#1A0800}
+.ava::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--orange);opacity:0}
+.ringing .ava::after{animation:ring2 1.2s ease-out infinite}
+@keyframes ring2{from{transform:scale(.8);opacity:1}to{transform:scale(1.5);opacity:0}}
+.call-h b{display:block;font-size:14px}
+.call-h div span{display:block;font-size:12px;color:var(--muted)}
+.call-h .mono{margin-left:auto;font-size:12px;color:var(--muted)}
+.wave{display:flex;align-items:center;gap:3px;height:42px;margin:12px 0 8px}
+.wave i{flex:1;height:10%;border-radius:2px;background:linear-gradient(180deg,var(--orange2),var(--orange));transition:height .12s}
+.tx{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;overflow:hidden;font-size:13px;line-height:1.4}
+.tx p{margin:0;padding:7px 10px;border-radius:10px;max-width:88%}
+.tx .a{align-self:flex-start;background:var(--k-a);color:var(--k-a-t)}
+.tx .k{align-self:flex-end;background:var(--k-k);color:var(--k-k-t);box-shadow:inset 0 0 0 1px rgba(255,106,19,.3)}
+.tx .s{align-self:center;font:12px var(--mono);color:var(--green-t);background:none;padding:2px}
+.tx p small{display:block;font:10.5px var(--mono);opacity:.6;margin-bottom:2px}
+/* demo: web search */
+.brw{display:flex;flex-direction:column;height:100%}
+.br-bar{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.br-bar .dots{display:flex;gap:5px}
+.br-bar .dots i{width:9px;height:9px;border-radius:50%;background:var(--dot3)}
+.srch{flex:1;display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--bg3);box-shadow:inset 0 0 0 1px var(--line);font:13px var(--mono);color:var(--text);min-height:32px}
+.srch svg{width:14px;height:14px;color:var(--muted);flex:none}
+.caret{display:inline-block;width:1px;height:14px;background:var(--orange);animation:blink 1s steps(1) infinite}
+.res{position:relative;flex:1;padding:12px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px}
+@media (max-width:520px){.res{grid-template-columns:minmax(0,1fr)}.map{display:none}}
+.hit{border-radius:12px;padding:12px;background:var(--hit);box-shadow:inset 0 0 0 1px var(--line);opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s cubic-bezier(.3,1.3,.5,1),box-shadow .4s}
+.hit.on{opacity:1;transform:none}
+.hit.top{box-shadow:inset 0 0 0 1px rgba(255,106,19,.6),0 0 30px -8px rgba(255,106,19,.7)}
+.hit b{display:block;font-size:14px}
+.hit .open{display:block;font-size:12px;color:var(--green-t);margin:2px 0 8px}
+.hit .btns{display:flex;flex-wrap:wrap;gap:6px}
+.hit .btns span{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:var(--chip2)}
+.hit .btns span:first-child{background:var(--orange);color:#1A0800}
+.ghost{height:9px;border-radius:5px;background:var(--chip2);margin-top:8px}
+.map{position:relative;border-radius:12px;overflow:hidden;background:var(--map);box-shadow:inset 0 0 0 1px var(--line);opacity:0;transition:opacity .6s}
+.map .mw{stroke:var(--map-w)}.map .mr{stroke:var(--map-r)}.map .ph{fill:var(--bg)}
+.map.on{opacity:1}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{transform-box:fill-box;transform-origin:50% 100%}
+.map.on .pin{animation:drop .7s .2s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes drop{from{transform:translateY(-40px) scale(.6);opacity:0}}
+
+/* Marquee */
+.mq{position:relative;padding:26px 0;border-block:1px solid var(--line);overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.mq-row{display:flex;width:max-content;will-change:transform}
+.mq-row span{flex:none;padding-right:.5em;font:700 clamp(40px,7vw,92px)/1.08 var(--display);letter-spacing:-.04em;white-space:nowrap}
+.mq-row.out span{color:transparent;-webkit-text-stroke:1.2px var(--stroke)}
+.mq-row span i{font-style:normal;color:var(--orange);-webkit-text-stroke:0}
+
+/* Extras */
+.xg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:1040px){.xg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.xg{grid-template-columns:minmax(0,1fr)}}
+.x{padding:22px 22px 16px;display:flex;flex-direction:column;gap:8px}
+.x .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(255,106,19,.1);color:var(--orange2);box-shadow:inset 0 0 0 1px rgba(255,106,19,.3)}
+.x .ic svg{width:22px;height:22px}
+.x h3{margin:6px 0 0;font:700 19px/1.25 var(--display);letter-spacing:-.02em}
+.x p{margin:0;color:var(--sub);font-size:15px}
+.x .pa{margin-top:auto;padding-top:6px;font:12.5px var(--mono);color:var(--dim)}
+.x a{display:inline-flex;align-items:center;min-height:40px;color:var(--orange2);font-weight:600;font-size:15px;text-decoration:none}
+
+/* Calculator dashboard */
+.dash{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+@media (max-width:980px){.dash{grid-template-columns:minmax(0,1fr)}}
+.dash-in{padding:30px;border-right:1px solid var(--line)}
+@media (max-width:980px){.dash-in{border-right:0;border-bottom:1px solid var(--line)}}
+@media (max-width:520px){.dash-in,.dash-out{padding:22px 18px!important}}
+.rng{display:grid;gap:4px;margin-bottom:24px}
+.rng:last-child{margin-bottom:0}
+.rng-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.rng label{font-weight:600;font-size:15.5px}
+.rng output{font:700 22px var(--display);letter-spacing:-.02em;white-space:nowrap}
+.rng input{-webkit-appearance:none;appearance:none;width:100%;height:36px;margin:0;background:transparent;cursor:pointer;--p:50%}
+.rng input::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--orange) var(--p),var(--track) var(--p))}
+.rng input::-moz-range-track{height:6px;border-radius:3px;background:var(--track)}
+.rng input::-moz-range-progress{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--orange))}
+.rng input::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border-radius:50%;background:#fff;box-shadow:0 0 0 5px rgba(255,106,19,.35),0 0 20px rgba(255,106,19,.8)}
+.rng input::-moz-range-thumb{width:22px;height:22px;border:0;border-radius:50%;background:#fff;box-shadow:0 0 0 5px rgba(255,106,19,.35),0 0 20px rgba(255,106,19,.8)}
+[data-theme="light"] .rng input::-webkit-slider-thumb{box-shadow:0 0 0 2px #FF6A13,0 0 0 7px rgba(255,106,19,.18),0 2px 6px rgba(15,23,42,.25)}
+[data-theme="light"] .rng input::-moz-range-thumb{box-shadow:0 0 0 2px #FF6A13,0 0 0 7px rgba(255,106,19,.18),0 2px 6px rgba(15,23,42,.25)}
+.chart .cg1{stroke:var(--line)}.chart .cg2{stroke:var(--muted)}.chart .ct1{fill:var(--text);font-weight:700}.chart .ct2{fill:var(--sub)}.chart .ct3{fill:var(--dim)}
+.dash-out{padding:30px}
+.kpi{margin:30px 0 0;border-radius:16px;background:var(--inset);box-shadow:inset 0 0 0 1px var(--line)}
+.kpi div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-top:1px solid var(--line)}
+.kpi div:first-child{border-top:0}
+.kpi dt{font-size:14.5px;color:var(--muted)}
+.kpi dd{margin:0;font:700 24px/1.1 var(--display);letter-spacing:-.03em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.kpi .hot dd{font-size:34px;color:var(--orange2);text-shadow:var(--hot-sh)}
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font:11px var(--mono);fill:var(--dim)}
+.verdict{margin:16px 0 4px;font-weight:600;font-size:17px;text-wrap:pretty}
+.mins,.fine3{margin:0;font-size:14px;color:var(--muted)}
+.fine3{margin-top:14px;font-size:13px;color:var(--dim)}
+
+/* Pipeline */
+.pipe{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;list-style:none;margin:0;padding:0}
+.pipe::before,.pipe .fill{content:"";position:absolute;left:calc(100% / 6);right:calc(100% / 6);top:31px;height:2px;background:var(--line2)}
+.pipe .fill{background:linear-gradient(90deg,var(--blue),var(--orange));transform-origin:0 50%;transform:scaleX(var(--pf,0));box-shadow:0 0 14px rgba(255,106,19,.8)}
+@media (max-width:860px){.pipe{grid-template-columns:minmax(0,1fr);gap:22px;padding-left:76px}.pipe::before,.pipe .fill{left:27px;right:auto;top:28px;bottom:var(--le,28px);width:2px;height:auto}.pipe .fill{transform:scaleY(var(--pf,0));transform-origin:50% 0}}
+.node{position:relative;text-align:center;padding:0 6px}
+@media (max-width:860px){.node{text-align:left;padding:0}}
+.dot{position:relative;z-index:1;width:64px;height:64px;margin:0 auto 18px;border-radius:18px;display:grid;place-items:center;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line2);color:var(--muted);transition:background .4s,color .4s,box-shadow .4s}
+.dot svg{width:26px;height:26px}
+@media (max-width:860px){.dot{position:absolute;left:-76px;top:0;width:56px;height:56px;margin:0}}
+.node.on .dot{background:linear-gradient(145deg,#FF8A4C,#FF6A13);color:#1A0800;box-shadow:0 0 0 6px rgba(255,106,19,.15),0 0 40px rgba(255,106,19,.6)}
+.node h3{margin:0 0 6px;font:700 22px/1.2 var(--display);letter-spacing:-.02em}
+.node p{margin:0 0 12px;color:var(--sub);font-size:15.5px}
+.node .chip{transition:color .4s,border-color .4s,background .4s}
+.node.on .chip{color:var(--green-t);border-color:rgba(59,217,139,.35);background:rgba(59,217,139,.08)}
+@media (max-width:860px){.node{min-height:56px}}
+
+/* Prices */
+.bill{display:inline-flex;position:relative;padding:4px;border-radius:12px;background:var(--chip);box-shadow:inset 0 0 0 1px var(--line);margin-top:26px}
+.bill button{position:relative;z-index:1;font:600 15px var(--font);border:0;background:none;color:var(--muted);padding:9px 16px;min-height:44px;border-radius:9px;cursor:pointer;transition:color .3s}
+.bill button[aria-pressed="true"]{color:#140700}
+.bill button small{font:12px var(--mono);margin-left:6px;color:var(--green-t)}
+.bill button[aria-pressed="true"] small{color:#3A1500}
+.bill .knob{position:absolute;z-index:0;top:4px;bottom:4px;left:4px;border-radius:9px;background:linear-gradient(180deg,#FF8A4C,#FF6A13);box-shadow:0 6px 20px -6px rgba(255,106,19,.9);transition:transform .45s cubic-bezier(.3,1.3,.5,1),width .45s cubic-bezier(.3,1.3,.5,1)}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch;margin-top:34px}
+@media (max-width:980px){.plans{grid-template-columns:minmax(0,1fr);max-width:520px;margin-inline:auto}}
+.plan{padding:28px 26px 24px;display:flex;flex-direction:column;gap:14px}
+.plan.feat{background:var(--feat);box-shadow:var(--feat-sh)}
+.plan.feat>.ring{position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:conic-gradient(from var(--ang),rgba(255,106,19,.15),rgba(255,106,19,.15) 55%,#FF6A13 72%,#FFD0B0 78%,#4C7DFF 86%,rgba(255,106,19,.15) 95%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:spin 5s linear infinite;pointer-events:none}
+@keyframes spin{to{--ang:360deg}}
+.plan h3{margin:0;font:700 26px/1.1 var(--display);letter-spacing:-.025em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.plan h3 .chip{color:var(--orange2);border-color:rgba(255,106,19,.4);background:rgba(255,106,19,.1)}
+.plan .for{margin:-6px 0 0;color:var(--muted);font-size:15px}
+.price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price .ab{font-size:16px;color:var(--muted)}
+.price .num{font:700 clamp(50px,5vw,62px)/1 var(--display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.price .per{font-size:15px;color:var(--muted)}
+.calcl{margin:-6px 0 0;font:13px var(--mono);color:var(--dim);min-height:1.5em}
+.setup{margin:0;padding:10px 12px;border-radius:10px;background:var(--chip);box-shadow:inset 0 0 0 1px var(--line);font-size:14px;color:var(--sub)}
+.plan .ticks{margin-bottom:6px}
+.plan .btn{margin-top:auto}
+.fine{margin:22px 0 0;font-size:13.5px;color:var(--dim);max-width:64em}
+.pilot{margin-top:40px;padding:30px;display:grid;gap:24px 40px;align-items:center;background:radial-gradient(120% 140% at 100% 0%,rgba(255,106,19,var(--pilot-a)),transparent 55%),var(--card)}
+@media (min-width:900px){.pilot{grid-template-columns:minmax(0,1fr) auto}}
+.pilot h3{margin:10px 0 8px;font:700 clamp(28px,3.4vw,40px)/1.05 var(--display);letter-spacing:-.035em}
+.pilot p{margin:0;color:var(--sub);max-width:34em}
+.seats{display:grid;grid-template-columns:repeat(5,28px);gap:8px;margin:18px 0 0}
+.seats i{width:28px;height:28px;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(255,106,19,.5);background:rgba(255,106,19,.08)}
+.seat-l{margin:10px 0 0;font:12.5px var(--mono);color:var(--muted)}
+
+/* About */
+.about{display:grid;gap:40px 64px;align-items:start}
+@media (min-width:960px){.about{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}}
+.prof{padding:28px;display:grid;gap:18px;position:sticky;top:110px}
+@media (max-width:959px){.prof{position:relative;top:auto}}
+.mono-av{width:84px;height:84px;border-radius:24px;display:grid;place-items:center;font:700 32px var(--display);letter-spacing:-.04em;color:#1A0800;background:linear-gradient(145deg,#FFB089,#FF6A13 55%,#C94300);box-shadow:0 0 0 6px rgba(255,106,19,.12),0 20px 50px -14px rgba(255,106,19,.8)}
+.prof h3{margin:0;font:700 26px/1.1 var(--display);letter-spacing:-.025em}
+.prof .role{margin:4px 0 0;color:var(--muted)}
+.kv{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;font-size:14.5px}
+.kv dt{font:12.5px var(--mono);color:var(--dim);padding-top:2px}
+.kv dd{margin:0;color:var(--sub)}
+.kv a{color:var(--orange2);text-decoration:none}
+.story{margin:0;font:600 clamp(24px,3.1vw,38px)/1.32 var(--display);letter-spacing:-.025em}
+.story .wd{color:var(--word);transition:color .25s}
+.story .wd.on{color:var(--text)}
+.story .wd.hl.on{color:var(--orange2)}
+.label{margin:34px 0 12px;font:13px var(--mono);color:var(--muted)}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.chips li{padding:8px 14px;border-radius:999px;border:1px solid var(--line2);background:var(--chip);font-size:14.5px;font-weight:600}
+
+/* Contact: step form */
+.book{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:960px){.book{grid-template-columns:minmax(0,1fr)}}
+.wiz{padding:28px 30px 26px}
+@media (max-width:560px){.wiz{padding:22px 18px}}
+.wiz-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;font:12.5px var(--mono);color:var(--muted)}
+.wbar{height:4px;border-radius:2px;background:var(--track);overflow:hidden;margin-bottom:26px}
+.wbar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--orange));transform-origin:0 50%;transform:scaleX(var(--w,.16));transition:transform .5s cubic-bezier(.3,1.1,.5,1);box-shadow:0 0 12px rgba(255,106,19,.8)}
+.step{border:0;margin:0;padding:0;min-width:0;display:none}
+.step.on{display:block;animation:stepin .5s cubic-bezier(.2,.9,.3,1)}
+.step.on.back{animation-name:stepback}
+@keyframes stepin{from{opacity:0;transform:translateX(30px);filter:blur(6px)}}
+@keyframes stepback{from{opacity:0;transform:translateX(-30px);filter:blur(6px)}}
+.step legend{padding:0;margin:0 0 20px;font:700 clamp(26px,3vw,36px)/1.1 var(--display);letter-spacing:-.03em}
+.flds{display:grid;gap:14px}
+.f2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.f2.plz{grid-template-columns:120px minmax(0,1fr)}
+@media (max-width:560px){.f2{grid-template-columns:minmax(0,1fr)}.f2.plz{grid-template-columns:100px minmax(0,1fr)}}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label,.fld .lab{font-size:13.5px;font-weight:600;color:var(--sub)}
+.req{color:var(--orange2)}
+.wiz input:not([type=radio]):not([type=checkbox]),.wiz select,.wiz textarea{font:inherit;font-size:16.5px;color:var(--text);background:var(--input);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;min-height:50px;width:100%;transition:border-color .2s,box-shadow .2s}
+.wiz select{-webkit-appearance:none;appearance:none;padding-right:38px;background:var(--input) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%238E96A6' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat right 14px center/12px 8px}
+.wiz select option{background:var(--bg2);color:var(--text)}
+.wiz textarea{resize:vertical}
+.wiz input:focus,.wiz select:focus,.wiz textarea:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,106,19,.18)}
+.wiz [aria-invalid="true"]{border-color:var(--red)!important;box-shadow:0 0 0 4px rgba(255,90,106,.15)!important}
+.err{margin:2px 0 0;color:var(--red);font-size:13.5px;font-weight:600}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative;display:inline-flex}
+.opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.opt span{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:9px 15px;border-radius:12px;border:1px solid var(--line2);background:var(--chip);font-size:15px;font-weight:600;cursor:pointer;user-select:none;transition:background .2s,border-color .2s,box-shadow .2s}
+.opt span:hover{background:var(--chip2)}
+.opt input:checked+span{border-color:var(--orange);background:rgba(255,106,19,.14);box-shadow:0 0 0 1px var(--orange),0 0 24px -6px rgba(255,106,19,.7)}
+.opt input:focus-visible+span{outline:2px solid var(--orange);outline-offset:2px}
+.checkc,.consent{display:flex;gap:10px;align-items:flex-start;font-size:15px;cursor:pointer}
+.checkc{align-items:center;min-height:50px;align-self:end;font-weight:600}
+.checkc input,.consent input{width:22px;height:22px;flex:none;accent-color:var(--orange);margin:1px 0 0}
+.consent a{color:var(--orange2)}
+.wnav{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-top:26px}
+.wnav .hint2{font:12.5px var(--mono);color:var(--dim)}
+.wnav .hint2 kbd{font:inherit;padding:1px 6px;border-radius:5px;border:1px solid var(--line);color:var(--muted)}
+.send{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.send .btn{flex:1 1 220px}
+.fine2{margin:14px 0 0;font-size:13.5px;color:var(--muted)}
+.done{padding:6px 0 0}
+.done[hidden]{display:none}
+.done .okc{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:rgba(59,217,139,.12);box-shadow:0 0 0 1px rgba(59,217,139,.4),0 0 40px rgba(59,217,139,.35);margin-bottom:16px}
+.done .okc svg{width:30px;height:30px;color:var(--green-t)}
+.done .okc path{stroke-dasharray:40;stroke-dashoffset:40;animation:drawk .6s .2s forwards}
+@keyframes drawk{to{stroke-dashoffset:0}}
+.done h3{margin:0 0 6px;font:700 32px/1.1 var(--display);letter-spacing:-.03em}
+.done>p{margin:0 0 18px;color:var(--sub)}
+.sum{margin:0 0 20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.sum{grid-template-columns:minmax(0,1fr)}}
+.sum div{padding:12px 14px;border-radius:12px;background:var(--chip);box-shadow:inset 0 0 0 1px var(--line)}
+.sum dt{font:12px var(--mono);color:var(--dim)}
+.sum dd{margin:2px 0 0;font-weight:600;overflow-wrap:anywhere}
+.done .row{display:flex;flex-wrap:wrap;gap:10px}
+.direct{display:grid;gap:12px}
+.dc{display:flex;align-items:center;gap:14px;padding:18px;text-decoration:none}
+.dc .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(255,106,19,.1);color:var(--orange2);box-shadow:inset 0 0 0 1px rgba(255,106,19,.3);flex:none}
+.dc .ic svg{width:22px;height:22px}
+.dc b{display:block;font-size:16px}
+.dc .s{display:block;font:13px var(--mono);color:var(--muted);overflow-wrap:anywhere}
+.dc .arr{margin-left:auto;width:18px;height:18px;color:var(--dim);transition:transform .3s,color .3s;flex:none}
+.dc:hover .arr{transform:translate(3px,-3px);color:var(--orange2)}
+.who{padding:18px;font-size:14.5px;color:var(--muted)}
+.who b{color:var(--text)}
+
+/* Footer */
+footer{position:relative;z-index:1;padding:60px 0 calc(30px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);overflow:hidden}
+.wordmark{display:block;margin:0 0 30px;font:700 min(21vw,300px)/.85 var(--display);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px var(--stroke2);background:linear-gradient(180deg,rgba(255,106,19,.3),transparent 70%);-webkit-background-clip:text;background-clip:text;white-space:nowrap;user-select:none}
+footer .row{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}
+footer nav{display:flex;gap:18px}
+footer a{display:inline-flex;align-items:center;min-height:42px;text-decoration:none;font-weight:600;color:var(--text)}
+footer a:hover{color:var(--orange2)}
+
+/* Command palette */
+.pal{position:fixed;inset:0;z-index:95;display:grid;place-items:start center;padding:12vh 16px 16px;background:var(--veil);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .2s,visibility 0s .2s}
+.pal.open{opacity:1;visibility:visible;transition:opacity .2s}
+.pal-box{width:min(640px,100%);border-radius:18px;background:var(--pop);box-shadow:inset 0 0 0 1px var(--line2),0 40px 100px -20px rgba(0,0,0,.5),0 0 80px -30px rgba(255,106,19,.45);overflow:hidden;transform:translateY(-10px) scale(.98);transition:transform .25s cubic-bezier(.3,1.3,.5,1)}
+.pal.open .pal-box{transform:none}
+.pal-in{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.pal-in svg{width:18px;height:18px;color:var(--muted);flex:none}
+.pal-in input{flex:1;font:500 17px var(--font);color:var(--text);background:none;border:0;outline:none;min-height:30px}
+.pal-in kbd{font:12px var(--mono);padding:2px 7px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+.pal-list{list-style:none;margin:0;padding:8px;max-height:min(420px,55vh);overflow-y:auto}
+.pal-list .grp{padding:10px 10px 6px;font:12px var(--mono);color:var(--dim)}
+.pal-list [role="option"]{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:15px}
+.pal-list [role="option"] svg{width:18px;height:18px;color:var(--muted);flex:none}
+.pal-list [role="option"] span{margin-left:auto;font:12px var(--mono);color:var(--dim)}
+.pal-list [aria-selected="true"]{background:rgba(255,106,19,.14);box-shadow:inset 0 0 0 1px rgba(255,106,19,.4)}
+.pal-list [aria-selected="true"] svg{color:var(--orange2)}
+.pal-empty{padding:18px;color:var(--muted);font-size:15px}
+.pal-f{display:flex;gap:14px;padding:10px 16px;border-top:1px solid var(--line);font:12px var(--mono);color:var(--dim)}
+
+/* Back to top: launch */
+.up{position:fixed;right:max(16px,calc(env(safe-area-inset-right,0px) + 12px));bottom:max(16px,calc(env(safe-area-inset-bottom,0px) + 12px));z-index:65;width:58px;height:58px;border-radius:50%;border:0;padding:0;display:grid;place-items:center;cursor:pointer;background:var(--glass2);box-shadow:inset 0 0 0 1px var(--line2),0 0 30px -6px rgba(255,106,19,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--orange);opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s}
+.up.show{opacity:1;transform:none;pointer-events:auto}
+.up svg{width:30px;height:30px}
+.rocket{position:fixed;left:0;top:0;z-index:96;width:40px;height:40px;margin:-20px 0 0 -20px;pointer-events:none;color:var(--orange);filter:drop-shadow(0 0 12px rgba(255,106,19,.9))}
+#exhaust{position:fixed;inset:0;z-index:95;pointer-events:none;width:100vw;height:100vh}
+.ripple{position:fixed;z-index:96;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;border:2px solid var(--orange);pointer-events:none;animation:rip .8s ease-out forwards}
+@keyframes rip{to{transform:scale(5);opacity:0}}
+.logo.land svg{animation:land .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes land{30%{transform:scale(1.35) rotate(-8deg)}65%{transform:scale(.9)}}
+
+@media (prefers-reduced-motion:reduce){.h1 .w,.fade{opacity:1;transform:none;filter:none;transition:none}.live::after,.plan.feat>.ring,.cur,.caret{animation:none}.step.on{animation:none}}
+</style>
 </head>
-<body class="home">
-<header class="nav">
-  <div class="wrap nav-in">
-    <a class="logo" href="/" aria-label="Pilotwerk Digital, Startseite">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><rect class="mk-bg" width="40" height="40" rx="11"/><path class="mk-ar" d="M10 29 C 16 29, 20 23, 23.5 17.5 L 29 11" stroke-width="4" fill="none" stroke-linecap="round"/><path class="mk-ar" d="M21.5 11 H29 V18.5" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span>Pilotwerk</span><em>Digital</em>
-    </a>
-    <nav class="links" aria-label="Schnellkontakt">
-      <a class="mini" href="#kontakt">Gespräch buchen</a>
-    </nav>
-  </div>
-  <nav class="tabs" aria-label="Bereiche der Seite">
-    <div class="wrap tabs-in" id="tabs">
-      <a href="#leistungen">Leistungen</a>
-      <a href="#ablauf">Ablauf</a>
-      <a href="#preise">Preise</a>
-      <a href="#ueber">Über mich</a>
-      <a href="#kontakt">Kontakt</a>
-    </div>
+<body>
+<div class="prog" aria-hidden="true"><i id="progBar"></i></div>
+<div class="cglow" id="cglow" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="logo" href="/" aria-label="Pilotwerk Digital, Startseite">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#FF6A13"/><path d="M10 29 C 16 29, 20 23, 23.5 17.5 L 29 11" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M21.5 11 H29 V18.5" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Pilotwerk</span><em>Digital</em>
+  </a>
+  <nav class="links" id="links" aria-label="Bereiche der Seite">
+    <span class="ind" id="ind" aria-hidden="true"></span>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#ablauf">Ablauf</a>
+    <a href="#preise">Preise</a>
+    <a href="#ueber">Über mich</a>
+    <a href="#kontakt">Kontakt</a>
   </nav>
+  <button class="tbtn" id="tbtn" type="button" aria-label="Helles Design einschalten" title="Hell oder dunkel"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg></button>
+  <button class="kbtn" id="kbtn" type="button" aria-haspopup="dialog" aria-label="Suchen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="lbl">Suchen</span><kbd id="kbdHint">⌘K</kbd></button>
+  <a class="ncta mag" href="#kontakt">Gespräch buchen</a>
+  <button class="mbtn" id="mbtn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menü öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path id="mIcon" d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 </header>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menü">
+  <a class="big" href="#leistungen">Leistungen</a>
+  <a class="big" href="#rechner">Rechner</a>
+  <a class="big" href="#ablauf">Ablauf</a>
+  <a class="big" href="#preise">Preise</a>
+  <a class="big" href="#ueber">Über mich</a>
+  <a class="big" href="#kontakt">Kontakt</a>
+  <div class="mrow"><a class="btn pri" href="#kontakt">Kostenloses Erstgespräch</a><a class="btn gl" href="tel:+4917685959460">+49 176 85959460 anrufen</a></div>
+</div>
 
 <main>
-  <div class="hero2">
-    <div class="wrap">
-      <p class="eyebrow">Für Betriebe in Wittgenstein</p>
-      <h1>Ihr Betrieb auf <span class="accent">Autopilot.</span></h1>
-      <p class="sub">Online-Terminbuch, digitale Stempelkarte und KI-Telefon. Persönlich eingerichtet von Lukas Seibel aus Bad Berleburg.</p>
-      <div class="cta">
-        <a class="btn solid" href="#kontakt">Kostenloses Erstgespräch</a>
-        <a class="btn line" href="#leistungen">Leistungen ansehen</a>
+  <section class="hero" id="hero" aria-labelledby="h1">
+    <canvas id="swarm" aria-hidden="true"></canvas>
+    <span class="orb o1" aria-hidden="true"></span><span class="orb o2" aria-hidden="true"></span>
+    <div class="wrap hgrid">
+      <div class="hcopy">
+        <p class="pill fade"><i class="live" aria-hidden="true"></i>Pilotphase: 10 Plätze in Wittgenstein</p>
+        <h1 class="h1" id="h1"><span class="w">Das</span> <span class="w">Update</span> <span class="w">für</span> <span class="w">Ihren</span> <span class="w">Laden.</span></h1>
+        <p class="sub fade">Online-Terminbuch, digitale Stempelkarte, KI-Telefon und Website für Betriebe in Wittgenstein. Persönlich eingerichtet von Lukas Seibel aus Bad Berleburg.</p>
+        <div class="cta-row fade"><a class="btn pri mag" href="#kontakt">Kostenloses Erstgespräch</a><a class="btn gl mag" href="#update">Update ansehen</a></div>
+        <ul class="tags fade"><li>ab 19 € im Monat</li><li>monatlich kündbar</li><li>Einrichtung vor Ort</li></ul>
       </div>
-      <ul class="trust">
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ab 19 € im Monat</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Monatlich kündbar</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Einrichtung vor Ort</li>
-      </ul>
+      <div class="sbox" id="sbox">
+        <svg class="sfall" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="10" fill="none" stroke="#FF6A13" stroke-width="1.5"/><path d="M10 29 C 16 29, 20 23, 23.5 17.5 L 29 11" stroke="#FF6A13" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M21.5 11 H29 V18.5" stroke="#FF6A13" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="slabel" aria-live="off"><i></i><span id="slabel">Pilotwerk Digital</span></span>
+      </div>
     </div>
-  </div>
+    <p class="hint" id="hint">Maus bewegen, klicken lässt es knallen</p>
+  </section>
 
-  <section id="leistungen">
+  <section class="sec" id="update">
+    <div class="wrap upd">
+      <div>
+        <p class="cmd" aria-hidden="true"><b>~ %</b> pilotwerk info</p>
+        <h2 class="h2"><span class="sr">Ein Update. Vier Werkzeuge.</span><span class="scr" aria-hidden="true">Ein Update. Vier Werkzeuge.</span></h2>
+        <p class="lead">So einfach wie ein Software-Update: Ich richte alles für Ihren Betrieb ein und zeige es Ihnen vor Ort. Sie müssen nichts installieren.</p>
+        <ul class="tl">
+          <li>Online-Terminbuch<span>ab 19 €/Monat</span></li>
+          <li>Digitale Stempelkarte<span>29 €/Monat</span></li>
+          <li>KI-Telefonassistent<span>79 €/Monat</span></li>
+          <li>Website mit Google-Profil<span>39 €/Monat</span></li>
+        </ul>
+      </div>
+      <div class="term card" aria-hidden="true">
+        <div class="term-h"><i></i><i></i><i></i><span>pilotwerk: Ihr Laden</span></div>
+        <div class="term-b" id="term"></div>
+        <div class="term-f"><span id="termState">bereit</span><button class="btn gl sm" type="button" id="termRun" tabindex="-1">Nochmal ausführen</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="leistungen" style="padding-top:0">
     <div class="wrap">
-      <div class="center">
-        <h2>Was ich für Sie einrichte.</h2>
-        <p class="lead">Alles aus einer Hand, ein Ansprechpartner. Sie nehmen nur, was Ihr Betrieb wirklich braucht.</p>
+      <div class="sh">
+        <p class="cmd" aria-hidden="true"><b>~ %</b> pilotwerk werkzeuge --live</p>
+        <h2 class="h2"><span class="sr">Alles, was Ihr Laden braucht.</span><span class="scr" aria-hidden="true">Alles, was Ihr Laden braucht.</span></h2>
+        <p class="lead">Jedes Werkzeug läuft hier live als Beispiel. Sie nehmen nur, was Ihr Betrieb wirklich braucht, und haben für alles einen Ansprechpartner.</p>
       </div>
-      <div class="svc-grid">
-
-        <article class="card" id="terminbuch">
-          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h3M8 18h6"/></svg></span>
-          <h3>Online-Terminbuch</h3>
-          <p>Schluss mit dem Papierbuch. Alle Termine auf Handy oder Tablet, für das ganze Team.</p>
-          <ul class="ticks">
-            <li>Warnung bei Doppelbuchungen</li>
-            <li>Tagesumsatz auf einen Blick</li>
-            <li>Terminerinnerung für Ihre Kunden</li>
-          </ul>
-          <div class="foot"><b>ab 19 € <small>/ Monat</small></b><a href="/terminbuch/">Demo ansehen ›</a></div>
-          <p class="note">Beispiele: <a href="/terminbuch/">Friseur</a> · <a href="/terminbuch/nagelstudio/">Nagelstudio</a> · <a href="/terminbuch/spa/">Spa</a></p>
+      <div class="bento">
+        <article class="card spot w7" id="terminbuch">
+          <div class="demo" data-demo="cal" aria-hidden="true">
+            <div class="app-h"><b>Terminbuch</b><span class="mono">Diese Woche</span><span class="chip ok" id="tbCount">0 Termine</span></div>
+            <div class="cal"><div class="days"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span></div><div class="hrs"><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span></div><div class="cg" id="cg"></div></div>
+            <div class="toast" id="tbToast"><i></i><span></span></div>
+            <span class="ex">Beispiel</span>
+          </div>
+          <div class="bc">
+            <h3>Online-Terminbuch</h3>
+            <p>Schluss mit dem Papierbuch. Alle Termine auf Handy oder Tablet, für das ganze Team.</p>
+            <ul class="ticks"><li>Warnung bei Doppelbuchungen</li><li>Tagesumsatz auf einen Blick</li><li>Terminerinnerung für Ihre Kunden</li></ul>
+            <div class="pr"><b><small>ab </small>19 € <small>im Monat</small></b></div>
+            <div class="lk"><a href="/terminbuch/">Demo ansehen</a><span class="muted">Beispiele: <a href="/terminbuch/">Friseur</a>, <a href="/terminbuch/nagelstudio/">Nagelstudio</a>, <a href="/terminbuch/spa/">Spa</a></span></div>
+          </div>
         </article>
-
-        <article class="card" id="stempelkarte">
-          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><circle cx="7.5" cy="12" r="1.8"/><circle cx="12.5" cy="12" r="1.8"/><path d="m16 12 1.5 1.5L20 11"/></svg></span>
-          <h3>Digitale Stempelkarte</h3>
-          <p>Wie die Stempelkarte aus Papier, nur im Handy Ihrer Kunden. Ohne App. Und Sie können Ihren Kunden schreiben.</p>
-          <ul class="ticks">
-            <li>Kunde scannt den QR-Code oder hält sein Handy an den Aufsteller, die Karte ist sofort im Handy</li>
-            <li>Angebote direkt aufs Handy Ihrer Kunden</li>
-            <li>Wer lange nicht da war, wird automatisch erinnert</li>
-          </ul>
-          <div class="foot"><b>29 € <small>/ Monat</small></b><a href="/stempelkarte/">So funktioniert's ›</a></div>
-          <p class="note">Alles inklusive, 30 Tage kostenlos testen · <a href="/stempelkarte/demo/">Demo ansehen</a></p>
+        <article class="card spot w5" id="stempelkarte">
+          <div class="demo tall" data-demo="stamp">
+            <div class="stp">
+              <div class="phone" aria-hidden="true">
+                <div class="wcard" id="wcard"><b>Stempelkarte</b><span>Ihr Laden</span><div class="slots" id="slots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="wc-c" id="wcCount">0 von 10</p></div>
+                <div class="ph-msg"><b>Nachricht von Ihrem Laden</b>Heute gibt es doppelte Stempel.</div>
+              </div>
+              <div class="stp-r"><p class="big-n" aria-hidden="true"><span id="stN">0</span><small> von 10 Stempeln</small></p><p>Tippen Sie, wie Ihre Kunden an der Kasse.</p><button class="btn gl sm" type="button" id="stampBtn">Stempel geben</button></div>
+            </div>
+            <button class="btn gl sm stp-btn" type="button" id="stampBtn2">Stempel geben</button>
+            <span class="ex">Beispiel</span>
+          </div>
+          <div class="bc">
+            <h3>Digitale Stempelkarte</h3>
+            <p>Wie die Stempelkarte aus Papier, nur im Handy Ihrer Kunden. Ohne App. Und Sie können Ihren Kunden schreiben.</p>
+            <ul class="ticks"><li>Kunde scannt den QR-Code oder hält sein Handy an den Aufsteller, die Karte ist sofort im Handy</li><li>Angebote direkt aufs Handy Ihrer Kunden</li><li>Wer lange nicht da war, wird automatisch erinnert</li></ul>
+            <div class="pr"><b>29 € <small>im Monat</small></b><span class="note">Alles inklusive, 30 Tage kostenlos testen.</span></div>
+            <div class="lk"><a href="/stempelkarte/">So funktioniert’s</a><a href="/stempelkarte/demo/">Demo ansehen</a></div>
+          </div>
         </article>
-
-        <article class="card" id="ki-telefon">
-          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
-          <h3>KI-Telefonassistent</h3>
-          <p>Geht ran, wenn Sie keine Hand frei haben. Rund um die Uhr und auf Deutsch.</p>
-          <ul class="ticks">
-            <li>Beantwortet Fragen zu Preisen und Öffnungszeiten</li>
-            <li>Nimmt Terminwünsche entgegen</li>
-            <li>150 Minuten im Monat inklusive</li>
-          </ul>
-          <div class="foot"><b>79 € <small>/ Monat</small></b><a href="https://elevenlabs.io/app/talk-to?agent_id=agent_8001m7pdrj0fekkb1cg9fj1hq2rn" target="_blank" rel="noopener">Demo anrufen ›</a></div>
-          <p class="note">Die Demo läuft im Browser. Ihr Mikrofon wird gebraucht.</p>
+        <article class="card spot w5" id="ki-telefon">
+          <div class="demo" data-demo="call" aria-hidden="true">
+            <div class="call" id="call">
+              <div class="call-h"><span class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><div><b>KI-Telefon</b><span id="callState">Eingehender Anruf</span></div><span class="mono" id="callTimer">00:00</span></div>
+              <div class="wave" id="wave"></div>
+              <div class="tx" id="tx"></div>
+            </div>
+            <span class="ex">Beispielgespräch</span>
+          </div>
+          <div class="bc">
+            <h3>KI-Telefonassistent</h3>
+            <p>Geht ran, wenn Sie keine Hand frei haben. Rund um die Uhr und auf Deutsch.</p>
+            <ul class="ticks"><li>Beantwortet Fragen zu Preisen und Öffnungszeiten</li><li>Nimmt Terminwünsche entgegen</li><li>150 Minuten im Monat inklusive</li></ul>
+            <div class="pr"><b>79 € <small>im Monat</small></b><span class="note">Die Demo läuft im Browser. Ihr Mikrofon wird gebraucht.</span></div>
+            <div class="lk"><a href="https://elevenlabs.io/app/talk-to?agent_id=agent_8001m7pdrj0fekkb1cg9fj1hq2rn" target="_blank" rel="noopener">Demo anrufen</a><a href="#rechner">Lohnt sich das? Nachrechnen</a></div>
+          </div>
         </article>
-
-        <article class="card" id="website">
-          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
-          <h3>Website</h3>
-          <p>Damit neue Kunden Sie bei Google finden und gleich sehen, was Sie anbieten.</p>
-          <ul class="ticks">
-            <li>Eigene Website fürs Handy, mit Domain</li>
-            <li>Google-Unternehmensprofil eingerichtet</li>
-            <li>Kleine Änderungen jeden Monat inklusive</li>
-          </ul>
-          <div class="foot"><b>39 € <small>/ Monat</small></b><a href="#kontakt" data-int="Website">Anfragen ›</a></div>
-          <p class="note">Oder einmal kaufen: <b>499 € Festpreis</b> + 5 € im Monat für Domain und Hosting.</p>
-        </article>
-
-      </div>
-
-      <h3 class="more-h">Außerdem für Ihren Betrieb</h3>
-      <div class="extra-grid">
-        <article class="mini-card" id="google">
-          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span>
-          <div><h4>Google-Profil und Bewertungen</h4><p>Gepflegtes Google-Profil und mehr echte Bewertungen, mit Aufsteller zum Scannen oder Dranhalten.</p><span class="pa">Preis auf Anfrage</span> <a href="#kontakt" data-int="Google-Profil und Bewertungen">Anfragen ›</a></div>
-        </article>
-        <article class="mini-card" id="gestaltung">
-          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/></svg></span>
-          <div><h4>Gestaltung</h4><p>Verpackungen, Etiketten, Flyer, Visitenkarten, Speise- und Preiskarten. Druckfertig.</p><span class="pa">Preis auf Anfrage</span> <a href="#kontakt" data-int="Gestaltung">Anfragen ›</a></div>
-        </article>
-        <article class="mini-card" id="videos">
-          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg></span>
-          <div><h4>Videobearbeitung</h4><p>Sie filmen mit dem Handy, ich schneide daraus Reels für Instagram und TikTok.</p><span class="pa">Preis auf Anfrage</span> <a href="#kontakt" data-int="Videobearbeitung">Anfragen ›</a></div>
-        </article>
-        <article class="mini-card" id="geraete">
-          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span>
-          <div><h4>Geräte-Service</h4><p>Handys und Tablets für Ihren Betrieb einrichten, reparieren und warten. Vor Ort.</p><span class="pa">Preis auf Anfrage</span> <a href="#kontakt" data-int="Geräte-Service">Anfragen ›</a></div>
+        <article class="card spot w7" id="website">
+          <div class="demo" data-demo="web" aria-hidden="true">
+            <div class="brw">
+              <div class="br-bar"><span class="dots"><i></i><i></i><i></i></span><div class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span id="q"></span><i class="caret"></i></div></div>
+              <div class="res">
+                <div><div class="hit top" id="hit1"><b>Ihr Laden</b><span class="open">Geöffnet, bis 18 Uhr</span><div class="btns"><span>Route</span><span>Anrufen</span><span>Website</span></div></div><div class="hit" id="hit2" style="margin-top:10px"><div class="ghost" style="width:60%;margin-top:0"></div><div class="ghost" style="width:85%"></div><div class="ghost" style="width:40%"></div></div></div>
+                <div class="map" id="map"><svg viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice"><path class="mw" d="M0 100C40 92 70 120 120 104S180 90 200 96" stroke="#1C2A44" stroke-width="10" fill="none"/><path class="mr" d="M60 0L84 150M140 0C130 40 150 90 136 150M0 40C60 52 120 30 200 46" stroke="#1A2233" stroke-width="5" fill="none"/><g class="pin"><path d="M100 46c-11 0-17 8-17 16 0 12 17 26 17 26s17-14 17-26c0-8-6-16-17-16z" fill="#FF6A13"/><circle class="ph" cx="100" cy="62" r="6" fill="#05070D"/></g></svg></div>
+              </div>
+            </div>
+            <span class="ex">Beispiel</span>
+          </div>
+          <div class="bc">
+            <h3>Website</h3>
+            <p>Damit neue Kunden Sie bei Google finden und gleich sehen, was Sie anbieten.</p>
+            <ul class="ticks"><li>Eigene Website fürs Handy, mit Domain</li><li>Google-Unternehmensprofil eingerichtet</li><li>Kleine Änderungen jeden Monat inklusive</li></ul>
+            <div class="pr"><b>39 € <small>im Monat</small></b><span class="note">Oder einmal kaufen: 499&nbsp;€ Festpreis + 5&nbsp;€ im Monat für Domain und Hosting.</span></div>
+            <div class="lk"><a href="#kontakt" data-int="Website">Anfragen</a></div>
+          </div>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="alt" id="ablauf">
+  <div class="mq" aria-hidden="true">
+    <div class="mq-row" id="mq1"></div>
+    <div class="mq-row out" id="mq2"></div>
+  </div>
+
+  <section class="sec" id="extras">
     <div class="wrap">
-      <div class="center">
-        <h2>So einfach geht's.</h2>
+      <div class="sh">
+        <p class="cmd" aria-hidden="true"><b>~ %</b> pilotwerk extras</p>
+        <h2 class="h2"><span class="sr">Außerdem für Ihren Betrieb.</span><span class="scr" aria-hidden="true">Außerdem für Ihren Betrieb.</span></h2>
+      </div>
+      <div class="xg">
+        <article class="card spot x" id="google">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span>
+          <h3>Google-Profil und Bewertungen</h3><p>Gepflegtes Google-Profil und mehr echte Bewertungen, mit Aufsteller zum Scannen oder Dranhalten.</p><span class="pa">Preis auf Anfrage</span><a href="#kontakt" data-int="Google-Profil und Bewertungen">Anfragen</a>
+        </article>
+        <article class="card spot x" id="gestaltung">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/></svg></span>
+          <h3>Gestaltung</h3><p>Verpackungen, Etiketten, Flyer, Visitenkarten, Speise- und Preiskarten. Druckfertig.</p><span class="pa">Preis auf Anfrage</span><a href="#kontakt" data-int="Gestaltung">Anfragen</a>
+        </article>
+        <article class="card spot x" id="videos">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg></span>
+          <h3>Videobearbeitung</h3><p>Sie filmen mit dem Handy, ich schneide daraus Reels für Instagram und TikTok.</p><span class="pa">Preis auf Anfrage</span><a href="#kontakt" data-int="Videobearbeitung">Anfragen</a>
+        </article>
+        <article class="card spot x" id="geraete">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span>
+          <h3>Geräte-Service</h3><p>Handys und Tablets für Ihren Betrieb einrichten, reparieren und warten. Vor Ort.</p><span class="pa">Preis auf Anfrage</span><a href="#kontakt" data-int="Geräte-Service">Anfragen</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="rechner" aria-labelledby="rh" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sh">
+        <p class="cmd" aria-hidden="true"><b>~ %</b> pilotwerk rechner --anrufe</p>
+        <h2 class="h2" id="rh"><span class="sr">Was kosten Sie verpasste Anrufe?</span><span class="scr" aria-hidden="true">Was kosten Sie verpasste Anrufe?</span></h2>
+        <p class="lead">Stellen Sie die Regler auf Ihre Zahlen. Das Dashboard zeigt, wie viel Umsatz im Monat am Telefon liegen bleibt.</p>
+      </div>
+      <div class="card spot dash">
+        <div class="dash-in">
+          <div class="rng"><div class="rng-h"><label for="rA">Verpasste Anrufe pro Woche</label><output id="vA" for="rA">6</output></div><input type="range" id="rA" min="0" max="40" step="1" value="6"></div>
+          <div class="rng"><div class="rng-h"><label for="rB">Davon hätten einen Termin gebucht</label><output id="vB" for="rB">50 %</output></div><input type="range" id="rB" min="10" max="100" step="10" value="50"></div>
+          <div class="rng"><div class="rng-h"><label for="rC">Umsatz pro Termin</label><output id="vC" for="rC">35 €</output></div><input type="range" id="rC" min="10" max="200" step="5" value="35"></div>
+          <dl class="kpi">
+            <div class="hot"><dt>Entgangener Umsatz im Monat</dt><dd id="kLost">455 €</dd></div>
+            <div><dt>KI-Telefon lohnt sich ab</dt><dd id="kBe">2 Anrufen</dd></div>
+            <div><dt>Gesprächsminuten im Monat</dt><dd id="kMin">52 / 150</dd></div>
+          </dl>
+        </div>
+        <div class="dash-out">
+          <div class="chart" aria-hidden="true"><svg viewBox="0 0 600 260" id="chart"></svg></div>
+          <p class="verdict" id="verdict" aria-live="polite">Bei Ihren Zahlen rechnet sich der KI-Telefonassistent ab 2 verpassten Anrufen pro Woche. Sie liegen bei 6.</p>
+          <p class="mins" id="mins">Bei etwa 2 Minuten pro Anruf sind das rund 52 Minuten im Monat. 150 Minuten sind inklusive.</p>
+          <div style="margin-top:18px"><a class="btn pri mag" href="#kontakt" data-int="KI-Telefonassistent">KI-Telefon anfragen</a></div>
+          <p class="fine3">Grobe Rechnung mit Ihren Werten: 52 Wochen im Jahr, also 4,33 Wochen im Monat. Gemeint ist Umsatz, nicht Gewinn.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="ablauf">
+    <div class="wrap">
+      <div class="sh c">
+        <p class="cmd" aria-hidden="true"><b>~ %</b> pilotwerk start</p>
+        <h2 class="h2"><span class="sr">So einfach geht’s.</span><span class="scr" aria-hidden="true">So einfach geht’s.</span></h2>
         <p class="lead">Kein Callcenter, kein Fachchinesisch. Ein Ansprechpartner aus Ihrer Region.</p>
       </div>
-      <ol class="steps2">
-        <li><span class="n">1</span><b>Gespräch bei Ihnen</b><span>Ich komme vorbei und höre mir an, wo im Alltag Zeit verloren geht.</span></li>
-        <li><span class="n">2</span><b>Einrichtung</b><span>Ich richte alles für Ihren Betrieb ein und zeige es Ihnen und Ihrem Team.</span></li>
-        <li><span class="n">3</span><b>Loslegen</b><span>Sie nutzen es im Alltag. Bei Fragen erreichen Sie mich per Telefon oder WhatsApp.</span></li>
+      <ol class="pipe" id="pipe">
+        <span class="fill" aria-hidden="true"></span>
+        <li class="node"><span class="dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span><h3>Gespräch bei Ihnen</h3><p>Ich komme vorbei und höre mir an, wo im Alltag Zeit verloren geht.</p><span class="chip">kostenlos</span></li>
+        <li class="node"><span class="dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span><h3>Einrichtung</h3><p>Ich richte alles für Ihren Betrieb ein und zeige es Ihnen und Ihrem Team.</p><span class="chip">vor Ort</span></li>
+        <li class="node"><span class="dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></svg></span><h3>Loslegen</h3><p>Sie nutzen es im Alltag. Bei Fragen erreichen Sie mich per Telefon oder WhatsApp.</p><span class="chip">Hilfe per WhatsApp</span></li>
       </ol>
     </div>
   </section>
 
-  <section id="preise">
+  <section class="sec" id="preise">
     <div class="wrap">
-      <div class="center">
-        <h2>Klare Preise.</h2>
+      <div class="sh c">
+        <p class="cmd" aria-hidden="true"><b>~ %</b> pilotwerk preise</p>
+        <h2 class="h2"><span class="sr">Klare Preise.</span><span class="scr" aria-hidden="true">Klare Preise.</span></h2>
         <p class="lead">Monatlich kündbar. Bei 12 Monaten Laufzeit ist die Einrichtung gratis.</p>
-        <div class="billing" role="group" aria-label="Abrechnung">
-          <button type="button" id="bm" aria-pressed="true">Monatlich</button>
-          <button type="button" id="by" aria-pressed="false">Jährlich <span>2 Monate gratis</span></button>
-        </div>
+        <div class="bill" role="group" aria-label="Abrechnung"><span class="knob" id="knob" aria-hidden="true"></span><button type="button" id="bm" aria-pressed="true">Monatlich</button><button type="button" id="by" aria-pressed="false">Jährlich<small>2 Monate gratis</small></button></div>
       </div>
-
-      <p class="pilot2"><span><b>Pilotkunden-Angebot:</b> Die ersten 10 Betriebe aus Wittgenstein zahlen 3 Monate lang den halben Preis.</span><a href="#kontakt" data-pilot="1">Platz sichern ›</a></p>
-
       <div class="plans">
-        <article class="plan">
+        <article class="card spot plan" data-m="19" data-y="190" data-ab="1">
           <h3>Start</h3>
           <p class="for">Ein Werkzeug nach Wahl.</p>
-          <div class="price"><b data-m="ab 19 €" data-y="ab 190 €">ab 19 €</b><span class="per" data-m="pro Monat" data-y="pro Jahr · entspricht 15,83 € im Monat">pro Monat</span></div>
-          <p class="setup opt" data-m="Terminbuch 19 € · Stempelkarte 29 € im Monat" data-y="Terminbuch 190 € · Stempelkarte 290 € im Jahr">Terminbuch 19 € · Stempelkarte 29 € im Monat</p>
-          <p class="setup">Einrichtung: Terminbuch 49 €, Stempelkarte gratis</p>
-          <ul class="feat">
-            <li>Online-Terminbuch <b>oder</b> digitale Stempelkarte</li>
-            <li>Terminerinnerung per E-Mail</li>
-            <li>Mit Stempelkarte: Nachrichten, automatische Rückholung, Monatsbericht</li>
-            <li>Einrichtung vor Ort und Einweisung</li>
-            <li>Support per WhatsApp innerhalb von 24 Stunden</li>
-          </ul>
-          <a class="btn line" href="#kontakt" data-paket="Start">Start anfragen</a>
+          <p class="price"><span class="ab">ab</span><span class="num" aria-hidden="true">19 €</span><span class="per" aria-hidden="true">im Monat</span><span class="sr pz-sr">ab 19 € im Monat</span></p>
+          <p class="calcl" data-m="Terminbuch 19 € oder Stempelkarte 29 €" data-y="entspricht 15,83 € im Monat">Terminbuch 19 € oder Stempelkarte 29 €</p>
+          <p class="setup" data-m="Einrichtung: Terminbuch 49 €, Stempelkarte gratis" data-y="Einrichtung gratis, Laufzeit 12 Monate">Einrichtung: Terminbuch 49 €, Stempelkarte gratis</p>
+          <ul class="ticks"><li>Online-Terminbuch oder digitale Stempelkarte</li><li>Terminerinnerung per E-Mail</li><li>Mit Stempelkarte: Nachrichten, Rückholung, Monatsbericht</li><li>Einweisung vor Ort</li><li>Support per WhatsApp in 24 Std.</li></ul>
+          <a class="btn gl" href="#kontakt" data-paket="Start">Start anfragen</a>
         </article>
-
-        <article class="plan featured">
-          <span class="badge">Beliebt</span>
-          <h3>Reiseflug</h3>
+        <article class="card plan feat" data-m="59" data-y="590">
+          <span class="ring" aria-hidden="true"></span>
+          <h3>Reiseflug <span class="chip">Meine Empfehlung</span></h3>
           <p class="for">Gefunden werden und Kunden binden.</p>
-          <div class="price"><b data-m="59 €" data-y="590 €">59 €</b><span class="per" data-m="pro Monat" data-y="pro Jahr · entspricht 49,17 € im Monat">pro Monat</span></div>
-          <p class="setup">Einrichtung 149 € · bei 12 Monaten gratis</p>
-          <ul class="feat">
-            <li>Terminbuch <b>und</b> Stempelkarte</li>
-            <li>Eigene Website mit Online-Buchung</li>
-            <li>Google-Unternehmensprofil eingerichtet und gepflegt</li>
-            <li>Terminerinnerung auch per WhatsApp</li>
-            <li>30 Min. Änderungen im Monat, Support am selben Werktag</li>
-          </ul>
-          <p class="vs">Einzeln 87 € · Sie sparen 28 € im Monat</p>
-          <a class="btn solid" href="#kontakt" data-paket="Reiseflug">Reiseflug anfragen</a>
+          <p class="price"><span class="num" aria-hidden="true">59 €</span><span class="per" aria-hidden="true">im Monat</span><span class="sr pz-sr">59 € im Monat</span></p>
+          <p class="calcl" data-m="Einzeln gebucht 87 €, Sie sparen 28 €" data-y="entspricht 49,17 € im Monat, Sie sparen 118 €">Einzeln gebucht 87 €, Sie sparen 28 €</p>
+          <p class="setup" data-m="Einrichtung 149 €, bei 12 Monaten gratis" data-y="Einrichtung gratis, Laufzeit 12 Monate">Einrichtung 149 €, bei 12 Monaten gratis</p>
+          <ul class="ticks"><li>Terminbuch und Stempelkarte</li><li>Eigene Website mit Online-Buchung</li><li>Google-Unternehmensprofil eingerichtet und gepflegt</li><li>Terminerinnerung auch per WhatsApp</li><li>30 Min. Änderungen im Monat, Support am selben Werktag</li></ul>
+          <a class="btn pri mag" href="#kontakt" data-paket="Reiseflug">Reiseflug anfragen</a>
         </article>
-
-        <article class="plan">
+        <article class="card spot plan" data-m="139" data-y="1.390">
           <h3>Autopilot</h3>
           <p class="for">Kein Anruf geht mehr verloren.</p>
-          <div class="price"><b data-m="139 €" data-y="1.390 €">139 €</b><span class="per" data-m="pro Monat" data-y="pro Jahr · entspricht 115,83 € im Monat">pro Monat</span></div>
-          <p class="setup">Einrichtung 249 € · bei 12 Monaten gratis</p>
-          <ul class="feat">
-            <li><b>Alles aus Reiseflug</b></li>
-            <li>KI-Telefonassistent, 150 Minuten inklusive</li>
-            <li>Automatische Rückholung: Kunden, die länger nicht da waren, bekommen ein Angebot</li>
-            <li>Monatsbericht zu Anrufen, Terminen und Stammkunden</li>
-            <li>1 Std. Änderungen im Monat, Rückruf innerhalb von 2 Stunden</li>
-          </ul>
-          <p class="vs">Einzeln 231 € · Sie sparen 92 € im Monat</p>
-          <a class="btn line" href="#kontakt" data-paket="Autopilot">Autopilot anfragen</a>
+          <p class="price"><span class="num" aria-hidden="true">139 €</span><span class="per" aria-hidden="true">im Monat</span><span class="sr pz-sr">139 € im Monat</span></p>
+          <p class="calcl" data-m="Einzeln gebucht 231 €, Sie sparen 92 €" data-y="entspricht 115,83 € im Monat, Sie sparen 278 €">Einzeln gebucht 231 €, Sie sparen 92 €</p>
+          <p class="setup" data-m="Einrichtung 249 €, bei 12 Monaten gratis" data-y="Einrichtung gratis, Laufzeit 12 Monate">Einrichtung 249 €, bei 12 Monaten gratis</p>
+          <ul class="ticks"><li>Alles aus Reiseflug</li><li>KI-Telefonassistent, 150 Minuten</li><li>Automatische Rückholung: Kunden, die länger nicht da waren, bekommen ein Angebot</li><li>Monatsbericht zu Anrufen, Terminen und Stammkunden</li><li>1 Std. Änderungen im Monat, Rückruf innerhalb von 2 Stunden</li></ul>
+          <a class="btn gl" href="#kontakt" data-paket="Autopilot">Autopilot anfragen</a>
         </article>
       </div>
-
-
-      <p class="fine">Alle Preise sind Endpreise. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet. Weitere Leistungen und Stundenpreise auf Anfrage. Digitale Stempelkarte und KI-Telefonassistent starten zuerst mit Pilotkunden; den Starttermin besprechen wir persönlich.</p>
+      <p class="fine" id="fineBill">Alle Preise sind Endpreise. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet. Monatlich kündbar.</p>
+      <p class="fine" style="margin-top:6px">Weitere Leistungen und Stundenpreise auf Anfrage. Digitale Stempelkarte und KI-Telefonassistent starten zuerst mit Pilotkunden; den Starttermin besprechen wir persönlich.</p>
+      <div class="card spot pilot">
+        <div>
+          <p class="pill" style="font-size:13.5px"><i class="live" aria-hidden="true"></i>Pilotphase läuft</p>
+          <h3>Halber Preis für die ersten 10.</h3>
+          <p>Die ersten 10 Betriebe aus Wittgenstein zahlen 3 Monate lang den halben Preis.</p>
+          <div class="seats" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="seat-l" aria-hidden="true">10 Plätze für Pilotkunden</p>
+        </div>
+        <a class="btn pri mag" href="#kontakt" data-pilot="1">Platz sichern</a>
+      </div>
     </div>
   </section>
 
-  <section class="alt" id="ueber">
+  <section class="sec" id="ueber">
     <div class="wrap about">
+      <aside class="card spot prof">
+        <span class="mono-av" aria-hidden="true">LS</span>
+        <div><h3>Lukas Seibel</h3><p class="role">Pilotwerk Digital, Bad Berleburg</p></div>
+        <dl class="kv">
+          <dt>Vor Ort in</dt><dd>Bad Berleburg, Erndtebrück, Bad Laasphe</dd>
+          <dt>Telefon</dt><dd><a href="tel:+4917685959460">+49 176 85959460</a></dd>
+          <dt>E-Mail</dt><dd><a href="mailto:lukas@pilotwerk-digital.de">lukas@pilotwerk-digital.de</a></dd>
+        </dl>
+        <a class="btn gl" href="#kontakt">Gespräch buchen</a>
+      </aside>
       <div>
-        <p class="eyebrow">Über mich</p>
-        <h2>Aus Bad Berleburg. Für Wittgenstein.</h2>
-        <p>Ich bin Lukas Seibel und selbst Unternehmer im Online-Handel. Ich weiß, wie wenig Zeit im Tagesgeschäft bleibt.</p>
-        <p>Deshalb richte ich alles persönlich bei Ihnen ein und bleibe Ihr fester Ansprechpartner, ohne Warteschleife.</p>
-      </div>
-      <div>
+        <p class="cmd" aria-hidden="true"><b>~ %</b> pilotwerk whoami</p>
+        <h2 class="sr">Aus Bad Berleburg. Für Wittgenstein.</h2>
+        <p class="story" id="story">Ich bin Lukas Seibel aus [Bad Berleburg] und selbst Unternehmer im Online-Handel. Ich weiß, wie wenig Zeit im Tagesgeschäft bleibt. Deshalb richte ich alles [persönlich] bei Ihnen ein und bleibe Ihr [fester Ansprechpartner], ohne Warteschleife. Ich komme auch nach Erndtebrück und Bad Laasphe, für [ganz Wittgenstein].</p>
         <p class="label">Passend für</p>
-        <ul class="chips2">
-          <li>Bäckereien &amp; Cafés</li><li>Imbiss &amp; Pizzeria</li><li>Friseur &amp; Barbershop</li><li>Kosmetik &amp; Nagelstudio</li><li>Massage &amp; Physio</li><li>Werkstätten</li><li>Einzelhandel</li>
-        </ul>
+        <ul class="chips"><li>Bäckereien &amp; Cafés</li><li>Imbiss &amp; Pizzeria</li><li>Friseur &amp; Barbershop</li><li>Kosmetik &amp; Nagelstudio</li><li>Massage &amp; Physio</li><li>Werkstätten</li><li>Einzelhandel</li></ul>
       </div>
     </div>
   </section>
 
-  <section id="kontakt">
+  <section class="sec" id="kontakt">
     <div class="wrap">
-      <div class="center">
-        <h2>Gespräch buchen.</h2>
+      <div class="sh">
+        <p class="cmd" aria-hidden="true"><b>~ %</b> pilotwerk termin --kostenlos</p>
+        <h2 class="h2"><span class="sr">Gespräch buchen.</span><span class="scr" aria-hidden="true">Gespräch buchen.</span></h2>
         <p class="lead">Kostenlos und unverbindlich. Ich komme zu Ihnen in den Betrieb, rufe Sie an oder wir sprechen per Video.</p>
       </div>
       <div class="book">
-        <form class="bform" id="bookForm" novalidate>
-          <fieldset>
-            <legend>Ihr Betrieb</legend>
-            <div class="f2">
-              <div class="fld"><label for="fBetrieb">Name des Betriebs <span class="req" aria-hidden="true">*</span></label><input id="fBetrieb" autocomplete="organization" required aria-describedby="eBetrieb"><p class="err" id="eBetrieb" hidden></p></div>
-              <div class="fld"><label for="fBranche">Branche</label><select id="fBranche"><option>Bitte wählen</option><option>Friseur oder Barbershop</option><option>Kosmetik oder Nagelstudio</option><option>Massage oder Physiotherapie</option><option>Café oder Bäckerei</option><option>Imbiss oder Restaurant</option><option>Werkstatt</option><option>Einzelhandel</option><option>Sonstiges</option></select></div>
-            </div>
-            <div class="fld"><label for="fStrasse">Straße und Hausnummer <span class="req" aria-hidden="true">*</span></label><input id="fStrasse" autocomplete="street-address" required aria-describedby="eStrasse"><p class="err" id="eStrasse" hidden></p></div>
-            <div class="f2 plz">
-              <div class="fld"><label for="fPlz">PLZ</label><input id="fPlz" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="57319"></div>
-              <div class="fld"><label for="fOrt">Ort <span class="req" aria-hidden="true">*</span></label><input id="fOrt" autocomplete="address-level2" value="Bad Berleburg" required aria-describedby="eOrt"><p class="err" id="eOrt" hidden></p></div>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Ansprechpartner</legend>
-            <div class="fld"><label for="fName">Vor- und Nachname <span class="req" aria-hidden="true">*</span></label><input id="fName" autocomplete="name" required aria-describedby="eName"><p class="err" id="eName" hidden></p></div>
-            <div class="f2">
-              <div class="fld"><label for="fTel">Telefon oder Handy <span class="req" aria-hidden="true">*</span></label><input id="fTel" type="tel" autocomplete="tel" required aria-describedby="eTel"><p class="err" id="eTel" hidden></p></div>
-              <div class="fld"><label for="fMail">E-Mail</label><input id="fMail" type="email" autocomplete="email" aria-describedby="eMail"><p class="err" id="eMail" hidden></p></div>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Wann und wie?</legend>
-            <div class="fld"><span class="lab" id="lWo">Gespräch</span>
-              <div class="pills" role="radiogroup" aria-labelledby="lWo">
-                <label class="pillc"><input type="radio" name="wo" value="Bei uns im Betrieb" checked><span>Bei uns im Betrieb</span></label>
-                <label class="pillc"><input type="radio" name="wo" value="Am Telefon"><span>Am Telefon</span></label>
-                <label class="pillc"><input type="radio" name="wo" value="Per Video"><span>Per Video</span></label>
+        <div class="card wiz">
+          <form id="bookForm" novalidate>
+            <div class="wiz-top"><span id="stepNo">Schritt 1 von 6</span><span id="stepName">Interesse</span></div>
+            <div class="wbar" aria-hidden="true"><i id="wbar"></i></div>
+            <fieldset class="step on" data-step="1" data-name="Interesse">
+              <legend>Was interessiert Sie?</legend>
+              <div class="flds">
+                <div class="opts" id="interests">
+                  <label class="opt"><input type="checkbox" name="int" value="Online-Terminbuch"><span>Online-Terminbuch</span></label>
+                  <label class="opt"><input type="checkbox" name="int" value="Digitale Stempelkarte"><span>Digitale Stempelkarte</span></label>
+                  <label class="opt"><input type="checkbox" name="int" value="KI-Telefonassistent"><span>KI-Telefon</span></label>
+                  <label class="opt"><input type="checkbox" name="int" value="Website"><span>Website</span></label>
+                  <label class="opt"><input type="checkbox" name="int" value="Gestaltung"><span>Gestaltung</span></label>
+                  <label class="opt"><input type="checkbox" name="int" value="Google-Profil und Bewertungen"><span>Google-Profil</span></label>
+                  <label class="opt"><input type="checkbox" name="int" value="Videobearbeitung"><span>Videobearbeitung</span></label>
+                  <label class="opt"><input type="checkbox" name="int" value="Geräte-Service"><span>Geräte-Service</span></label>
+                  <label class="opt"><input type="checkbox" name="int" value="Noch unsicher"><span>Noch unsicher</span></label>
+                </div>
+                <div class="f2">
+                  <div class="fld"><label for="fPaket">Paket</label><select id="fPaket"><option>Noch offen</option><option>Start</option><option>Reiseflug</option><option>Autopilot</option></select></div>
+                  <label class="checkc"><input type="checkbox" id="fPilot"> Ich möchte Pilotkunde werden</label>
+                </div>
               </div>
+            </fieldset>
+            <fieldset class="step" data-step="2" data-name="Betrieb">
+              <legend>Wie heißt Ihr Betrieb?</legend>
+              <div class="flds">
+                <div class="fld"><label for="fBetrieb">Name des Betriebs <span class="req" aria-hidden="true">*</span></label><input id="fBetrieb" autocomplete="organization" required aria-describedby="eBetrieb"><p class="err" id="eBetrieb" hidden></p></div>
+                <div class="fld"><label for="fBranche">Branche</label><select id="fBranche"><option>Bitte wählen</option><option>Friseur oder Barbershop</option><option>Kosmetik oder Nagelstudio</option><option>Massage oder Physiotherapie</option><option>Café oder Bäckerei</option><option>Imbiss oder Restaurant</option><option>Werkstatt</option><option>Einzelhandel</option><option>Sonstiges</option></select></div>
+              </div>
+            </fieldset>
+            <fieldset class="step" data-step="3" data-name="Adresse">
+              <legend>Wo finden wir Sie?</legend>
+              <div class="flds">
+                <div class="fld"><label for="fStrasse">Straße und Hausnummer <span class="req" aria-hidden="true">*</span></label><input id="fStrasse" autocomplete="street-address" required aria-describedby="eStrasse"><p class="err" id="eStrasse" hidden></p></div>
+                <div class="f2 plz">
+                  <div class="fld"><label for="fPlz">PLZ</label><input id="fPlz" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="57319"></div>
+                  <div class="fld"><label for="fOrt">Ort <span class="req" aria-hidden="true">*</span></label><input id="fOrt" autocomplete="address-level2" value="Bad Berleburg" required aria-describedby="eOrt"><p class="err" id="eOrt" hidden></p></div>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="step" data-step="4" data-name="Kontakt">
+              <legend>Wer ist Ihr Ansprechpartner?</legend>
+              <div class="flds">
+                <div class="fld"><label for="fName">Vor- und Nachname <span class="req" aria-hidden="true">*</span></label><input id="fName" autocomplete="name" required aria-describedby="eName"><p class="err" id="eName" hidden></p></div>
+                <div class="f2">
+                  <div class="fld"><label for="fTel">Telefon oder Handy <span class="req" aria-hidden="true">*</span></label><input id="fTel" type="tel" autocomplete="tel" required aria-describedby="eTel"><p class="err" id="eTel" hidden></p></div>
+                  <div class="fld"><label for="fMail">E-Mail</label><input id="fMail" type="email" autocomplete="email" aria-describedby="eMail"><p class="err" id="eMail" hidden></p></div>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="step" data-step="5" data-name="Termin">
+              <legend>Wann passt es Ihnen?</legend>
+              <div class="flds">
+                <div class="fld"><span class="lab" id="lWo">Gespräch</span>
+                  <div class="opts" role="radiogroup" aria-labelledby="lWo">
+                    <label class="opt"><input type="radio" name="wo" value="Bei uns im Betrieb" checked><span>Bei uns im Betrieb</span></label>
+                    <label class="opt"><input type="radio" name="wo" value="Am Telefon"><span>Am Telefon</span></label>
+                    <label class="opt"><input type="radio" name="wo" value="Per Video"><span>Per Video</span></label>
+                  </div>
+                </div>
+                <div class="fld"><span class="lab" id="lTag">Wunschtag <span class="req" aria-hidden="true">*</span></span>
+                  <div class="opts" id="days" role="radiogroup" aria-labelledby="lTag" aria-describedby="eTag"></div><p class="err" id="eTag" hidden></p>
+                </div>
+                <div class="fld"><span class="lab" id="lZeit">Uhrzeit <span class="req" aria-hidden="true">*</span></span>
+                  <div class="opts" role="radiogroup" aria-labelledby="lZeit" aria-describedby="eZeit">
+                    <label class="opt"><input type="radio" name="zeit" value="vormittags (9–12 Uhr)"><span>9–12 Uhr</span></label>
+                    <label class="opt"><input type="radio" name="zeit" value="mittags (12–15 Uhr)"><span>12–15 Uhr</span></label>
+                    <label class="opt"><input type="radio" name="zeit" value="nachmittags (15–18 Uhr)"><span>15–18 Uhr</span></label>
+                    <label class="opt"><input type="radio" name="zeit" value="abends (ab 18 Uhr)"><span>ab 18 Uhr</span></label>
+                  </div><p class="err" id="eZeit" hidden></p>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="step" data-step="6" data-name="Senden">
+              <legend>Fast fertig.</legend>
+              <div class="flds">
+                <div class="fld"><label for="fMsg">Nachricht</label><textarea id="fMsg" rows="3" placeholder="z. B. Wir verpassen viele Anrufe, wenn wir Kunden bedienen."></textarea></div>
+                <label class="consent"><input type="checkbox" id="fOk" required aria-describedby="eOk"><span>Ich bin einverstanden, dass meine Angaben zur Terminabsprache verwendet werden. Mehr dazu in der <a href="/datenschutz/">Datenschutzerklärung</a>. <span class="req" aria-hidden="true">*</span></span></label>
+                <p class="err" id="eOk" hidden></p>
+              </div>
+              <div class="send">
+                <button type="submit" class="btn pri" data-via="wa">Per WhatsApp senden</button>
+                <button type="submit" class="btn gl" data-via="mail">Per E-Mail senden</button>
+              </div>
+              <p class="fine2">Das Formular öffnet WhatsApp oder Ihr E-Mail-Programm mit Ihren Angaben. Erst wenn Sie dort auf Senden tippen, wird etwas verschickt. Ich bestätige Ihnen den Termin danach persönlich.</p>
+            </fieldset>
+            <div class="wnav" id="wnav">
+              <button class="btn gl sm" type="button" id="wBack">Zurück</button>
+              <span class="hint2" aria-hidden="true">weiter mit <kbd>Enter</kbd></span>
+              <button class="btn pri sm" type="button" id="wNext">Weiter</button>
             </div>
-            <div class="fld"><span class="lab" id="lTag">Wunschtag <span class="req" aria-hidden="true">*</span></span>
-              <div class="pills" id="days" role="radiogroup" aria-labelledby="lTag" aria-describedby="eTag"></div><p class="err" id="eTag" hidden></p>
-            </div>
-            <div class="fld"><span class="lab" id="lZeit">Uhrzeit <span class="req" aria-hidden="true">*</span></span>
-              <div class="pills" role="radiogroup" aria-labelledby="lZeit" aria-describedby="eZeit">
-                <label class="pillc"><input type="radio" name="zeit" value="vormittags (9–12 Uhr)"><span>9–12 Uhr</span></label>
-                <label class="pillc"><input type="radio" name="zeit" value="mittags (12–15 Uhr)"><span>12–15 Uhr</span></label>
-                <label class="pillc"><input type="radio" name="zeit" value="nachmittags (15–18 Uhr)"><span>15–18 Uhr</span></label>
-                <label class="pillc"><input type="radio" name="zeit" value="abends (ab 18 Uhr)"><span>ab 18 Uhr</span></label>
-              </div><p class="err" id="eZeit" hidden></p>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Was interessiert Sie?</legend>
-            <div class="pills" id="interests">
-              <label class="pillc"><input type="checkbox" name="int" value="Online-Terminbuch"><span>Online-Terminbuch</span></label>
-              <label class="pillc"><input type="checkbox" name="int" value="Digitale Stempelkarte"><span>Digitale Stempelkarte</span></label>
-              <label class="pillc"><input type="checkbox" name="int" value="KI-Telefonassistent"><span>KI-Telefon</span></label>
-              <label class="pillc"><input type="checkbox" name="int" value="Website"><span>Website</span></label>
-              <label class="pillc"><input type="checkbox" name="int" value="Gestaltung"><span>Gestaltung</span></label>
-              <label class="pillc"><input type="checkbox" name="int" value="Google-Profil und Bewertungen"><span>Google-Profil</span></label>
-              <label class="pillc"><input type="checkbox" name="int" value="Videobearbeitung"><span>Videobearbeitung</span></label>
-              <label class="pillc"><input type="checkbox" name="int" value="Geräte-Service"><span>Geräte-Service</span></label>
-              <label class="pillc"><input type="checkbox" name="int" value="Noch unsicher"><span>Noch unsicher</span></label>
-            </div>
-            <div class="f2">
-              <div class="fld"><label for="fPaket">Paket</label><select id="fPaket"><option>Noch offen</option><option>Start</option><option>Reiseflug</option><option>Autopilot</option></select></div>
-              <label class="checkc"><input type="checkbox" id="fPilot"> Ich möchte Pilotkunde werden</label>
-            </div>
-            <div class="fld"><label for="fMsg">Nachricht</label><textarea id="fMsg" rows="3" placeholder="z. B. Wir verpassen viele Anrufe, wenn wir Kunden bedienen."></textarea></div>
-          </fieldset>
-          <label class="consent"><input type="checkbox" id="fOk" required aria-describedby="eOk"><span>Ich bin einverstanden, dass meine Angaben zur Terminabsprache verwendet werden. Mehr dazu in der <a href="/datenschutz/">Datenschutzerklärung</a>. <span class="req" aria-hidden="true">*</span></span></label>
-          <p class="err" id="eOk" hidden></p>
-          <div class="send">
-            <button type="submit" class="btn solid" data-via="wa">Per WhatsApp senden</button>
-            <button type="submit" class="btn line" data-via="mail">Per E-Mail senden</button>
-          </div>
-          <p class="fine2">Das Formular öffnet WhatsApp oder Ihr E-Mail-Programm mit Ihren Angaben. Erst wenn Sie dort auf Senden tippen, wird etwas verschickt. Ich bestätige Ihnen den Termin danach persönlich.</p>
+          </form>
           <div class="done" id="done" hidden tabindex="-1" role="status">
-            <b>Fast geschafft</b>
+            <span class="okc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+            <h3>Fast geschafft.</h3>
             <p id="doneText"></p>
-            <a class="btn line" id="doneLink" href="#" target="_blank" rel="noopener">Nochmal öffnen</a>
+            <dl class="sum"><div><dt>Betrieb</dt><dd id="sFirm"></dd></div><div><dt>Ansprechpartner</dt><dd id="sName"></dd></div><div><dt>Wunschtermin</dt><dd id="sWhen"></dd></div><div><dt>Interesse</dt><dd id="sInt"></dd></div></dl>
+            <div class="row"><a class="btn pri" id="doneLink" href="#" target="_blank" rel="noopener">Nochmal öffnen</a><button class="btn gl" type="button" id="doneEdit">Angaben ändern</button></div>
           </div>
-        </form>
+        </div>
         <aside class="direct">
-          <h3>Lieber direkt?</h3>
-          <p>Rufen Sie an oder schreiben Sie mir. Ich melde mich schnell zurück.</p>
-          <a class="btn inv" href="tel:+4917685959460">Anrufen</a>
-          <a class="btn ghost" href="https://wa.me/4917685959460" rel="noopener">WhatsApp</a>
-          <a class="btn ghost" href="mailto:lukas@pilotwerk-digital.de">E-Mail</a>
-          <p class="num"><a href="tel:+4917685959460">+49 176 85959460</a><br><a href="mailto:lukas@pilotwerk-digital.de">lukas@pilotwerk-digital.de</a></p>
-          <p class="who">Lukas Seibel · Pilotwerk Digital<br>Bad Berleburg</p>
+          <a class="card spot dc" href="tel:+4917685959460"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><span><b>Anrufen</b><span class="s">+49 176 85959460</span></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <a class="card spot dc" href="https://wa.me/4917685959460" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span><span><b>WhatsApp</b><span class="s">Schreiben Sie mir direkt</span></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <a class="card spot dc" href="mailto:lukas@pilotwerk-digital.de"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span><b>E-Mail</b><span class="s">lukas@pilotwerk-digital.de</span></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <p class="card who"><b>Lukas Seibel</b>, Pilotwerk Digital<br>Bad Berleburg</p>
         </aside>
       </div>
     </div>
@@ -331,110 +951,727 @@
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Pilotwerk Digital · Inhaber Lukas Seibel · Bad Berleburg</span>
-    <nav aria-label="Rechtliches"><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></nav>
+    <span class="wordmark" aria-hidden="true">Pilotwerk</span>
+    <div class="row">
+      <span>© 2026 Pilotwerk Digital, Inhaber Lukas Seibel, Bad Berleburg</span>
+      <nav aria-label="Rechtliches"><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></nav>
+    </div>
   </div>
 </footer>
+
+<div class="pal" id="pal" role="dialog" aria-modal="true" aria-label="Suche">
+  <div class="pal-box">
+    <div class="pal-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="palIn" type="text" placeholder="Wohin möchten Sie?" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="palList" aria-autocomplete="list"><kbd>Esc</kbd></div>
+    <ul class="pal-list" id="palList" role="listbox" aria-label="Ergebnisse"></ul>
+    <div class="pal-f" aria-hidden="true"><span>↑↓ auswählen</span><span>Enter öffnen</span><span>Esc schließen</span></div>
+  </div>
+</div>
+<button class="up" id="up" type="button" aria-label="Nach oben fliegen"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 0 1 .5 1 1.2V9l7 4.3v1.9l-7-2.1v4.8l2 1.6V21l-3-.9-3 .9v-1.5l2-1.6v-4.8l-7 2.1v-1.9L11 9V3.2C11 2.5 11.4 2 12 2z"/></svg></button>
+
 <script>
-(function(){
-  var bm=document.getElementById('bm'),by=document.getElementById('by');
-  if(!bm||!by)return;
-  function set(y){
-    bm.setAttribute('aria-pressed',String(!y));by.setAttribute('aria-pressed',String(y));
-    document.querySelectorAll('.plan [data-m]').forEach(function(el){el.textContent=y?el.dataset.y:el.dataset.m});
+{
+  const $ = id => document.getElementById(id);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const ELEVEN = 'https://elevenlabs.io/app/talk-to?agent_id=agent_8001m7pdrj0fekkb1cg9fj1hq2rn';
+  const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+  if (!isMac) $('kbdHint').textContent = 'Strg K';
+  const fmt = v => v >= 1000 ? Math.floor(v / 1000) + '.' + String(v % 1000).padStart(3, '0') : String(v);
+  function whenVisible(el, fn, opts) {
+    const io = new IntersectionObserver(es => es.forEach(e => fn(e.isIntersecting, e)), opts || {threshold: .25});
+    io.observe(el);
+    return io;
   }
-  bm.addEventListener('click',function(){set(false)});
-  by.addEventListener('click',function(){set(true)});
-})();
-</script>
-<script>
-(function(){
-  var bar=document.getElementById('tabs');if(!bar)return;
-  var links=[].slice.call(bar.querySelectorAll('a'));
-  var targets=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1))});
-  var clicked=null,current=null,ticking=false;
-  function line(){var h=document.querySelector('.nav');return (h?h.getBoundingClientRect().bottom:110)+40}
-  function show(i){
-    if(i===current)return;current=i;
-    links.forEach(function(a,j){if(j===i)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
-    if(i!=null&&bar.scrollWidth>bar.clientWidth){var a=links[i];var left=a.offsetLeft-(bar.clientWidth-a.offsetWidth)/2;
-      try{bar.scrollTo({left:left,behavior:'smooth'})}catch(e){bar.scrollLeft=left}}
+
+  /* Text decoding for headlines and prices */
+  const GLYPHS = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789#%&*+=/<>';
+  function scramble(el, text, dur) {
+    if (reduce) { el.textContent = text; return; }
+    cancelAnimationFrame(el._sc);
+    const t0 = performance.now(), n = text.length, at = Array.from({length: n}, (_, i) => (i / n) * .65 + Math.random() * .35);
+    const step = now => {
+      const p = Math.min(1, (now - t0) / dur);
+      let s = '';
+      for (let i = 0; i < n; i++) { const ch = text[i]; s += ch === ' ' || p >= at[i] ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0]; }
+      el.textContent = s;
+      if (p < 1) el._sc = requestAnimationFrame(step);
+    };
+    el._sc = requestAnimationFrame(step);
   }
-  function spy(){
-    ticking=false;var y=line();
-    if(clicked!=null){show(clicked);return}
-    var best=null,bestTop=-Infinity;
-    targets.forEach(function(t,i){if(!t)return;var top=t.getBoundingClientRect().top;if(top<=y&&top>bestTop){best=i;bestTop=top}});
-    var end=window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4;
-    show(end?targets.length-1:best);
-  }
-  links.forEach(function(a,i){a.addEventListener('click',function(){clicked=i;show(i)})});
-  function release(e){if(clicked!=null&&!(e.target&&e.target.closest&&e.target.closest('#tabs'))){clicked=null;spy()}}
-  ['wheel','touchstart','pointerdown','keydown'].forEach(function(ev){window.addEventListener(ev,release,{passive:true})});
-  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(spy)}},{passive:true});
-  window.addEventListener('resize',spy);
-  spy();
-})();
-</script>
-<script>
-(function(){
-  var form=document.getElementById('bookForm');if(!form)return;
-  var WD=['So','Mo','Di','Mi','Do','Fr','Sa'],WDL=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],MON=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
-  var days=document.getElementById('days'),d=new Date(),n=0,h='';
-  while(n<6){d.setDate(d.getDate()+1);if(d.getDay()===0)continue;n++;
-    var long=WDL[d.getDay()]+', '+d.getDate()+'. '+MON[d.getMonth()];
-    h+='<label class="pillc"><input type="radio" name="tag" value="'+long+'"><span>'+WD[d.getDay()]+' '+d.getDate()+'.'+(d.getMonth()+1)+'.</span></label>'}
-  h+='<label class="pillc"><input type="radio" name="tag" value="flexibel, bitte Vorschlag machen"><span>Flexibel</span></label>';
-  days.innerHTML=h;
-  function $(id){return document.getElementById(id)}
-  function checked(name){var el=form.querySelector('input[name="'+name+'"]:checked');return el?el.value:''}
-  function setErr(id,msg,field){var e=$(id);if(!e)return;e.textContent=msg||'';e.hidden=!msg;if(field)field.setAttribute('aria-invalid',msg?'true':'false')}
-  try{var qi=new URLSearchParams(location.search).get('int');if(qi){var qc=form.querySelector('input[name="int"][value="'+qi.replace(/"/g,'')+'"]');if(qc)qc.checked=true}}catch(_){}
-  document.addEventListener('click',function(e){
-    var a=e.target.closest('a[data-int],a[data-paket],a[data-pilot]');if(!a)return;
-    if(a.dataset.int){var c=form.querySelector('input[name="int"][value="'+a.dataset.int+'"]');if(c)c.checked=true}
-    if(a.dataset.paket){$('fPaket').value=a.dataset.paket}
-    if(a.dataset.pilot){$('fPilot').checked=true}
+  document.querySelectorAll('.h2 .scr').forEach(el => {
+    const text = el.textContent;
+    const io = whenVisible(el, vis => { if (vis) { io.disconnect(); scramble(el, text, 900); } }, {threshold: .6});
   });
-  var via='wa';
-  form.addEventListener('click',function(e){var b=e.target.closest('button[data-via]');if(b)via=b.dataset.via});
-  form.addEventListener('submit',function(e){
-    e.preventDefault();if(e.submitter&&e.submitter.dataset.via)via=e.submitter.dataset.via;
-    var first=null;function need(id,eid,msg){var f=$(id),bad=!f.value.trim();setErr(eid,bad?msg:'',f);if(bad&&!first)first=f}
-    need('fBetrieb','eBetrieb','Bitte den Namen des Betriebs eintragen.');
-    need('fStrasse','eStrasse','Bitte Straße und Hausnummer eintragen.');
-    need('fOrt','eOrt','Bitte den Ort eintragen.');
-    need('fName','eName','Bitte Ihren Namen eintragen.');
-    var tel=$('fTel'),telBad=tel.value.replace(/[^0-9]/g,'').length<6;setErr('eTel',telBad?'Bitte eine Telefonnummer eintragen.':'',tel);if(telBad&&!first)first=tel;
-    var mail=$('fMail'),mailBad=mail.value.trim()&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail.value.trim());setErr('eMail',mailBad?'Diese E-Mail-Adresse sieht nicht vollständig aus.':'',mail);if(mailBad&&!first)first=mail;
-    var tag=checked('tag'),zeit=checked('zeit');
-    setErr('eTag',tag?'':'Bitte einen Wunschtag wählen.');if(!tag&&!first)first=days.querySelector('input');
-    setErr('eZeit',zeit?'':'Bitte eine Uhrzeit wählen.');if(!zeit&&!first)first=form.querySelector('input[name="zeit"]');
-    var ok=$('fOk');setErr('eOk',ok.checked?'':'Bitte bestätigen Sie die Einwilligung.',ok);if(!ok.checked&&!first)first=ok;
-    if(first){first.focus();return}
-    var ints=[].map.call(form.querySelectorAll('input[name="int"]:checked'),function(x){return x.value});
-    var plz=$('fPlz').value.trim(),br=$('fBranche').value,paket=$('fPaket').value,msg=$('fMsg').value.trim();
-    var lines=['Neue Gesprächsanfrage über pilotwerk-digital.de','',
-      'Betrieb: '+$('fBetrieb').value.trim()+(br&&br!=='Bitte wählen'?' ('+br+')':''),
-      'Adresse: '+$('fStrasse').value.trim()+', '+(plz?plz+' ':'')+$('fOrt').value.trim(),
-      'Ansprechpartner: '+$('fName').value.trim(),
-      'Telefon: '+tel.value.trim()];
-    if(mail.value.trim())lines.push('E-Mail: '+mail.value.trim());
-    lines.push('','Gespräch: '+checked('wo'),'Wunschtermin: '+tag+', '+zeit);
-    lines.push('Interesse: '+(ints.length?ints.join(', '):'noch offen'));
-    if(paket!=='Noch offen')lines.push('Paket: '+paket);
-    if($('fPilot').checked)lines.push('Möchte Pilotkunde werden');
-    if(msg)lines.push('','Nachricht: '+msg);
-    var text=lines.join('\n'),url;
-    if(via==='mail')url='mailto:lukas@pilotwerk-digital.de?subject='+encodeURIComponent('Gesprächsanfrage: '+$('fBetrieb').value.trim())+'&body='+encodeURIComponent(text);
-    else url='https://wa.me/4917685959460?text='+encodeURIComponent(text);
-    $('doneText').textContent=via==='mail'?'Ihr E-Mail-Programm öffnet sich mit Ihrer Anfrage. Bitte dort noch auf Senden tippen.':'WhatsApp öffnet sich mit Ihrer Anfrage. Bitte dort noch auf Senden tippen.';
-    var dl=$('doneLink');dl.href=url;dl.textContent=via==='mail'?'E-Mail nochmal öffnen':'WhatsApp nochmal öffnen';if(via==='mail')dl.removeAttribute('target');else dl.setAttribute('target','_blank');
-    var box=$('done');box.hidden=false;
-    if(via==='mail')window.location.href=url;else{var wnd=window.open(url,'_blank','noopener');if(!wnd)window.location.href=url}
-    box.focus();
-  });
-})();
+
+  /* Hero intro */
+  requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('ready')));
+  document.querySelectorAll('.h1 .w').forEach((w, i) => { w.style.transitionDelay = (.08 + i * .09) + 's'; });
+
+  /* Particle swarm: CPU springs, WebGL points */
+  (function swarm() {
+    const hero = $('hero'), cv = $('swarm'), box = $('sbox'), label = $('slabel');
+    let gl = null;
+    if (!reduce) { try { gl = cv.getContext('webgl', {alpha: true, antialias: false, premultipliedAlpha: true}); } catch (_) { gl = null; } }
+    if (!gl) { hero.classList.add('nogl'); return; }
+    const coarse = matchMedia('(pointer: coarse)').matches;
+    const N = coarse || innerWidth < 700 ? 4800 : 9600;
+    const S = 300;
+    function sample(draw) {
+      const c = document.createElement('canvas'); c.width = c.height = S;
+      const x = c.getContext('2d'); x.fillStyle = x.strokeStyle = '#fff'; x.lineCap = 'round'; x.lineJoin = 'round';
+      draw(x);
+      const d = x.getImageData(0, 0, S, S).data, pts = [];
+      for (let y = 0; y < S; y += 2) for (let xx = 0; xx < S; xx += 2) if (d[(y * S + xx) * 4 + 3] > 120) pts.push(xx, y);
+      const M = pts.length / 2, arr = [];
+      for (let i = 0; i < N; i++) { const k = (Math.random() * M) | 0, px = (pts[k * 2] + Math.random() * 2 - S / 2) / (S / 2), py = (pts[k * 2 + 1] + Math.random() * 2 - S / 2) / (S / 2); arr.push([Math.atan2(py, px), px, py]); }
+      arr.sort((a, b) => a[0] - b[0]);
+      const out = new Float32Array(N * 2);
+      arr.forEach((p, i) => { out[i * 2] = p[1]; out[i * 2 + 1] = p[2]; });
+      return out;
+    }
+    const rr = (x, a, b, w, h, r) => { x.beginPath(); x.roundRect ? x.roundRect(a, b, w, h, r) : x.rect(a, b, w, h); };
+    const SH = [
+      x => { const s = 7.5, o = -0.5 * s * 40 + 150; x.lineWidth = 15; rr(x, 22, 22, 256, 256, 66); x.stroke(); x.lineWidth = 4.2 * s; x.beginPath(); x.moveTo(10 * s + o, 29 * s + o); x.bezierCurveTo(16 * s + o, 29 * s + o, 20 * s + o, 23 * s + o, 23.5 * s + o, 17.5 * s + o); x.lineTo(29 * s + o, 11 * s + o); x.stroke(); x.beginPath(); x.moveTo(21.5 * s + o, 11 * s + o); x.lineTo(29 * s + o, 11 * s + o); x.lineTo(29 * s + o, 18.5 * s + o); x.stroke(); },
+      x => { x.lineWidth = 15; rr(x, 32, 62, 236, 206, 28); x.stroke(); rr(x, 32, 62, 236, 52, [28, 28, 0, 0]); x.fill(); x.beginPath(); x.moveTo(96, 30); x.lineTo(96, 84); x.moveTo(204, 30); x.lineTo(204, 84); x.stroke(); for (let r = 0; r < 2; r++) for (let c = 0; c < 3; c++) { if (r === 1 && c === 2) continue; rr(x, 64 + c * 62, 136 + r * 60, 46, 42, 10); x.fill(); } x.lineWidth = 13; x.beginPath(); x.moveTo(192, 218); x.lineTo(206, 232); x.lineTo(234, 200); x.stroke(); },
+      x => { x.lineWidth = 15; rr(x, 18, 64, 264, 174, 28); x.stroke(); for (let r = 0; r < 2; r++) for (let c = 0; c < 4; c++) { x.beginPath(); x.arc(72 + c * 52, 124 + r * 58, 18, 0, Math.PI * 2); if (r * 4 + c < 5) x.fill(); else { x.lineWidth = 9; x.stroke(); } } },
+      x => { if (!window.Path2D) { x.lineWidth = 15; rr(x, 92, 30, 116, 240, 26); x.stroke(); return; } x.save(); x.translate(0, 12); x.scale(12, 12); x.lineWidth = 2.3; x.stroke(new Path2D('M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2')); x.stroke(new Path2D('M13.5 2a8.5 8.5 0 0 1 8.5 8.5M13.5 6a4.5 4.5 0 0 1 4.5 4.5')); x.restore(); },
+      x => { x.lineWidth = 15; rr(x, 20, 46, 260, 212, 26); x.stroke(); x.lineWidth = 11; x.beginPath(); x.moveTo(20, 94); x.lineTo(280, 94); x.stroke(); [52, 80, 108].forEach(cx => { x.beginPath(); x.arc(cx, 70, 9, 0, Math.PI * 2); x.fill(); }); x.beginPath(); x.moveTo(150, 240); x.bezierCurveTo(116, 204, 104, 184, 104, 164); x.arc(150, 160, 46, Math.PI * 1.03, Math.PI * 1.97); x.bezierCurveTo(196, 184, 184, 204, 150, 240); x.fill(); x.globalCompositeOperation = 'destination-out'; x.beginPath(); x.arc(150, 160, 17, 0, Math.PI * 2); x.fill(); x.globalCompositeOperation = 'source-over'; }
+    ].map(sample);
+    const NAMES = ['Pilotwerk Digital', 'Online-Terminbuch', 'Digitale Stempelkarte', 'KI-Telefon', 'Website'];
+    const vs = 'attribute vec2 aPos;attribute float aSize;attribute vec3 aCol;uniform vec2 uRes;uniform float uDpr;uniform float uScale;varying vec3 vCol;void main(){vec2 p=aPos/uRes*2.0-1.0;gl_Position=vec4(p.x,-p.y,0.0,1.0);gl_PointSize=aSize*uDpr*uScale;vCol=aCol;}';
+    const fs = 'precision mediump float;varying vec3 vCol;uniform float uAlpha;uniform float uSoft;uniform float uLight;void main(){vec2 c=gl_PointCoord-0.5;float d=length(c);if(d>0.5)discard;float core=smoothstep(0.5,0.2,d);float soft=(1.0-d*2.0)*(1.0-d*2.0);float a=mix(core,soft,uSoft)*uAlpha;vec3 col=mix(vCol,vCol*vec3(0.94,0.74,0.7),uLight);gl_FragColor=vec4(col*a,a);}';
+    function sh(type, src) { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; }
+    const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { hero.classList.add('nogl'); return; }
+    gl.useProgram(pr);
+    const P = new Float32Array(N * 2), V = new Float32Array(N * 2), SZ = new Float32Array(N), COL = new Float32Array(N * 3), DL = new Float32Array(N), SW = new Int32Array(N);
+    for (let i = 0; i < N; i++) {
+      SZ[i] = (coarse ? 2.3 : 2.4) + Math.random() * 1.8;
+      const r = Math.random(), c = r < .8 ? [1, .42, .07] : r < .94 ? [1, .7, .48] : [.36, .54, 1];
+      COL.set(c, i * 3);
+      DL[i] = Math.random() * .5;
+    }
+    const buf = (data, loc, n) => { const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, data, data === P ? gl.DYNAMIC_DRAW : gl.STATIC_DRAW); const l = gl.getAttribLocation(pr, loc); gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l, n, gl.FLOAT, false, 0, 0); return b; };
+    const pBuf = buf(P, 'aPos', 2); buf(SZ, 'aSize', 1); buf(COL, 'aCol', 3);
+    const uRes = gl.getUniformLocation(pr, 'uRes'), uDpr = gl.getUniformLocation(pr, 'uDpr'), uAlpha = gl.getUniformLocation(pr, 'uAlpha'), uScale = gl.getUniformLocation(pr, 'uScale'), uSoft = gl.getUniformLocation(pr, 'uSoft'), uLight = gl.getUniformLocation(pr, 'uLight');
+    gl.enable(gl.BLEND);
+    let light = false;
+    const look = () => { light = document.documentElement.getAttribute('data-theme') === 'light'; gl.uniform1f(uLight, light ? 1 : 0); };
+    look();
+    document.addEventListener('themechange', look);
+    let W = 0, H = 0, dpr = 1, bx = 0, by = 0, bs = 100;
+    function measure() {
+      const r = hero.getBoundingClientRect(), b = box.getBoundingClientRect();
+      W = r.width; H = r.height; dpr = Math.min(2, devicePixelRatio || 1);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      bx = b.left - r.left + b.width / 2; by = b.top - r.top + b.height / 2; bs = Math.min(b.width, b.height) / 2 * .92;
+      gl.viewport(0, 0, cv.width, cv.height);
+      gl.uniform2f(uRes, W, H); gl.uniform1f(uDpr, dpr);
+    }
+    measure();
+    for (let i = 0; i < N; i++) { P[i * 2] = Math.random() * W; P[i * 2 + 1] = Math.random() * H; V[i * 2] = (Math.random() - .5) * 6; V[i * 2 + 1] = (Math.random() - .5) * 6; }
+    let cur = 0, nxt = 0, swId = 1, t0 = performance.now(), last = t0, running = false, inView = true, mx = -9999, my = -9999, mActive = false, raf = 0, boom = -1e9, mLast = 0;
+    const HOLD0 = 5000, HOLD = 3900;
+    let nextAt = t0 + HOLD0;
+    function switchTo(k) { cur = nxt; nxt = k; swId++; t0 = performance.now(); scramble(label, NAMES[k], 650); }
+    function frame(now) {
+      raf = 0;
+      if (!running) return;
+      const dt = Math.min(2.5, (now - last) / 16.67); last = now;
+      if (now > nextAt) { switchTo((nxt + 1) % SH.length); nextAt = now + HOLD; }
+      const since = (now - t0) / 1000;
+      const hr = hero.getBoundingClientRect(), exit = clamp(-hr.top / (H * .8), 0, 1);
+      const kb = clamp((now - boom) / 1100, 0, 1), scl = bs * (1 + exit * 1.1), k = .055 * dt * (.02 + .98 * kb * kb * kb), damp = Math.pow(lerp(.95, .83, kb), dt), R = coarse ? 100 : 150, R2 = R * R;
+      const A = SH[cur], B = SH[nxt], tt = now * .001, me = mActive ? clamp(1.3 - (now - mLast) / 700, 0, 1) : 0;
+      for (let i = 0; i < N; i++) {
+        const i2 = i * 2, sw = since > DL[i];
+        const S2 = sw ? B : A;
+        const tx = bx + S2[i2] * scl + Math.sin(tt * 1.3 + i) * 1.1, ty = by + S2[i2 + 1] * scl + Math.cos(tt * 1.1 + i * 1.7) * 1.1;
+        let x = P[i2], y = P[i2 + 1], vx = V[i2], vy = V[i2 + 1];
+        if (sw && SW[i] !== swId) {
+          SW[i] = swId;
+          const dx = tx - x, dy = ty - y, d = Math.hypot(dx, dy) || 1, s = (Math.random() < .5 ? -1 : 1) * (3 + Math.random() * 7);
+          vx += -dy / d * s; vy += dx / d * s;
+        }
+        vx += (tx - x) * k; vy += (ty - y) * k;
+        if (me > 0) {
+          const dx = x - mx, dy = y - my, d2 = dx * dx + dy * dy;
+          if (d2 < R2) { const d = Math.sqrt(d2) + .01, f = (1 - d / R) * 4.2 * me * dt; vx += dx / d * f; vy += dy / d * f; }
+        }
+        vx *= damp; vy *= damp; x += vx * dt; y += vy * dt;
+        P[i2] = x; P[i2 + 1] = y; V[i2] = vx; V[i2 + 1] = vy;
+      }
+      const fade = 1 - exit * .85;
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.bindBuffer(gl.ARRAY_BUFFER, pBuf); gl.bufferSubData(gl.ARRAY_BUFFER, 0, P);
+      if (light) gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA); else gl.blendFunc(gl.ONE, gl.ONE);
+      gl.uniform1f(uScale, coarse ? 2.6 : 3.2); gl.uniform1f(uSoft, 1); gl.uniform1f(uAlpha, (light ? .05 : .085) * fade);
+      gl.drawArrays(gl.POINTS, 0, N);
+      gl.uniform1f(uScale, 1); gl.uniform1f(uSoft, 0); gl.uniform1f(uAlpha, fade);
+      gl.drawArrays(gl.POINTS, 0, N);
+      raf = requestAnimationFrame(frame);
+    }
+    function setRun() {
+      const on = inView && !document.hidden;
+      if (on === running) return;
+      running = on;
+      if (on) { last = performance.now(); nextAt = Math.max(nextAt, last + 800); if (!raf) raf = requestAnimationFrame(frame); }
+    }
+    whenVisible(hero, v => { inView = v; setRun(); }, {threshold: 0});
+    document.addEventListener('visibilitychange', setRun);
+    addEventListener('resize', measure);
+    const local = e => { const r = hero.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+    hero.addEventListener('pointermove', e => { [mx, my] = local(e); mLast = performance.now(); mActive = e.pointerType === 'mouse' || e.buttons > 0 || e.pressure > 0; }, {passive: true});
+    hero.addEventListener('pointerleave', () => { mActive = false; });
+    hero.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') mActive = false; });
+    hero.addEventListener('pointerdown', e => {
+      if (e.target.closest('a,button')) return;
+      const [cx, cy] = local(e);
+      boom = performance.now();
+      for (let i = 0; i < N; i++) { const dx = P[i * 2] - cx, dy = P[i * 2 + 1] - cy, d = Math.hypot(dx, dy) || 1, f = (1 - Math.min(d, 700) / 760) * (14 + Math.random() * 22); V[i * 2] += dx / d * f; V[i * 2 + 1] += dy / d * f; }
+      switchTo((nxt + 1) % SH.length); nextAt = boom + HOLD + 900;
+      const rp = document.createElement('span'); rp.className = 'ripple'; rp.style.left = e.clientX + 'px'; rp.style.top = e.clientY + 'px'; document.body.append(rp); setTimeout(() => rp.remove(), 900);
+      if (e.pointerType !== 'mouse') { mx = cx; my = cy; mActive = true; mLast = boom; }
+    });
+    $('hint').textContent = coarse ? 'Tippen und wischen, die Punkte reagieren' : 'Maus bewegen, Klicken lässt es knallen';
+    setRun();
+  })();
+
+  /* Terminal: the update runs when it comes into view */
+  (function terminal() {
+    const el = $('term'), state = $('termState'), run = $('termRun');
+    const L = [['cmd', 'pilotwerk update --betrieb "Ihr Laden"'], ['ok', 'Verbinde mit Pilotwerk', 'ok'], ['bar', 'Online-Terminbuch', 'installiert'], ['bar', 'Digitale Stempelkarte', 'installiert'], ['bar', 'KI-Telefonassistent', 'verbunden'], ['bar', 'Website + Google-Profil', 'online'], ['done', 'Update fertig. Ihr Laden ist bereit.']];
+    const SP = ['|', '/', '-', '\\'];
+    let job = 0, started = false;
+    const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    async function play() {
+      const id = ++job;
+      started = true;
+      el.innerHTML = '';
+      state.textContent = 'läuft';
+      const cols = innerWidth < 560 ? 34 : 50;
+      const line = () => { const d = document.createElement('div'); el.append(d); return d; };
+      for (const [t, a, b] of L) {
+        if (id !== job) return;
+        if (t === 'cmd') {
+          const d = line(); d.innerHTML = '<span class="p">~ %</span> ';
+          const s = document.createElement('span'); d.append(s);
+          const c = document.createElement('span'); c.className = 'cur'; d.append(c);
+          for (let i = 0; i <= a.length; i++) { if (id !== job) return; s.textContent = a.slice(0, i); await sleep(reduce ? 0 : 28 + Math.random() * 40); }
+          c.remove(); await sleep(reduce ? 0 : 280);
+        } else if (t === 'ok') {
+          const d = line();
+          for (let i = 0; i < 6; i++) { if (id !== job) return; d.innerHTML = '<span class="d">' + SP[i % 4] + '</span> ' + esc(a) + ' …'; await sleep(reduce ? 0 : 90); }
+          d.innerHTML = '<span class="ok">✓</span> ' + esc(a) + ' <span class="d">…</span> <span class="ok">' + b + '</span>';
+        } else if (t === 'bar') {
+          const d = line(), n = Math.max(8, Math.min(12, cols - a.length - 22));
+          for (let i = 0; i <= n; i++) { if (id !== job) return; d.innerHTML = '<span class="o">' + '█'.repeat(i) + '</span><span class="d">' + '░'.repeat(n - i) + '</span> ' + esc(a); await sleep(reduce ? 0 : 45 + Math.random() * 50); }
+          d.innerHTML = '<span class="o">' + '█'.repeat(n) + '</span> ' + esc(a) + ' <span class="ok">' + b + '</span>';
+        } else {
+          await sleep(reduce ? 0 : 250);
+          const d = line(); d.innerHTML = '<span class="ok">✓ ' + esc(a) + '</span>';
+          const p = line(); p.innerHTML = '<span class="p">~ %</span> <span class="cur"></span>';
+        }
+        await sleep(reduce ? 0 : 160);
+      }
+      state.textContent = 'fertig';
+    }
+    whenVisible(el, v => { if (v && !started) play(); }, {threshold: .4});
+    run.addEventListener('click', play);
+  })();
+
+  /* Live demo: appointment book */
+  (function calDemo() {
+    const cg = $('cg'), toast = $('tbToast'), cnt = $('tbCount'), demo = cg.closest('.demo');
+    const D = ['Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'], C = ['#FF6A13', '#4C7DFF', '#3BD98B', '#8C96AA'];
+    const busy = new Map(), order = [];
+    let timer = 0, n = 0, visible = false;
+    const key = (d, h) => d + ':' + h;
+    function add(d, h, isNew) {
+      const b = document.createElement('i'); b.className = 'blk' + (isNew ? ' new' : '');
+      b.style.cssText = '--d:' + d + ';--h:' + h + ';--l:1;--c:' + C[(d + h) % C.length];
+      cg.append(b); busy.set(key(d, h), b); order.push(key(d, h));
+      if (isNew) setTimeout(() => b.classList.remove('new'), 1400);
+      cnt.textContent = busy.size + ' Termine';
+    }
+    function show(msg, bad) { toast.classList.toggle('bad', !!bad); toast.querySelector('span').textContent = msg; toast.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(() => toast.classList.remove('on'), 1900); }
+    for (let i = 0; i < 9; i++) { const d = (Math.random() * 6) | 0, h = (Math.random() * 9) | 0; if (!busy.has(key(d, h))) add(d, h, false); }
+    function tick() {
+      n++;
+      if (n % 4 === 0 && order.length) {
+        const k = order[(Math.random() * order.length) | 0], [d, h] = k.split(':').map(Number), b = busy.get(k);
+        b.classList.remove('warn'); void b.offsetWidth; b.classList.add('warn');
+        show('Doppelbuchung verhindert: ' + D[d] + ' ' + (9 + h) + ':00 ist schon belegt', true);
+        return;
+      }
+      if (busy.size >= 22) { const k = order.shift(), b = busy.get(k); busy.delete(k); b.style.transition = 'opacity .4s'; b.style.opacity = '0'; setTimeout(() => b.remove(), 400); }
+      for (let tries = 0; tries < 30; tries++) {
+        const d = (Math.random() * 6) | 0, h = (Math.random() * 9) | 0;
+        if (!busy.has(key(d, h))) { add(d, h, true); show('Neue Buchung: ' + D[d] + ', ' + (9 + h) + ':' + (Math.random() < .5 ? '00' : '30') + ' Uhr'); break; }
+      }
+    }
+    whenVisible(demo, v => { visible = v; clearInterval(timer); if (v && !reduce) { tick(); timer = setInterval(tick, 2400); } });
+  })();
+
+  /* Live demo: stamp card */
+  (function stampDemo() {
+    const slots = [...$('slots').children], card = $('wcard'), cnt = $('wcCount'), big = $('stN'), demo = card.closest('.demo');
+    let n = 0, auto = true, timer = 0;
+    function set(k) { n = k; slots.forEach((s, i) => s.classList.toggle('on', i < n)); cnt.textContent = n + ' von 10'; big.textContent = n; card.classList.toggle('full', n >= 10); if (n >= 10) cnt.textContent = 'Prämie freigeschaltet'; }
+    function give() { if (n >= 10) { set(0); return; } set(n + 1); if (n >= 10) { [$('stampBtn'), $('stampBtn2')].forEach(b => { b.textContent = 'Neue Karte'; }); } }
+    function manual() { auto = false; clearInterval(timer); give(); if (n < 10) [$('stampBtn'), $('stampBtn2')].forEach(b => { b.textContent = 'Stempel geben'; }); }
+    [$('stampBtn'), $('stampBtn2')].forEach(b => b.addEventListener('click', manual));
+    whenVisible(demo, v => { clearInterval(timer); if (v && auto && !reduce) timer = setInterval(() => { if (n >= 10) { setTimeout(() => { if (auto) set(0); }, 1600); } else give(); }, 1100); });
+  })();
+
+  /* Live demo: AI phone call */
+  (function callDemo() {
+    const tx = $('tx'), wave = $('wave'), st = $('callState'), tm = $('callTimer'), call = $('call'), demo = call.closest('.demo');
+    for (let i = 0; i < 28; i++) wave.append(document.createElement('i'));
+    const bars = [...wave.children];
+    const LINES = [['a', 'Anrufer', 'Hallo, haben Sie am Samstag noch einen Termin frei?'], ['k', 'KI-Telefon', 'Am Samstag ist um 10:30 Uhr noch frei. Soll ich das für Sie notieren?'], ['a', 'Anrufer', 'Ja, gerne. Mein Name ist Weber.'], ['k', 'KI-Telefon', 'Danke, Frau Weber. Ihr Terminwunsch ist notiert, das Team meldet sich zur Bestätigung.']];
+    let job = 0, speaking = 0, visible = false, t0 = 0, raf = 0;
+    function animWave(now) {
+      raf = 0;
+      if (!visible) return;
+      bars.forEach((b, i) => { const base = speaking ? .25 + .75 * Math.abs(Math.sin(now / 140 + i * .7) * Math.sin(now / 330 + i * 1.9)) : .08 + .04 * Math.sin(now / 400 + i); b.style.height = (base * 100).toFixed(1) + '%'; });
+      if (t0) { const s = Math.floor((now - t0) / 1000); tm.textContent = '00:' + String(Math.min(59, s)).padStart(2, '0'); }
+      raf = requestAnimationFrame(animWave);
+    }
+    async function play() {
+      const id = ++job;
+      tx.innerHTML = ''; t0 = 0; tm.textContent = '00:00';
+      call.classList.add('ringing'); st.textContent = 'Eingehender Anruf';
+      await sleep(1400); if (id !== job) return;
+      call.classList.remove('ringing'); st.textContent = 'KI-Telefon nimmt ab'; t0 = performance.now();
+      for (const [who, name, text] of LINES) {
+        await sleep(500); if (id !== job) return;
+        const p = document.createElement('p'); p.className = who; p.innerHTML = '<small>' + name + '</small><span></span>'; tx.append(p);
+        const s = p.lastChild, words = text.split(' ');
+        speaking = who === 'k' ? 1 : .6;
+        for (let i = 1; i <= words.length; i++) { if (id !== job) return; s.textContent = words.slice(0, i).join(' '); await sleep(110 + Math.random() * 70); }
+        speaking = 0;
+        while (tx.scrollHeight > tx.clientHeight + 2 && tx.children.length > 1) tx.firstChild.remove();
+      }
+      await sleep(600); if (id !== job) return;
+      const s = document.createElement('p'); s.className = 's'; s.textContent = '✓ Terminwunsch gespeichert'; tx.append(s);
+      while (tx.scrollHeight > tx.clientHeight + 2 && tx.children.length > 1) tx.firstChild.remove();
+      st.textContent = 'Anruf beendet'; t0 = 0;
+      await sleep(4200); if (id === job && visible) play();
+    }
+    whenVisible(demo, v => {
+      visible = v;
+      if (v) { if (!raf && !reduce) raf = requestAnimationFrame(animWave); if (!reduce) play(); else { tx.innerHTML = LINES.map(([w, n, t]) => '<p class="' + w + '"><small>' + n + '</small>' + t + '</p>').join(''); } }
+      else job++;
+    });
+  })();
+
+  /* Live demo: being found in search */
+  (function webDemo() {
+    const q = $('q'), h1 = $('hit1'), h2 = $('hit2'), map = $('map'), demo = q.closest('.demo');
+    const Q = 'friseur bad berleburg';
+    let job = 0;
+    async function play() {
+      const id = ++job;
+      q.textContent = ''; [h1, h2, map].forEach(e => e.classList.remove('on'));
+      await sleep(500);
+      for (let i = 1; i <= Q.length; i++) { if (id !== job) return; q.textContent = Q.slice(0, i); await sleep(60 + Math.random() * 70); }
+      await sleep(350); if (id !== job) return;
+      map.classList.add('on'); await sleep(250); h1.classList.add('on'); await sleep(250); h2.classList.add('on');
+      await sleep(4200); if (id === job) play();
+    }
+    whenVisible(demo, v => { if (v) { if (reduce) { q.textContent = Q; [h1, h2, map].forEach(e => e.classList.add('on')); } else play(); } else job++; });
+  })();
+
+  /* Spotlight borders and tilt */
+  const spots = [...document.querySelectorAll('.spot')];
+  let pmx = -9999, pmy = -9999, sRaf = 0;
+  function spotFrame() {
+    sRaf = 0;
+    spots.forEach(s => { const r = s.getBoundingClientRect(); if (r.bottom < -200 || r.top > innerHeight + 200) return; s.style.setProperty('--mx', (pmx - r.left) + 'px'); s.style.setProperty('--my', (pmy - r.top) + 'px'); });
+  }
+  if (fine) {
+    addEventListener('pointermove', e => { pmx = e.clientX; pmy = e.clientY; if (!sRaf) sRaf = requestAnimationFrame(spotFrame); }, {passive: true});
+    addEventListener('scroll', () => { if (!sRaf) sRaf = requestAnimationFrame(spotFrame); }, {passive: true});
+  }
+
+  /* Magnetic buttons and pointer light */
+  if (fine && !reduce) {
+    const mags = [...document.querySelectorAll('.mag')], glow = $('cglow');
+    let gx = innerWidth / 2, gy = innerHeight / 2, tx = gx, ty = gy, gRaf = 0;
+    const gFrame = () => { gx = lerp(gx, tx, .12); gy = lerp(gy, ty, .12); glow.style.transform = 'translate(' + gx.toFixed(1) + 'px,' + gy.toFixed(1) + 'px)'; gRaf = Math.abs(gx - tx) + Math.abs(gy - ty) > .5 ? requestAnimationFrame(gFrame) : 0; };
+    addEventListener('pointermove', e => {
+      tx = e.clientX; ty = e.clientY; glow.classList.add('on'); if (!gRaf) gRaf = requestAnimationFrame(gFrame);
+      mags.forEach(m => {
+        const r = m.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2, dx = e.clientX - cx, dy = e.clientY - cy;
+        if (Math.abs(dx) < r.width / 2 + 40 && Math.abs(dy) < r.height / 2 + 40) m.style.transform = 'translate(' + (dx * .22).toFixed(1) + 'px,' + (dy * .3).toFixed(1) + 'px)';
+        else if (m.style.transform) m.style.transform = '';
+      });
+    }, {passive: true});
+    document.addEventListener('pointerleave', () => glow.classList.remove('on'));
+  }
+
+  /* Marquee that speeds up with your scroll */
+  (function marquee() {
+    const r1 = $('mq1'), r2 = $('mq2');
+    const A = ['Online-Terminbuch', 'Digitale Stempelkarte', 'KI-Telefon', 'Website', 'Google-Profil', 'Gestaltung', 'Videobearbeitung', 'Geräte-Service'];
+    const B = ['Bad Berleburg', 'Erndtebrück', 'Bad Laasphe', 'Wittgenstein', 'Bad Berleburg', 'Erndtebrück', 'Bad Laasphe', 'Wittgenstein'];
+    const fill = (el, arr) => { const h = arr.map(w => '<span>' + w + ' <i>↗</i></span>').join(''); el.innerHTML = h + h; };
+    fill(r1, A); fill(r2, B);
+    if (reduce) return;
+    let x1 = 0, x2 = 0, lastY = scrollY, vel = 0, dir = 1, last = performance.now(), on = false;
+    const mq = r1.parentElement;
+    function f(now) {
+      if (!on) return;
+      const dt = Math.min(3, (now - last) / 16.67); last = now;
+      const dy = scrollY - lastY; lastY = scrollY;
+      if (dy) dir = dy > 0 ? 1 : -1;
+      vel = lerp(vel, Math.min(40, Math.abs(dy)), .12);
+      const sp = (1.1 + vel * .9) * dt * dir;
+      const w1 = r1.scrollWidth / 2, w2 = r2.scrollWidth / 2;
+      x1 = (x1 - sp) % w1; if (x1 > 0) x1 -= w1;
+      x2 = (x2 + sp) % w2; if (x2 > 0) x2 -= w2;
+      r1.style.transform = 'translate3d(' + x1.toFixed(1) + 'px,0,0)';
+      r2.style.transform = 'translate3d(' + x2.toFixed(1) + 'px,0,0)';
+      requestAnimationFrame(f);
+    }
+    whenVisible(mq, v => { on = v; if (v) { last = performance.now(); lastY = scrollY; requestAnimationFrame(f); } }, {threshold: 0});
+  })();
+
+  /* Calculator dashboard */
+  (function calc() {
+    const rA = $('rA'), rB = $('rB'), rC = $('rC'), svg = $('chart');
+    const W = 600, Hh = 260, L = 44, R = 16, T = 16, B = 34;
+    let shown = 455, tw = 0;
+    function tween(el, to, suffix) {
+      cancelAnimationFrame(tw);
+      const from = shown, t0 = performance.now();
+      if (reduce) { shown = to; el.textContent = fmt(to) + suffix; return; }
+      const step = now => { const p = Math.min(1, (now - t0) / 380), e = 1 - Math.pow(1 - p, 3); shown = Math.round(from + (to - from) * e); el.textContent = fmt(shown) + suffix; if (p < 1) tw = requestAnimationFrame(step); };
+      tw = requestAnimationFrame(step);
+    }
+    function draw(calls, share, spend) {
+      const wk = 52 / 12, per = wk * share * spend, l40 = 40 * per, raw = Math.max(50, l40 / 4), mag = Math.pow(10, Math.floor(Math.log10(raw))), stepY = [1, 2, 2.5, 5, 10].map(m => m * mag).find(v => v >= raw), maxY = stepY * 4;
+      const X = c => L + c / 40 * (W - L - R), Y = v => Hh - B - v / maxY * (Hh - T - B);
+      const be = 79 / per;
+      let g = '';
+      for (let i = 0; i <= 4; i++) { const v = maxY / 4 * i, y = Y(v); g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '" class="cg1"/><text x="' + (L - 8) + '" y="' + (y + 4) + '" text-anchor="end">' + fmt(Math.round(v)) + '</text>'; }
+      [0, 10, 20, 30, 40].forEach(c => { g += '<text x="' + X(c) + '" y="' + (Hh - 12) + '" text-anchor="middle">' + c + '</text>'; });
+      g += '<defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#4C7DFF"/><stop offset="1" stop-color="#FF6A13"/></linearGradient><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF6A13" stop-opacity=".35"/><stop offset="1" stop-color="#FF6A13" stop-opacity="0"/></linearGradient></defs>';
+      if (be < 40) { const xb = X(be); g += '<path d="M' + xb + ' ' + Y(79) + 'L' + X(40) + ' ' + Y(l40) + 'L' + X(40) + ' ' + Y(79) + 'Z" fill="url(#ag)"/>'; }
+      g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(79) + '" y2="' + Y(79) + '" class="cg2" stroke-dasharray="5 6"/><text x="' + (W - R) + '" y="' + (Y(79) - 8) + '" text-anchor="end" class="ct2">KI-Telefon 79 €</text>';
+      g += '<path d="M' + X(0) + ' ' + Y(0) + 'L' + X(40) + ' ' + Y(l40) + '" stroke="url(#lg)" stroke-width="3" fill="none" stroke-linecap="round"/>';
+      const cx = X(calls), cy = Y(calls * per);
+      g += '<line x1="' + cx + '" x2="' + cx + '" y1="' + cy + '" y2="' + (Hh - B) + '" stroke="rgba(255,155,94,.5)" stroke-dasharray="3 4"/><circle cx="' + cx + '" cy="' + cy + '" r="12" fill="rgba(255,106,19,.25)"/><circle cx="' + cx + '" cy="' + cy + '" r="6" fill="#fff" stroke="#FF6A13" stroke-width="3"/>';
+      g += '<text x="' + clamp(cx, L + 40, W - R - 40) + '" y="' + Math.max(14, cy - 18) + '" text-anchor="middle" class="ct1">Sie</text>';
+      g += '<text x="' + (L) + '" y="' + (Hh - 0) + '" class="ct3">verpasste Anrufe pro Woche</text>';
+      svg.innerHTML = g;
+    }
+    function upd() {
+      const calls = +rA.value, share = +rB.value / 100, spend = +rC.value, wk = 52 / 12;
+      [rA, rB, rC].forEach(r => r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%'));
+      $('vA').textContent = calls; $('vB').textContent = rB.value + ' %'; $('vC').textContent = spend + ' €';
+      const lost = Math.round(calls * wk * share * spend);
+      tween($('kLost'), lost, ' €');
+      const be = Math.max(1, Math.ceil(79 / (wk * share * spend)));
+      $('kBe').textContent = be === 1 ? '1 Anruf' : be + ' Anrufen';
+      const min = Math.round(calls * wk * 2);
+      $('kMin').textContent = min + ' / 150';
+      const ab = be === 1 ? 'ab einem verpassten Anruf pro Woche' : 'ab ' + be + ' verpassten Anrufen pro Woche';
+      $('verdict').textContent = !calls ? 'Ohne verpasste Anrufe brauchen Sie keinen KI-Telefonassistenten.' : calls >= be ? 'Bei Ihren Zahlen rechnet sich der KI-Telefonassistent ' + ab + '. Sie liegen bei ' + calls + '.' : 'Bei Ihren Zahlen rechnet er sich erst ' + ab + '. Sie liegen bei ' + calls + '.';
+      $('mins').textContent = 'Bei etwa 2 Minuten pro Anruf sind das rund ' + min + ' Minuten im Monat. ' + (min > 150 ? 'Inklusive sind 150, für mehr Minuten mache ich Ihnen ein Angebot.' : '150 Minuten sind inklusive.');
+      draw(calls, share, spend);
+    }
+    [rA, rB, rC].forEach(r => r.addEventListener('input', upd));
+    upd();
+  })();
+
+  /* Billing switch: prices decode to the new value */
+  (function prices() {
+    const bm = $('bm'), by = $('by'), knob = $('knob'), plans = [...document.querySelectorAll('.plan')];
+    function place() { const b = by.getAttribute('aria-pressed') === 'true' ? by : bm; knob.style.width = b.offsetWidth + 'px'; knob.style.transform = 'translateX(' + (b.offsetLeft - 4) + 'px)'; }
+    function bill(y) {
+      if ((by.getAttribute('aria-pressed') === 'true') === y) return;
+      bm.setAttribute('aria-pressed', String(!y)); by.setAttribute('aria-pressed', String(y)); place();
+      $('fineBill').textContent = 'Alle Preise sind Endpreise. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet. ' + (y ? 'Laufzeit 12 Monate.' : 'Monatlich kündbar.');
+      plans.forEach((p, i) => {
+        const v = y ? p.dataset.y : p.dataset.m, per = y ? 'im Jahr' : 'im Monat';
+        setTimeout(() => scramble(p.querySelector('.num'), v + ' €', 700), i * 90);
+        p.querySelector('.per').textContent = per;
+        p.querySelector('.pz-sr').textContent = (p.dataset.ab ? 'ab ' : '') + v + ' € ' + per;
+        p.querySelectorAll('[data-m]').forEach(el => { if (el.classList.contains('plan')) return; setTimeout(() => scramble(el, y ? el.dataset.y : el.dataset.m, 600), 120 + i * 90); });
+      });
+    }
+    bm.addEventListener('click', () => bill(false));
+    by.addEventListener('click', () => bill(true));
+    addEventListener('resize', place);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+    place();
+  })();
+
+  /* Scroll-linked: progress bar, pipeline, story highlight, section menu */
+  const progBar = $('progBar'), pipe = $('pipe'), nodes = [...pipe.querySelectorAll('.node')], story = $('story');
+  let inHl = false;
+  story.innerHTML = story.textContent.split(' ').map(w => { const open = w[0] === '[', close = w.indexOf(']') >= 0; if (open) inHl = true; const hl = inHl; if (close) inHl = false; return '<span class="wd' + (hl ? ' hl' : '') + '">' + w.replace(/[\[\]]/g, '') + '</span>'; }).join(' ');
+  const words = [...story.querySelectorAll('.wd')];
+  const links = [...document.querySelectorAll('#links a')], ind = $('ind'), targets = links.map(a => document.getElementById(a.getAttribute('href').slice(1)));
+  let cur = -2, sT = false;
+  function onScroll() {
+    sT = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progBar.style.transform = 'scaleX(' + (max > 0 ? clamp(scrollY / max, 0, 1) : 0).toFixed(4) + ')';
+    const pr = pipe.getBoundingClientRect(), pf = reduce ? 1 : clamp((innerHeight * .78 - pr.top) / (pr.height + innerHeight * .2), 0, 1);
+    pipe.style.setProperty('--pf', pf.toFixed(3));
+    nodes.forEach((n, i) => n.classList.toggle('on', pf >= i / (nodes.length - 1) * .92 + .02));
+    const sr = story.getBoundingClientRect(), sp = reduce ? 1 : clamp((innerHeight * .85 - sr.top) / (sr.height + innerHeight * .35), 0, 1), lit = Math.round(sp * words.length);
+    words.forEach((w, i) => w.classList.toggle('on', i < lit));
+    let best = -1, bt = -Infinity;
+    targets.forEach((t, i) => { const top = t.getBoundingClientRect().top; if (top <= 140 && top > bt) { best = i; bt = top; } });
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) best = targets.length - 1;
+    if (best !== cur) {
+      cur = best;
+      links.forEach((a, j) => { if (j === best) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+      if (best >= 0) { const a = links[best]; ind.style.opacity = '1'; ind.style.width = a.offsetWidth + 'px'; ind.style.transform = 'translateX(' + a.offsetLeft + 'px)'; } else ind.style.opacity = '0';
+    }
+  }
+  addEventListener('scroll', () => { if (!sT) { sT = true; requestAnimationFrame(onScroll); } }, {passive: true});
+  const sizePipe = () => pipe.style.setProperty('--le', Math.max(28, nodes[nodes.length - 1].offsetHeight - 28) + 'px');
+  addEventListener('resize', () => { cur = -2; sizePipe(); onScroll(); });
+  sizePipe();
+  onScroll();
+
+  /* Light or dark design: the visitor chooses, the choice is remembered */
+  const root = document.documentElement, tbtn = $('tbtn'), metaTC = document.querySelector('meta[name="theme-color"]');
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    if (metaTC) metaTC.setAttribute('content', t === 'light' ? '#FBFBFD' : '#05070D');
+    tbtn.setAttribute('aria-label', t === 'light' ? 'Dunkles Design einschalten' : 'Helles Design einschalten');
+    document.dispatchEvent(new CustomEvent('themechange'));
+  }
+  function toggleTheme(e) {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    try { localStorage.setItem('pw-theme', next); } catch (_) {}
+    const b = tbtn.getBoundingClientRect(), x = e && e.clientX ? e.clientX : b.left + b.width / 2, y = e && e.clientY ? e.clientY : b.top + b.height / 2;
+    if (reduce || !document.startViewTransition) { applyTheme(next); return; }
+    const end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    try {
+      const vt = document.startViewTransition(() => applyTheme(next));
+      vt.ready.then(() => root.animate({clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + end + 'px at ' + x + 'px ' + y + 'px)']}, {duration: 720, easing: 'cubic-bezier(.65,0,.35,1)', pseudoElement: '::view-transition-new(root)'})).catch(() => {});
+    } catch (_) { applyTheme(next); }
+  }
+  tbtn.addEventListener('click', toggleTheme);
+  applyTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+
+  /* Menu on phones */
+  const menu = $('menu'), mbtn = $('mbtn');
+  function setMenu(open) {
+    menu.classList.toggle('open', open); mbtn.setAttribute('aria-expanded', String(open)); mbtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    $('mIcon').setAttribute('d', open ? 'M6 6l12 12M18 6 6 18' : 'M4 7h16M4 12h16M4 17h16');
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    menu.querySelectorAll('a.big').forEach((a, i) => { a.style.transitionDelay = open ? (i * 50 + 60) + 'ms' : '0ms'; });
+    if (open) setTimeout(() => menu.querySelector('a').focus(), 60);
+  }
+  mbtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+  menu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+
+  /* Command palette */
+  (function palette() {
+    const pal = $('pal'), inp = $('palIn'), list = $('palList');
+    const IC = {theme: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>', sec: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg>', demo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8z"/></svg>', ct: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>'};
+    const ITEMS = [
+      ['Darstellung', 'theme', () => root.getAttribute('data-theme') === 'light' ? 'Dunkles Design einschalten' : 'Helles Design einschalten', 'theme:toggle', 'Hell / Dunkel'],
+      ['Bereiche', 'sec', 'Online-Terminbuch', '#terminbuch', 'Leistung'], ['Bereiche', 'sec', 'Digitale Stempelkarte', '#stempelkarte', 'Leistung'], ['Bereiche', 'sec', 'KI-Telefonassistent', '#ki-telefon', 'Leistung'], ['Bereiche', 'sec', 'Website', '#website', 'Leistung'],
+      ['Bereiche', 'sec', 'Verpasste Anrufe nachrechnen', '#rechner', 'Rechner'], ['Bereiche', 'sec', 'Ablauf', '#ablauf', 'Abschnitt'], ['Bereiche', 'sec', 'Preise', '#preise', 'Abschnitt'], ['Bereiche', 'sec', 'Pilotkunde werden', '#preise', 'Angebot'], ['Bereiche', 'sec', 'Über mich', '#ueber', 'Abschnitt'],
+      ['Demos', 'demo', 'Terminbuch-Demo öffnen', '/terminbuch/', 'Demo'], ['Demos', 'demo', 'Stempelkarten-Demo öffnen', '/stempelkarte/demo/', 'Demo'], ['Demos', 'demo', 'KI-Telefon anrufen', ELEVEN, 'Demo'],
+      ['Kontakt', 'ct', 'Gespräch buchen', '#kontakt', 'Formular'], ['Kontakt', 'ct', 'Anrufen: +49 176 85959460', 'tel:+4917685959460', 'Telefon'], ['Kontakt', 'ct', 'WhatsApp schreiben', 'https://wa.me/4917685959460', 'WhatsApp'], ['Kontakt', 'ct', 'E-Mail schreiben', 'mailto:lukas@pilotwerk-digital.de', 'E-Mail'],
+      ['Rechtliches', 'sec', 'Impressum', '/impressum/', 'Seite'], ['Rechtliches', 'sec', 'Datenschutz', '/datenschutz/', 'Seite']
+    ];
+    const lab = it => typeof it[2] === 'function' ? it[2]() : it[2];
+    const norm = s => s.toLowerCase().replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/ü/g, 'u').replace(/ß/g, 'ss');
+    let shown = [], sel = 0, opener = null;
+    function render() {
+      const q = norm(inp.value.trim());
+      shown = ITEMS.filter(it => !q || norm(lab(it) + ' ' + it[4] + ' ' + it[0] + (it[1] === 'theme' ? ' design hell dunkel weiss farbe' : '')).includes(q));
+      sel = clamp(sel, 0, Math.max(0, shown.length - 1));
+      if (!shown.length) { list.innerHTML = '<li class="pal-empty">Nichts gefunden. Versuchen Sie „Preise“ oder „Demo“.</li>'; inp.removeAttribute('aria-activedescendant'); return; }
+      let h = '', g = '';
+      shown.forEach((it, i) => { if (it[0] !== g) { g = it[0]; h += '<li class="grp" role="presentation">' + g + '</li>'; } h += '<li role="option" id="po' + i + '" data-i="' + i + '" aria-selected="' + (i === sel) + '">' + IC[it[1]] + lab(it) + '<span>' + it[4] + '</span></li>'; });
+      list.innerHTML = h;
+      inp.setAttribute('aria-activedescendant', 'po' + sel);
+    }
+    function move(d) { if (!shown.length) return; sel = (sel + d + shown.length) % shown.length; list.querySelectorAll('[role=option]').forEach(o => o.setAttribute('aria-selected', String(+o.dataset.i === sel))); inp.setAttribute('aria-activedescendant', 'po' + sel); const o = $('po' + sel); if (o) o.scrollIntoView({block: 'nearest'}); }
+    function go(i) {
+      const it = shown[i]; if (!it) return;
+      close(false);
+      const href = it[3];
+      if (href === 'theme:toggle') { toggleTheme(); return; }
+      if (href[0] === '#') { const t = document.querySelector(href); if (t) { t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); history.replaceState(null, '', href); } }
+      else if (/^https?:/.test(href)) { const w = window.open(href, '_blank'); if (w) { try { w.opener = null; } catch (_) {} } else location.href = href; }
+      else location.href = href;
+    }
+    function open() { opener = document.activeElement; pal.classList.add('open'); inp.value = ''; sel = 0; render(); setTimeout(() => inp.focus(), 30); document.documentElement.style.overflow = 'hidden'; }
+    function close(restore) { pal.classList.remove('open'); document.documentElement.style.overflow = ''; if (restore !== false && opener && opener.focus) opener.focus(); }
+    $('kbtn').addEventListener('click', open);
+    addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); if (pal.classList.contains('open')) close(); else open(); return; }
+      if (e.key === 'Escape') { if (pal.classList.contains('open')) close(); else if (menu.classList.contains('open')) { setMenu(false); mbtn.focus(); } }
+    });
+    inp.addEventListener('input', () => { sel = 0; render(); });
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); move(1); } else if (e.key === 'ArrowUp') { e.preventDefault(); move(-1); } else if (e.key === 'Enter') { e.preventDefault(); go(sel); } else if (e.key === 'Tab') e.preventDefault();
+    });
+    list.addEventListener('click', e => { const o = e.target.closest('[role=option]'); if (o) go(+o.dataset.i); });
+    list.addEventListener('pointermove', e => { const o = e.target.closest('[role=option]'); if (o && +o.dataset.i !== sel) { sel = +o.dataset.i; move(0); } });
+    pal.addEventListener('click', e => { if (e.target === pal) close(); });
+  })();
+
+  /* Back to top: the plane launches and the page follows */
+  (function launch() {
+    const up = $('up'), logoEl = document.querySelector('.logo');
+    let busy = false;
+    const vis = () => up.classList.toggle('show', !busy && scrollY > innerHeight * .8);
+    addEventListener('scroll', vis, {passive: true}); vis();
+    up.addEventListener('click', e => {
+      if (busy) return;
+      const kb = e.detail === 0, start = scrollY, html = document.documentElement;
+      if (reduce || start < 4) { html.style.scrollBehavior = 'auto'; scrollTo(0, 0); html.style.scrollBehavior = ''; if (kb) logoEl.focus(); return; }
+      busy = true; up.classList.remove('show');
+      const b = up.getBoundingClientRect(), x0 = b.left + b.width / 2, y0 = b.top + b.height / 2;
+      const lr = logoEl.querySelector('svg').getBoundingClientRect(), lx = lr.left + lr.width / 2, ly = lr.top + lr.height / 2;
+      const rk = document.createElement('div'); rk.className = 'rocket'; rk.innerHTML = up.innerHTML;
+      const ex = document.createElement('canvas'); ex.id = 'exhaust'; const dpr = Math.min(2, devicePixelRatio || 1); ex.width = innerWidth * dpr; ex.height = innerHeight * dpr;
+      document.body.append(ex, rk);
+      const c = ex.getContext('2d'); c.scale(dpr, dpr);
+      const parts = [];
+      html.style.scrollBehavior = 'auto';
+      const dur = clamp(800 + start * .08, 1000, 1700), t0 = performance.now();
+      let px = x0, py = y0;
+      function f(now) {
+        const p = Math.min(1, (now - t0) / dur), e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2, eIn = p * p * p;
+        scrollTo(0, Math.round(start * (1 - e)));
+        const x = p < .7 ? x0 + Math.sin(p * 9) * 6 : lerp(x0, lx, (p - .7) / .3), y = p < .7 ? lerp(y0, -80, eIn / .343) : lerp(-80, ly, 1 - Math.pow(1 - (p - .7) / .3, 3));
+        const ang = p < .7 ? 0 : 180;
+        rk.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + ang + 'deg) scale(' + (p < .7 ? 1 + p * .5 : 1.2 - (p - .7) * 1.6) + ')';
+        if (p < .7) for (let k = 0; k < 5; k++) parts.push({x: px + (Math.random() - .5) * 8, y: py + 18, vx: (Math.random() - .5) * 1.6, vy: 1.5 + Math.random() * 3, l: 1, r: 2 + Math.random() * 4});
+        px = x; py = y;
+        c.clearRect(0, 0, innerWidth, innerHeight);
+        c.globalCompositeOperation = document.documentElement.getAttribute('data-theme') === 'light' ? 'source-over' : 'lighter';
+        for (let i = parts.length - 1; i >= 0; i--) {
+          const q = parts[i]; q.x += q.vx; q.y += q.vy; q.l -= .028; q.r *= .985;
+          if (q.l <= 0) { parts.splice(i, 1); continue; }
+          const g = c.createRadialGradient(q.x, q.y, 0, q.x, q.y, q.r * 3);
+          g.addColorStop(0, 'rgba(255,200,150,' + q.l + ')'); g.addColorStop(.4, 'rgba(255,106,19,' + (q.l * .7) + ')'); g.addColorStop(1, 'rgba(255,106,19,0)');
+          c.fillStyle = g; c.beginPath(); c.arc(q.x, q.y, q.r * 3, 0, Math.PI * 2); c.fill();
+        }
+        if (p < 1 || parts.length) { requestAnimationFrame(f); if (p < 1) return; }
+        if (p >= 1 && !rk._done) {
+          rk._done = true; rk.remove(); html.style.scrollBehavior = '';
+          const rp = document.createElement('span'); rp.className = 'ripple'; rp.style.left = lx + 'px'; rp.style.top = ly + 'px'; document.body.append(rp); setTimeout(() => rp.remove(), 900);
+          logoEl.classList.remove('land'); void logoEl.offsetWidth; logoEl.classList.add('land');
+          busy = false; vis();
+          if (kb) logoEl.focus({preventScroll: true});
+        }
+        if (!parts.length) ex.remove();
+      }
+      requestAnimationFrame(f);
+    });
+  })();
+
+  /* Booking: six short steps, then WhatsApp or e-mail */
+  (function wizard() {
+    const form = $('bookForm'), steps = [...form.querySelectorAll('.step')], back = $('wBack'), next = $('wNext'), wnav = $('wnav'), done = $('done');
+    const WD = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'], WDL = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'], MON = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+    const days = $('days'), dd = new Date();
+    let n = 0, h = '';
+    while (n < 6) { dd.setDate(dd.getDate() + 1); if (dd.getDay() === 0) continue; n++; h += '<label class="opt"><input type="radio" name="tag" value="' + WDL[dd.getDay()] + ', ' + dd.getDate() + '. ' + MON[dd.getMonth()] + '"><span>' + WD[dd.getDay()] + ' ' + dd.getDate() + '.' + (dd.getMonth() + 1) + '.</span></label>'; }
+    h += '<label class="opt"><input type="radio" name="tag" value="flexibel, bitte Vorschlag machen"><span>Flexibel</span></label>';
+    days.innerHTML = h;
+    let step = 1;
+    const checked = name => { const el = form.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ''; };
+    function setErr(id, msg, field) { const e = $(id); if (!e) return; e.textContent = msg || ''; e.hidden = !msg; if (field) field.setAttribute('aria-invalid', msg ? 'true' : 'false'); }
+    function check(k) {
+      let first = null;
+      const need = (id, eid, msg) => { const f = $(id), bad = !f.value.trim(); setErr(eid, bad ? msg : '', f); if (bad && !first) first = f; };
+      if (k === 2) need('fBetrieb', 'eBetrieb', 'Bitte den Namen des Betriebs eintragen.');
+      if (k === 3) { need('fStrasse', 'eStrasse', 'Bitte Straße und Hausnummer eintragen.'); need('fOrt', 'eOrt', 'Bitte den Ort eintragen.'); }
+      if (k === 4) {
+        need('fName', 'eName', 'Bitte Ihren Namen eintragen.');
+        const tel = $('fTel'), tb = tel.value.replace(/[^0-9]/g, '').length < 6; setErr('eTel', tb ? 'Bitte eine Telefonnummer eintragen.' : '', tel); if (tb && !first) first = tel;
+        const mail = $('fMail'), mb = mail.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail.value.trim()); setErr('eMail', mb ? 'Diese E-Mail-Adresse sieht nicht vollständig aus.' : '', mail); if (mb && !first) first = mail;
+      }
+      if (k === 5) {
+        const tag = checked('tag'), zeit = checked('zeit');
+        setErr('eTag', tag ? '' : 'Bitte einen Wunschtag wählen.'); if (!tag && !first) first = days.querySelector('input');
+        setErr('eZeit', zeit ? '' : 'Bitte eine Uhrzeit wählen.'); if (!zeit && !first) first = form.querySelector('input[name="zeit"]');
+      }
+      if (k === 6) { const ok = $('fOk'); setErr('eOk', ok.checked ? '' : 'Bitte bestätigen Sie die Einwilligung.', ok); if (!ok.checked && !first) first = ok; }
+      return first;
+    }
+    function show(k, dir, focus) {
+      step = k;
+      steps.forEach(s => { const on = +s.dataset.step === k; s.classList.toggle('on', on); s.classList.toggle('back', on && dir < 0); });
+      $('stepNo').textContent = 'Schritt ' + k + ' von 6';
+      $('stepName').textContent = steps[k - 1].dataset.name;
+      $('wbar').style.setProperty('--w', (k / 6).toFixed(3));
+      back.style.visibility = k === 1 ? 'hidden' : 'visible';
+      next.hidden = k === 6;
+      wnav.querySelector('.hint2').style.visibility = k === 6 ? 'hidden' : 'visible';
+      if (focus) { const f = steps[k - 1].querySelector('input:not([type=hidden]),select,textarea'); if (f) f.focus({preventScroll: true}); }
+    }
+    function go(d) {
+      if (d > 0) { const bad = check(step); if (bad) { bad.focus(); return; } }
+      show(clamp(step + d, 1, 6), d, true);
+      const r = form.getBoundingClientRect(); if (r.top < 70) form.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
+    }
+    next.addEventListener('click', () => go(1));
+    back.addEventListener('click', () => go(-1));
+    form.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && !e.target.closest('.send') && step < 6) { e.preventDefault(); go(1); } });
+    try { const qi = new URLSearchParams(location.search).get('int'); if (qi) { const qc = form.querySelector('input[name="int"][value="' + qi.replace(/"/g, '') + '"]'); if (qc) qc.checked = true; } } catch (_) {}
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[data-int],a[data-paket],a[data-pilot]');
+      if (!a) return;
+      if (a.dataset.int) { const c = form.querySelector('input[name="int"][value="' + a.dataset.int + '"]'); if (c) c.checked = true; }
+      if (a.dataset.paket) $('fPaket').value = a.dataset.paket;
+      if (a.dataset.pilot) $('fPilot').checked = true;
+      done.hidden = true; form.hidden = false; show(1, -1, false);
+    });
+    $('doneEdit').addEventListener('click', () => { done.hidden = true; form.hidden = false; show(6, -1, true); });
+    let via = 'wa';
+    form.addEventListener('click', e => { const b = e.target.closest('button[data-via]'); if (b) via = b.dataset.via; });
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (e.submitter && e.submitter.dataset.via) via = e.submitter.dataset.via;
+      for (let k = 2; k <= 6; k++) { const bad = check(k); if (bad) { show(k, -1, false); bad.focus(); return; } }
+      const ints = [...form.querySelectorAll('input[name="int"]:checked')].map(x => x.value);
+      const plz = $('fPlz').value.trim(), br = $('fBranche').value, paket = $('fPaket').value, msg = $('fMsg').value.trim(), tel = $('fTel'), mail = $('fMail'), tag = checked('tag'), zeit = checked('zeit');
+      const lines = ['Neue Gesprächsanfrage über pilotwerk-digital.de', '',
+        'Betrieb: ' + $('fBetrieb').value.trim() + (br && br !== 'Bitte wählen' ? ' (' + br + ')' : ''),
+        'Adresse: ' + $('fStrasse').value.trim() + ', ' + (plz ? plz + ' ' : '') + $('fOrt').value.trim(),
+        'Ansprechpartner: ' + $('fName').value.trim(),
+        'Telefon: ' + tel.value.trim()];
+      if (mail.value.trim()) lines.push('E-Mail: ' + mail.value.trim());
+      lines.push('', 'Gespräch: ' + checked('wo'), 'Wunschtermin: ' + tag + ', ' + zeit);
+      lines.push('Interesse: ' + (ints.length ? ints.join(', ') : 'noch offen'));
+      if (paket !== 'Noch offen') lines.push('Paket: ' + paket);
+      if ($('fPilot').checked) lines.push('Möchte Pilotkunde werden');
+      if (msg) lines.push('', 'Nachricht: ' + msg);
+      const text = lines.join('\n');
+      const url = via === 'mail' ? 'mailto:lukas@pilotwerk-digital.de?subject=' + encodeURIComponent('Gesprächsanfrage: ' + $('fBetrieb').value.trim()) + '&body=' + encodeURIComponent(text) : 'https://wa.me/4917685959460?text=' + encodeURIComponent(text);
+      $('sFirm').textContent = $('fBetrieb').value.trim();
+      $('sName').textContent = $('fName').value.trim();
+      $('sWhen').textContent = (tag.indexOf('flexibel') === 0 ? 'flexibel' : tag) + ', ' + (zeit.match(/\(([^)]+)\)/) || [0, zeit])[1];
+      $('sInt').textContent = ints.length ? ints.join(', ') : 'noch offen';
+      $('doneText').textContent = via === 'mail' ? 'Ihr E-Mail-Programm öffnet sich mit Ihrer Anfrage. Bitte dort noch auf Senden tippen.' : 'WhatsApp öffnet sich mit Ihrer Anfrage. Bitte dort noch auf Senden tippen.';
+      const dl = $('doneLink'); dl.href = url; dl.textContent = via === 'mail' ? 'E-Mail nochmal öffnen' : 'WhatsApp nochmal öffnen'; if (via === 'mail') dl.removeAttribute('target'); else dl.setAttribute('target', '_blank');
+      form.hidden = true; done.hidden = false; done.focus({preventScroll: true});
+      if (via === 'mail') location.href = url; else { const w = window.open(url, '_blank'); if (w) { try { w.opener = null; } catch (_) {} } else location.href = url; }
+    });
+    show(1, 1, false);
+  })();
+}
 </script>
 </body>
 </html>
